@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import heroBg from '@/assets/hero-bg.jpg';
 import heroVideo from '@/assets/teacher-teaching.mp4';
 
 const roles = ['Student', 'Teacher', 'Parent', 'Admin'] as const;
@@ -23,14 +22,12 @@ export default function HeroSection() {
             playsInline
             onError={() => setVideoError(true)}
             className="absolute inset-0 w-full h-full object-cover"
-            poster={heroBg}
           >
             <source src={heroVideo} type="video/mp4" />
           </video>
         ) : (
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${heroBg})` }}
+            className="absolute inset-0 bg-[hsl(222,47%,11%)]"
           />
         )}
         <div className="absolute inset-0 bg-[hsl(222,47%,11%)]/70" />
