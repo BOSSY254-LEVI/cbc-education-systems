@@ -6,11 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { GraduationCap, Loader2 } from 'lucide-react';
+import heroVideo from '@/assets/teacher-teaching.mp4';
+import heroBg from '@/assets/hero-bg.jpg';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [videoError, setVideoError] = useState(false);
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
 
@@ -20,7 +23,6 @@ export default function LoginPage() {
     
     try {
       await login(email, password);
-      // Navigate based on user role (handled by protected route)
       navigate('/school-admin/dashboard');
     } catch (err) {
       setError('Invalid credentials. Please try again.');
@@ -28,21 +30,46 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen gradient-hero flex items-center justify-center p-4">
-      <div className="w-full max-w-md animate-fade-in">
+    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
+      {/* Background Video with Overlay */}
+      <div className="absolute inset-0">
+        {!videoError ? (
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            onError={() => setVideoError(true)}
+            className="absolute inset-0 w-full h-full object-cover"
+            poster={heroBg}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        ) : (
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroBg})` }}
+          />
+        )}
+        {/* Dark gradient overlay */}
+        <div className="absolute inset-0 bg-[hsl(222,47%,11%)]/80" />
+      </div>
+
+      {/* Content */}
+      <div className="relative w-full max-w-md animate-fade-in z-10">
         {/* Logo & Branding */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent mb-4 shadow-lg">
             <GraduationCap className="w-8 h-8 text-accent-foreground" />
           </div>
-          <h1 className="text-2xl font-bold text-primary-foreground">CBC Education Platform</h1>
-          <p className="text-primary-foreground/70 mt-1">Competency-Based Curriculum Management</p>
+          <h1 className="text-2xl font-bold text-white">CBC Education Platform</h1>
+          <p className="text-white/70 mt-1">Competency-Based Curriculum Management</p>
         </div>
 
-        <Card className="shadow-lg border-0">
+        <Card className="shadow-2xl border-0 bg-card/95 backdrop-blur-sm">
           <CardHeader className="space-y-1 pb-4">
-            <CardTitle className="text-xl text-center">Sign in to your account</CardTitle>
-            <CardDescription className="text-center">
+            <CardTitle className="text-xl text-center text-foreground">Sign in to your account</CardTitle>
+            <CardDescription className="text-center text-muted-foreground">
               Enter your credentials to access the platform
             </CardDescription>
           </CardHeader>
@@ -55,30 +82,36 @@ export default function LoginPage() {
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email" className="text-foreground">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="admin@school.edu"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  className="h-11 bg-background border-input"
                   required
                 />
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password" className="text-foreground">Password</Label>
                 <Input
                   id="password"
                   type="password"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  className="h-11 bg-background border-input"
                   required
                 />
               </div>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button 
+                type="submit" 
+                className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-medium" 
+                disabled={isLoading}
+              >
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -91,13 +124,13 @@ export default function LoginPage() {
             </form>
 
             <div className="mt-6 text-center text-sm">
-              <Link to="/forgot-password" className="text-primary hover:underline">
+              <Link to="/forgot-password" className="text-primary hover:underline font-medium">
                 Forgot your password?
               </Link>
             </div>
 
-            <div className="mt-4 pt-4 border-t text-center text-sm text-muted-foreground">
-              <p>Demo logins:</p>
+            <div className="mt-4 pt-4 border-t border-border text-center text-sm text-muted-foreground">
+              <p className="font-medium">Demo logins:</p>
               <p className="mt-1">admin@school.edu • teacher@school.edu • parent@school.edu</p>
             </div>
           </CardContent>
