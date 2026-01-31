@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
 import heroVideo from '@/assets/teacher-teaching.mp4';
-import heroBg from '@/assets/hero-bg.jpg';
+import heroBg from '../../assets/hero-bg.jpg';
 import cbeLogo from '@/assets/cbe-logo.jpg';
 
 export default function LoginPage() {
