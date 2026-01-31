@@ -71,7 +71,7 @@ export default function LoginPage() {
           <CardHeader className="space-y-1 pb-4">
             <CardTitle className="text-xl text-center text-foreground">Sign in to your account</CardTitle>
             <CardDescription className="text-center text-muted-foreground">
-              Enter your credentials to access the platform
+              Enter your details provided by the school to access your account
             </CardDescription>
           </CardHeader>
           <CardContent>
