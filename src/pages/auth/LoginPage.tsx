@@ -64,7 +64,7 @@ export default function LoginPage() {
             <img src={cbeLogo} alt="CBE Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-2xl font-bold text-white">CBC Education Platform</h1>
-          <p className="text-white/70 mt-1">Competency-Based Curriculum Management</p>
+          <p className="text-white/70 mt-1">Competency-Based Education Management</p>
         </div>
 
         <Card className="shadow-2xl border-0 bg-card/95 backdrop-blur-sm">
