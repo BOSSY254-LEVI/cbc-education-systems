@@ -15,8 +15,9 @@
 ## 🌍 Visitor Counter
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=ominde-john&label=Visitors&color=22c55e&style=flat" />
+  <img src="https://komarev.com/ghpvc/?username=communityteksoft-source&repo=cbc-education-system&label=Visitors&color=22c55e&style=flat" />
 </p>
+
 
 ---
 
