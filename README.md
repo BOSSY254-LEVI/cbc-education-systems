@@ -61,3 +61,115 @@ Built for **scale, security, and multi-tenant isolation**.
 
 # 🏗️ Architecture
 
+
+---
+
+# ⚙️ Tech Stack
+
+### 💻 Frontend
+React  
+TypeScript  
+Tailwind CSS  
+shadcn/ui  
+
+### 🛠 Backend
+NestJS  
+JWT Auth  
+Role Guards  
+Modular Architecture  
+
+### 🗄 Database
+Supabase (PostgreSQL)  
+Row Level Security  
+
+### ☁️ DevOps
+Docker  
+CI/CD Pipelines  
+
+---
+
+# ✨ Core Features
+
+### 🏫 School Management
+- School onboarding  
+- Admin dashboards  
+- Teacher & learner management  
+
+### 👩‍🏫 Teacher Tools
+- Assessments  
+- Rubrics  
+- Evidence uploads  
+- Competency scoring  
+
+### 👨‍🎓 Learners
+- Enrollment tracking  
+- Competency progression  
+- Parent-linked accounts  
+
+### 👪 Parent Portal
+- Learner visibility  
+- Performance insights  
+- Report access  
+
+### 📑 Reporting
+- CBC formative reports  
+- Summative reports  
+- Template generation  
+
+---
+
+# 🔐 Security
+
+JWT Authentication  
+Role-based access control  
+School data isolation  
+Rate limiting  
+Secure parent-learner linking  
+
+---
+
+# 🗺️ Roadmap
+
+- 📱 Advanced mobile UX  
+- 📊 National analytics dashboard  
+- 🤖 AI-powered insights  
+- 🌍 Multi-region deployment  
+
+---
+
+# 🤝 Contributing
+
+
+---
+
+# 📊 GitHub Analytics
+
+<p align="center">
+<img height="170" src="https://github-readme-stats.vercel.app/api?username=ominde-john&show_icons=true&theme=tokyonight"/>
+<img height="170" src="https://github-readme-streak-stats.herokuapp.com/?user=ominde-john&theme=tokyonight"/>
+</p>
+
+<p align="center">
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ominde-john&layout=compact&theme=tokyonight"/>
+</p>
+
+---
+
+# 🐍 Contribution Snake
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-dark.svg" />
+</p>
+
+---
+
+# 📬 Contact
+
+**Maintainer:** John Ominde  
+**GitHub:** https://github.com/ominde-john  
+
+---
+
+<p align="center">
+<b>Made with ❤️ for the future of Competency-Based Education</b>
+</p>
