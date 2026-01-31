@@ -82,7 +82,7 @@ export default function LoginPage() {
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-foreground">Email</Label>
+                <Label htmlFor="email" className="text-foreground">Adm No.</Label>
                 <Input
                   id="email"
                   type="email"
