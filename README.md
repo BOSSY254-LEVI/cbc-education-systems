@@ -48,3 +48,81 @@ Designed for scalability, multi-tenancy, and strong security.
 
 # 🏗️ Architecture
 
+
+---
+
+# ⚙️ Tech Stack
+
+## 💻 Frontend
+- React  
+- TypeScript  
+- Tailwind CSS  
+
+## 🛠 Backend
+- NestJS  
+- JWT Authentication  
+- Role Guards  
+- Modular Architecture  
+
+## 🗄 Database
+- Supabase (PostgreSQL)  
+- Row Level Security  
+
+## ☁️ DevOps
+- Docker  
+- CI/CD Pipelines  
+
+---
+
+# ✨ Core Features
+
+## 🏫 School Management
+- School onboarding  
+- Admin dashboards  
+- Teacher & learner management  
+
+## 👩‍🏫 Teacher Tools
+- Assessments  
+- Rubrics  
+- Evidence uploads  
+- Competency scoring  
+
+## 👨‍🎓 Learners
+- Enrollment tracking  
+- Competency progression  
+- Parent-linked accounts  
+
+## 👪 Parent Portal
+- Learner visibility  
+- Performance tracking  
+- Report access  
+
+## 📑 Reporting
+- CBC formative reports  
+- Summative reports  
+- Template generation  
+
+---
+
+# 🔐 Security
+
+- JWT Authentication  
+- Role-based access  
+- School data isolation  
+- Rate limiting  
+- Secure parent-learner linking  
+
+---
+
+# 🚧 Roadmap
+
+- 📱 Mobile UX improvements  
+- 📊 National analytics dashboard  
+- 🤖 AI insights  
+- 🌍 Multi-region deployment  
+
+---
+
+# 🤝 Contributing
+
+
