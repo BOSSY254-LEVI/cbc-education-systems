@@ -165,8 +165,10 @@ Secure parent-learner linking
 
 # 📬 Contact
 
-**Maintainer:** John Ominde  
-**GitHub:** https://github.com/ominde-john  
+# 👥 Contributors
+
+[![Contributors](https://contrib.rocks/image?repo=ominde-john/REPO-NAME)](https://github.com/ominde-john/REPO-NAME/graphs/contributors)
+
 
 ---
 
