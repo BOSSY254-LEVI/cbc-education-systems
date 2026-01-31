@@ -167,8 +167,9 @@ Secure parent-learner linking
 
 # 👥 Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=ominde-john/REPO-NAME)](https://github.com/ominde-john/REPO-NAME/graphs/contributors)
-
+<a href="https://github.com/communityteksoft-source/cbc-education-system/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=communityteksoft-source/cbc-education-system" />
+</a>
 
 ---
 
