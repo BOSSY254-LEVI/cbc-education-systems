@@ -1,9 +1,7 @@
-import express from "express";
-import { chatWithAI } from "../controllers/ai.controller.js";
-
+const express = require("express");
 const router = express.Router();
+const aiController = require("../controllers/ai.controller");
 
-// POST /api/ai-chat
-router.post("/ai-chat", chatWithAI);
+router.post("/ai-chat", aiController.chat);
 
-export default router;
+module.exports = router;
