@@ -7,6 +7,9 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 
 // Public Pages
 import HomePage from "@/pages/HomePage";
+import AboutPage from "@/pages/AboutPage";
+import SupportPage from "@/pages/SupportPage";
+import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
 
 // Layouts
@@ -52,6 +55,8 @@ function AppRoutes() {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<HomePage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/support" element={<SupportPage />} />
       <Route path="/login" element={<LoginPage />} />
       
       {/* School Admin Routes */}
