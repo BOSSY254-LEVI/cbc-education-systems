@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -378,6 +378,7 @@ const ParticleBackground = () => {
 };
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState<Role>('Student');
   const [videoError, setVideoError] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -396,6 +397,13 @@ export default function HomePage() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleRoleClick = (role: Role) => {
+    setSelectedRole(role);
+    if (role === 'Student') {
+      navigate('/student/learning-materials');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
@@ -616,7 +624,7 @@ export default function HomePage() {
                     key={role}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedRole(role)}
+                    onClick={() => handleRoleClick(role)}
                     className={cn(
                       "relative px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300",
                       selectedRole === role

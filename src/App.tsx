@@ -12,6 +12,9 @@ import SupportPage from "@/pages/SupportPage";
 import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
 
+// Student Pages
+import LearningMaterials from "@/pages/student/LearningMaterials";
+
 // Layouts
 import DashboardLayout from "@/components/layout/DashboardLayout";
 
@@ -58,6 +61,9 @@ function AppRoutes() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/support" element={<SupportPage />} />
       <Route path="/login" element={<LoginPage />} />
+      
+      {/* Student Routes */}
+      <Route path="/student/learning-materials" element={<LearningMaterials />} />
       
       {/* School Admin Routes */}
       <Route path="/school-admin/*" element={
