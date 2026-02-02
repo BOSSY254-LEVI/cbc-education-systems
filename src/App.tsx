@@ -15,6 +15,9 @@ import LoginPage from "@/pages/auth/LoginPage";
 // Student Pages
 import LearningMaterials from "@/pages/student/LearningMaterials";
 
+// Teacher Pages
+import TeachingResources from "@/pages/teacher/TeachingResources";
+
 // Layouts
 import DashboardLayout from "@/components/layout/DashboardLayout";
 
@@ -64,6 +67,9 @@ function AppRoutes() {
       
       {/* Student Routes */}
       <Route path="/student/learning-materials" element={<LearningMaterials />} />
+      
+      {/* Teacher Routes */}
+      <Route path="/teacher/resources" element={<TeachingResources />} />
       
       {/* School Admin Routes */}
       <Route path="/school-admin/*" element={
