@@ -12,7 +12,6 @@ export default function LearningMaterials() {
 
   const handleGradeClick = (grade: number) => {
     // Navigate to the specific grade materials (to be implemented later)
-    console.log(`Navigating to Grade ${grade} materials`);
     // Future implementation: navigate(`/student/grade/${grade}`);
   };
 

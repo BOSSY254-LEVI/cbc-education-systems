@@ -399,9 +399,10 @@ export default function HomePage() {
   }, []);
 
   const handleRoleClick = (role: Role) => {
-    setSelectedRole(role);
     if (role === 'Student') {
       navigate('/student/learning-materials');
+    } else {
+      setSelectedRole(role);
     }
   };
 
