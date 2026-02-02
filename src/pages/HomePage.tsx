@@ -240,7 +240,7 @@ const platformLinks = [
 
 const resourceLinks = [
   { label: 'CBE Methodology', href: '/methodology', icon: BrainCircuit },
-  { label: 'Teacher Training', href: '/training', icon: Users2 },
+  { label: 'Teacher Resources', href: '/teacher/resources', icon: Users2 },
   { label: 'Parent Guides', href: '/guides', icon: Notebook },
   { label: 'Success Stories', href: '/stories', icon: Award },
   { label: 'System Status', href: '/status', icon: Server },
@@ -401,6 +401,8 @@ export default function HomePage() {
   const handleRoleClick = (role: Role) => {
     if (role === 'Student') {
       navigate('/student/learning-materials');
+    } else if (role === 'Teacher') {
+      navigate('/teacher/resources');
     } else {
       setSelectedRole(role);
     }
