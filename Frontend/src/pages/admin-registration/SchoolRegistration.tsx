@@ -217,7 +217,7 @@ export default function SchoolRegistration() {
             School Registration
           </motion.h1>
           <motion.p 
-            className="text-lg text-gray-600 dark:text-gray-300"
+            className="text-lg text-muted-foreground"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}

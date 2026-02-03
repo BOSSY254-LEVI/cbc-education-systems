@@ -255,8 +255,8 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
               htmlFor="logo"
               className="cursor-pointer flex flex-col items-center gap-2"
             >
-              <Upload className="w-8 h-8 text-blue-500" />
-              <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+              <Upload className="w-8 h-8 text-primary" />
+              <span className="text-sm text-muted-foreground font-medium">
                 Click to upload school logo
               </span>
               <span className="text-xs text-muted-foreground">
