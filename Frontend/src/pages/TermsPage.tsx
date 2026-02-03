@@ -1,9 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { FileText, Scale, Shield, AlertTriangle } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {/* Hero Section */}
       <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 lg:px-8">
@@ -36,7 +39,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent className="prose prose-sm max-w-none">
                 <p>
-                  By accessing and using the Nonea CBE Systems platform ("Service"), you accept and agree to be bound by the terms
+                  By accessing and using the EduStack Africa platform ("Service"), you accept and agree to be bound by the terms
                   and provision of this agreement. If you do not agree to abide by the above, please do not use this service.
                 </p>
                 <p>
@@ -56,7 +59,7 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Nonea CBE Systems provides a comprehensive Competency-Based Education platform that includes:
+                  EduStack Africa provides a comprehensive Competency-Based Curriculum (CBC) platform that includes:
                 </p>
                 <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
                   <li>Student progress tracking and assessment management</li>
@@ -133,7 +136,7 @@ export default function TermsPage() {
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
                   The Service and its original content, features, and functionality are and will remain the exclusive property
-                  of Nonea CBE Systems and its licensors. The Service is protected by copyright, trademark, and other laws.
+                  of EduStack Africa and its licensors. The Service is protected by copyright, trademark, and other laws.
                 </p>
                 <p className="text-sm text-muted-foreground">
                   You may not duplicate, copy, or reuse any portion of the HTML/CSS, JavaScript, visual design elements, or concepts
@@ -208,7 +211,7 @@ export default function TermsPage() {
                   <div>
                     <h4 className="font-semibold mb-2">Limitation of Liability</h4>
                     <p className="text-sm text-muted-foreground">
-                      In no event shall Nonea CBE Systems be liable for any indirect, incidental, special, consequential,
+                      In no event shall EduStack Africa be liable for any indirect, incidental, special, consequential,
                       or punitive damages arising out of or related to your use of the Service.
                     </p>
                   </div>
@@ -241,9 +244,8 @@ export default function TermsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  These Terms shall be interpreted and governed by the laws of the jurisdiction in which Nonea CBE Systems
-                  is incorporated, without regard to conflict of law provisions. Our failure to enforce any right or provision
-                  of these Terms will not be considered a waiver of those rights.
+                  These Terms shall be interpreted and governed by the laws of Kenya, without regard to conflict of law provisions. 
+                  Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.
                 </p>
               </CardContent>
             </Card>
@@ -277,23 +279,22 @@ export default function TermsPage() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2">Email</h4>
-                    <p className="text-sm text-muted-foreground">legal@nonea.edu</p>
+                    <p className="text-sm text-muted-foreground">legal@edustack.africa</p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Phone</h4>
-                    <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="text-sm text-muted-foreground">+254 111 276 271</p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Address</h4>
                     <p className="text-sm text-muted-foreground">
-                      123 Education Plaza<br />
-                      Tech Valley, CA 94043<br />
-                      United States
+                      EduStack Africa<br />
+                      Nairobi, Kenya
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Legal Department</h4>
-                    <p className="text-sm text-muted-foreground">legal@nonea.edu</p>
+                    <p className="text-sm text-muted-foreground">legal@edustack.africa</p>
                   </div>
                 </div>
               </CardContent>
@@ -318,6 +319,7 @@ export default function TermsPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }

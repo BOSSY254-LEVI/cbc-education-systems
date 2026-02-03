@@ -1,9 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, Eye, Lock, Users, Mail, Phone } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       {/* Hero Section */}
       <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 lg:px-8">
@@ -36,9 +39,9 @@ export default function PrivacyPage() {
               </CardHeader>
               <CardContent className="prose prose-sm max-w-none">
                 <p>
-                  At Nonea CBE Systems, we are committed to protecting your privacy and ensuring the security of your personal information.
+                  At EduStack Africa, we are committed to protecting your privacy and ensuring the security of your personal information.
                   This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our Competency-Based
-                  Education platform.
+                  Curriculum (CBC) platform designed for Kenyan schools and educational institutions.
                 </p>
                 <p>
                   By using our services, you agree to the collection and use of information in accordance with this policy.
@@ -154,6 +157,7 @@ export default function PrivacyPage() {
                   <li>Access controls and user authentication</li>
                   <li>Secure data backup and recovery procedures</li>
                   <li>Employee training on data protection practices</li>
+                  <li>Compliance with Kenya Data Protection Act, 2019</li>
                 </ul>
               </CardContent>
             </Card>
@@ -196,23 +200,22 @@ export default function PrivacyPage() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2">Email</h4>
-                    <p className="text-sm text-muted-foreground">privacy@nonea.edu</p>
+                    <p className="text-sm text-muted-foreground">privacy@edustack.africa</p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Phone</h4>
-                    <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+                    <p className="text-sm text-muted-foreground">+254 111 276 271</p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Address</h4>
                     <p className="text-sm text-muted-foreground">
-                      123 Education Plaza<br />
-                      Tech Valley, CA 94043<br />
-                      United States
+                      EduStack Africa<br />
+                      Nairobi, Kenya
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold mb-2">Data Protection Officer</h4>
-                    <p className="text-sm text-muted-foreground">dpo@nonea.edu</p>
+                    <p className="text-sm text-muted-foreground">dpo@edustack.africa</p>
                   </div>
                 </div>
               </CardContent>
@@ -234,6 +237,7 @@ export default function PrivacyPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
