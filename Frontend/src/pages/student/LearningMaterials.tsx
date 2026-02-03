@@ -11,8 +11,11 @@ export default function LearningMaterials() {
   const grades = Array.from({ length: 10 }, (_, i) => i + 1);
 
   const handleGradeClick = (grade: number) => {
-    // Navigate to the specific grade materials (to be implemented later)
-    // Future implementation: navigate(`/student/grade/${grade}`);
+    // Navigate to the specific grade materials
+    if (grade === 1 || grade === 2) {
+      navigate(`/student/grade/${grade}`);
+    }
+    // Future implementation for other grades
   };
 
   return (
