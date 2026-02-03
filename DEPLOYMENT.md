@@ -32,7 +32,7 @@ This is the **critical step** to fix the AI assistant connection issue:
 3. Click **+ New Variable**
 4. Add the following variable:
    - **Variable Name**: `GROQ_API_KEY`
-   - **Variable Value**: Your Groq API key (e.g., `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`)
+   - **Variable Value**: Your Groq API key (e.g., `gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`)
 5. Click **Add**
 
 ## Step 4: Deploy
