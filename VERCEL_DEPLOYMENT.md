@@ -86,28 +86,47 @@ Explicitly excludes:
 
 ## Environment Variables
 
-The frontend typically doesn't need environment variables for deployment, but if needed:
+The frontend uses environment variables for configuration:
+
+### Required Environment Variables
+
+- **`VITE_AI_API_ENDPOINT`**: The URL of your backend API for the AI Assistant
+  - Example: `https://your-railway-app.up.railway.app/api/ai-chat`
+  - This must be set in Vercel's environment variables for the AI Assistant to work
+
+### Setting Environment Variables in Vercel
 
 1. Go to your Vercel project settings
 2. Navigate to "Environment Variables"
-3. Add any required variables (e.g., API endpoints)
+3. Add any required variables (e.g., `VITE_AI_API_ENDPOINT`)
+4. Choose which environments to apply them to (Production, Preview, Development)
+5. Redeploy for changes to take effect
 
-**Note**: The backend API URL is configured in the frontend code at `Frontend/src/components/ai-assistant/AIAssistant.tsx`. See the "Connecting Frontend to Backend" section below for details.
+**Note**: The backend API URL is configured via the `VITE_AI_API_ENDPOINT` environment variable in Vercel, not in the code. See the "Connecting Frontend to Backend" section below for details.
 
 ## Connecting Frontend to Backend
 
-After deploying both:
+After deploying both frontend (Vercel) and backend (Railway):
 
 1. **Get your Railway backend URL** (e.g., `https://your-app.up.railway.app`)
 
-2. **Update the frontend API endpoint**:
-   - Open `Frontend/src/components/ai-assistant/AIAssistant.tsx`
-   - Update the `AI_API_ENDPOINT` constant:
-   ```typescript
-   const AI_API_ENDPOINT = 'https://your-railway-app.up.railway.app/api/ai-chat';
-   ```
+2. **Set the environment variable in Vercel**:
+   - Go to your Vercel project → Settings → Environment Variables
+   - Add a new variable:
+     - **Name**: `VITE_AI_API_ENDPOINT`
+     - **Value**: `https://your-railway-app.up.railway.app/api/ai-chat`
+   - Apply to all environments (Production, Preview, Development)
+   - Click "Save"
 
-3. **Redeploy the frontend** to Vercel (it will auto-deploy on git push)
+3. **Redeploy the frontend**:
+   - Vercel will automatically redeploy when you save the environment variable
+   - Or trigger a manual redeploy from the Deployments tab
+
+4. **Verify the connection**:
+   - Open your deployed frontend
+   - Click the AI Assistant button (bottom right)
+   - Send a test message
+   - You should receive a response from the AI
 
 ## Troubleshooting
 
@@ -144,7 +163,9 @@ After deploying both:
 **Solution**:
 - Verify your backend is deployed and running on Railway
 - Check CORS settings in the backend allow requests from your Vercel domain
-- Ensure the API endpoint URL in the frontend code is correct
+- Ensure the `VITE_AI_API_ENDPOINT` environment variable in Vercel is correct
+- Verify the backend has a valid `GROQ_API_KEY` set in Railway
+- Check backend deployment logs in Railway for errors
 
 ## Monitoring Deployments
 

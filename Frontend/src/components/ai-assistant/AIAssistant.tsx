@@ -27,8 +27,9 @@ Key CBE information:
 - Core competencies include: Communication, Collaboration, Critical Thinking, Creativity, Citizenship, Digital Literacy, Learning to Learn, Self-Efficacy
 - Assessment is continuous and formative, focusing on competency development`;
 
-// Configure your backend API endpoint here
-const AI_API_ENDPOINT = 'https://cbc-education-system-production.up.railway.app/api/ai-chat'; // Update this to your backend endpoint
+// Configure your backend API endpoint via environment variable
+// Set VITE_AI_API_ENDPOINT in your .env file
+const AI_API_ENDPOINT = import.meta.env.VITE_AI_API_ENDPOINT || 'http://localhost:3001/api/ai-chat';
 
 export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
