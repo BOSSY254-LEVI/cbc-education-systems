@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Header from '../components/Header';
 import {
   GraduationCap,
   ChevronDown,
@@ -420,136 +421,7 @@ export default function HomePage() {
       </div>
 
       {/* Enhanced Navbar with Glass Morphism */}
-      <header className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled 
-          ? "bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-lg" 
-          : "bg-transparent"
-      )}>
-        <div className="container mx-auto px-4 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo with Animation */}
-            <motion.div
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <Link to="/" className="flex items-center gap-3 group">
-                <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <GraduationCap className="w-6 h-6 text-white" />
-                  <Sparkles className="absolute -top-1 -right-1 w-4 h-4 text-yellow-400" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-bold text-2xl bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                    Nonea
-                  </span>
-                  <span className="text-xs text-muted-foreground -mt-1">CBE Platform</span>
-                </div>
-              </Link>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-1">
-              {['Curriculum', 'Resources', 'Analytics', 'About', 'Support'].map((item, idx) => (
-                <motion.div
-                  key={item}
-                  initial={{ y: -20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: idx * 0.1 }}
-                >
-                  <Link
-                    to={`/${item.toLowerCase()}`}
-                    className="relative px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors group"
-                  >
-                    {item}
-                    <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-300 group-hover:w-full group-hover:left-0" />
-                  </Link>
-                </motion.div>
-              ))}
-            </nav>
-
-            {/* Auth Buttons */}
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="hidden lg:flex items-center gap-3"
-            >
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="border-border/50 hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
-                asChild
-              >
-                <Link to="/login" className="flex items-center gap-2">
-                  <Unlock className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                  Log In
-                </Link>
-              </Button>
-              <Button 
-                size="sm" 
-                className="relative overflow-hidden bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 group"
-                asChild
-              >
-                <Link to="/login" className="flex items-center gap-2">
-                  <span className="relative z-10">Get Started</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </Link>
-              </Button>
-            </motion.div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-              className="lg:hidden p-2 rounded-lg bg-background/50 backdrop-blur-sm border"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </motion.button>
-          </div>
-
-          {/* Enhanced Mobile Menu */}
-          <motion.div
-            initial={false}
-            animate={mobileMenuOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-            className="lg:hidden overflow-hidden"
-          >
-            <div className="py-4 border-t">
-              <nav className="flex flex-col gap-2">
-                {['Curriculum', 'Resources', 'Analytics', 'About', 'Support'].map((item) => (
-                  <Link
-                    key={item}
-                    to={`/${item.toLowerCase()}`}
-                    className="px-4 py-3 rounded-lg hover:bg-secondary/50 transition-colors font-medium"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item}
-                  </Link>
-                ))}
-                <div className="flex flex-col gap-2 pt-4 mt-4 border-t">
-                  <Button variant="outline" asChild className="w-full">
-                    <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                      Log In
-                    </Link>
-                  </Button>
-                  <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-emerald-500">
-                    <Link to="/login" onClick={() => setMobileMenuOpen(false)}>
-                      Get Started
-                    </Link>
-                  </Button>
-                </div>
-              </nav>
-            </div>
-          </motion.div>
-        </div>
-      </header>
+      <Header/>
 
       {/* Hero Section with Enhanced Effects */}
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-16 overflow-hidden">

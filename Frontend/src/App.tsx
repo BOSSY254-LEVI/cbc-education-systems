@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
+import ContactPage from './pages/Contact'
 // Public Pages
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
@@ -64,6 +65,7 @@ function AppRoutes() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/support" element={<SupportPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/contact" element={<ContactPage/>} />
       
       {/* Student Routes */}
       <Route path="/student/learning-materials" element={<LearningMaterials />} />
