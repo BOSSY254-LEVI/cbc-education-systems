@@ -16,6 +16,9 @@ import CBCStandardsPage from "@/pages/CBCStandardsPage";
 import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
 
+// Admin Registration
+import SchoolRegistration from "@/pages/admin-registration/SchoolRegistration";
+
 // Student Pages
 import LearningMaterials from "@/pages/student/LearningMaterials";
 import Grade1 from "@/pages/student/Grade1";
@@ -82,6 +85,9 @@ function AppRoutes() {
       
       {/* Teacher Routes */}
       <Route path="/teacher/resources" element={<TeachingResources />} />
+      
+      {/* Admin Registration Route */}
+      <Route path="/admin/register-school" element={<SchoolRegistration />} />
       
       {/* School Admin Routes */}
       <Route path="/school-admin/*" element={
