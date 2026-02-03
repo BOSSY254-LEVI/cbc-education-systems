@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
 import ScrollToTop from "@/components/ScrollToTop";
+import CookieBanner from "@/components/CookieBanner";
 import ContactPage from './pages/Contact'
 // Public Pages
 import HomePage from "@/pages/HomePage";
@@ -122,7 +123,8 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <AppRoutes />
-          <AIAssistant />           
+          <AIAssistant />
+          <CookieBanner />
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
