@@ -38,6 +38,8 @@ There are two potential issues:
 
 ### Fix 2: Configure Backend Environment Variable
 
+⚠️ **Security Note**: Your Groq API key is sensitive information. Never commit it to version control or share it publicly. Keep it confidential and store it only in environment variables.
+
 1. Go to https://railway.app and log in
 2. Navigate to your `cbc-education-system` project
 3. Click on the **Backend** service

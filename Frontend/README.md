@@ -132,10 +132,11 @@ If you see the error "I apologize, but I'm currently unable to connect to the AI
    - Ensure the backend has a valid `GROQ_API_KEY` set in its `.env` file
    - See [Backend README](../Backend/README.md) for backend setup
 
-4. **Rebuild Frontend** (if you changed `.env`):
+4. **Rebuild Frontend** (if you changed `.env` for production build):
    - Stop the dev server
-   - Run `npm run dev` again
-   - Environment variables are embedded at build time
+   - During development (`npm run dev`), environment variables are read at runtime, so just restart the server
+   - For production builds (`npm run build`), environment variables are embedded at build time, so you need to rebuild
+   - Environment variable changes will be picked up automatically in dev mode after restarting
 
 ## Deployment
 
@@ -159,6 +160,21 @@ See [VERCEL_DEPLOYMENT.md](../VERCEL_DEPLOYMENT.md) for detailed deployment inst
 - **shadcn/ui**: Re-usable component library
 - **React Router**: Client-side routing
 - **Lucide React**: Icon library
+
+## Security
+
+### Environment Variables
+
+- **Never commit `.env` files** to version control (they are already in `.gitignore`)
+- The `.env` file contains sensitive configuration and should be kept private
+- Use `.env.example` as a template for local setup
+- For production, use Vercel's environment variables dashboard (variables are stored securely)
+
+### API Keys
+
+- Never hardcode API keys in source code
+- Backend API keys (like `GROQ_API_KEY`) should only be stored on the backend server
+- Frontend should only store public configuration like API endpoints
 
 ## Contributing
 
