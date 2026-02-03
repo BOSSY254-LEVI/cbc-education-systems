@@ -1,7 +1,8 @@
-const Groq = require("groq-sdk");
+const OpenAI = require("openai");
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
+const openai = new OpenAI({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
 });
 
 exports.chat = async (req, res) => {
@@ -22,8 +23,8 @@ exports.chat = async (req, res) => {
       ...messages,
     ];
 
-    const completion = await groq.chat.completions.create({
-      model: "llama3-70b-8192",
+    const completion = await openai.chat.completions.create({
+      model: "openai/gpt-3.5-turbo",
       messages: chatMessages,
       temperature: 0.7,
       max_tokens: 1024,
@@ -35,7 +36,7 @@ exports.chat = async (req, res) => {
 
     res.json({ message: reply });
   } catch (error) {
-    console.error("Groq API Error:", error);
+    console.error("OpenRouter API Error:", error);
     res.status(500).json({
       error: "Failed to get AI response",
     });
