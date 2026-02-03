@@ -103,7 +103,7 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
       <div className="space-y-2">
         <Label htmlFor="schoolType">School Type *</Label>
         <Select
-          value={formData.schoolType}
+          value={formData.schoolType || ''}
           onValueChange={(value) => handleChange('schoolType', value as SchoolType)}
         >
           <SelectTrigger id="schoolType">

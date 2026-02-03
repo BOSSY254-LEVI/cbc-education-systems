@@ -23,7 +23,7 @@ export default function SchoolRegistration() {
   const [step1Data, setStep1Data] = useState<SchoolRegistrationStep1>({
     name: '',
     code: '',
-    schoolType: '' as any,
+    schoolType: undefined,
     levelsOffered: [],
     yearEstablished: '',
     motto: '',
@@ -43,7 +43,7 @@ export default function SchoolRegistration() {
   const [step3Data, setStep3Data] = useState<SchoolRegistrationStep3>({
     fullName: '',
     tscNo: '',
-    role: '' as any,
+    role: undefined,
     phoneNumber: '',
     email: '',
     nationalIdOrPassport: '',
