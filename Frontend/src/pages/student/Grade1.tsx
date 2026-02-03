@@ -25,7 +25,6 @@ export default function Grade1() {
       description: 'Learn reading, writing, and speaking skills',
       icon: BookOpen,
       color: 'from-blue-500 to-blue-600',
-      bgColor: 'bg-blue-50',
       borderColor: 'border-blue-200',
     },
     {
@@ -34,7 +33,6 @@ export default function Grade1() {
       description: 'Soma, andika na ongea Kiswahili',
       icon: Languages,
       color: 'from-emerald-500 to-emerald-600',
-      bgColor: 'bg-emerald-50',
       borderColor: 'border-emerald-200',
     },
     {
@@ -43,7 +41,6 @@ export default function Grade1() {
       description: 'Numbers, counting, and basic math',
       icon: Calculator,
       color: 'from-purple-500 to-purple-600',
-      bgColor: 'bg-purple-50',
       borderColor: 'border-purple-200',
     },
     {
@@ -52,7 +49,6 @@ export default function Grade1() {
       description: 'Explore nature and our environment',
       icon: Leaf,
       color: 'from-green-500 to-green-600',
-      bgColor: 'bg-green-50',
       borderColor: 'border-green-200',
     },
     {
@@ -61,7 +57,6 @@ export default function Grade1() {
       description: 'Learn about healthy living and eating',
       icon: Utensils,
       color: 'from-orange-500 to-orange-600',
-      bgColor: 'bg-orange-50',
       borderColor: 'border-orange-200',
     },
     {
@@ -70,7 +65,6 @@ export default function Grade1() {
       description: 'Spiritual and moral development',
       icon: Church,
       color: 'from-indigo-500 to-indigo-600',
-      bgColor: 'bg-indigo-50',
       borderColor: 'border-indigo-200',
     },
     {
@@ -79,7 +73,6 @@ export default function Grade1() {
       description: 'Express yourself through art and music',
       icon: Palette,
       color: 'from-pink-500 to-pink-600',
-      bgColor: 'bg-pink-50',
       borderColor: 'border-pink-200',
     },
     {
@@ -88,7 +81,6 @@ export default function Grade1() {
       description: 'Stay active and healthy with sports',
       icon: Activity,
       color: 'from-cyan-500 to-cyan-600',
-      bgColor: 'bg-cyan-50',
       borderColor: 'border-cyan-200',
     },
   ];

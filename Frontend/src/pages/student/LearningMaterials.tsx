@@ -12,12 +12,10 @@ export default function LearningMaterials() {
 
   const handleGradeClick = (grade: number) => {
     // Navigate to the specific grade materials
-    if (grade === 1) {
-      navigate('/student/grade/1');
-    } else if (grade === 2) {
-      navigate('/student/grade/2');
+    if (grade === 1 || grade === 2) {
+      navigate(`/student/grade/${grade}`);
     }
-    // Future implementation for other grades: navigate(`/student/grade/${grade}`);
+    // Future implementation for other grades
   };
 
   return (
