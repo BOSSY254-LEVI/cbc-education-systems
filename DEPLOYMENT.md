@@ -43,12 +43,22 @@ This is the **critical step** to fix the AI assistant connection issue:
 
 ## Step 5: Update Frontend Configuration
 
-1. Open `Frontend/src/components/ai-assistant/AIAssistant.tsx`
-2. Update the `AI_API_ENDPOINT` constant with your Railway URL:
-   ```typescript
-   const AI_API_ENDPOINT = 'https://your-app-name.up.railway.app/api/ai-chat';
-   ```
-3. Commit and push the changes
+The frontend uses environment variables to configure the AI Assistant API endpoint.
+
+### For Local Development:
+
+1. The frontend is already configured to use `http://localhost:3001/api/ai-chat` by default
+2. No changes needed for local development
+
+### For Production (Vercel):
+
+1. Go to your Vercel project settings
+2. Navigate to "Environment Variables"
+3. Add a new environment variable:
+   - **Name**: `VITE_AI_API_ENDPOINT`
+   - **Value**: `https://your-app-name.up.railway.app/api/ai-chat`
+4. Replace `your-app-name` with your actual Railway deployment URL
+5. Vercel will automatically redeploy with the new environment variable
 
 ## Step 6: Test the AI Assistant
 
@@ -77,9 +87,10 @@ This is the **critical step** to fix the AI assistant connection issue:
    - You can create a new one if needed
 
 4. **Check the backend URL in frontend:**
-   - Open `Frontend/src/components/ai-assistant/AIAssistant.tsx`
-   - Verify `AI_API_ENDPOINT` matches your Railway URL
-   - Make sure it ends with `/api/ai-chat`
+   - The frontend uses the `VITE_AI_API_ENDPOINT` environment variable
+   - For local development: `http://localhost:3001/api/ai-chat` (default)
+   - For production on Vercel: Set this in Vercel's environment variables
+   - Make sure it matches your Railway URL and ends with `/api/ai-chat`
 
 ### Backend won't start
 
