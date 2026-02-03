@@ -44,14 +44,11 @@ If this fails:
 
 1. In Railway, go to your **Backend** service
 2. Click on the **Variables** tab  
-3. Verify `GROQ_API_KEY` exists and has the correct value:
-   ```
-   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
-   ```
+3. Verify `GROQ_API_KEY` exists and has your valid Groq API key
 4. If missing or incorrect:
    - Click **+ New Variable**
    - Name: `GROQ_API_KEY`
-   - Value: `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`
+   - Value: `your-groq-api-key-from-console.groq.com`
    - Save and wait for automatic redeploy
 
 ### Step 4: Check CORS Configuration
@@ -112,7 +109,7 @@ To test locally:
 ```bash
 cd Backend
 npm install
-# Make sure Backend/.env has: GROQ_API_KEY=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
+# Make sure Backend/.env has your GROQ_API_KEY
 npm start
 ```
 
@@ -173,7 +170,7 @@ VITE_AI_API_ENDPOINT=https://cbc-education-system-production.up.railway.app/api/
 
 ### Backend/.env  
 ```env
-GROQ_API_KEY=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
+GROQ_API_KEY=your-groq-api-key-here
 ```
 
 ---
