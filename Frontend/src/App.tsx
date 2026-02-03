@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
+import ScrollToTop from "@/components/ScrollToTop";
 import ContactPage from './pages/Contact'
 // Public Pages
 import HomePage from "@/pages/HomePage";
@@ -109,6 +110,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <AppRoutes />
           <AIAssistant />           
         </BrowserRouter>
