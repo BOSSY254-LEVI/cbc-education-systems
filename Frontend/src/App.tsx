@@ -18,6 +18,8 @@ import LoginPage from "@/pages/auth/LoginPage";
 
 // Student Pages
 import LearningMaterials from "@/pages/student/LearningMaterials";
+import Grade1 from "@/pages/student/Grade1";
+import Grade2 from "@/pages/student/Grade2";
 
 // Teacher Pages
 import TeachingResources from "@/pages/teacher/TeachingResources";
@@ -75,6 +77,8 @@ function AppRoutes() {
       
       {/* Student Routes */}
       <Route path="/student/learning-materials" element={<LearningMaterials />} />
+      <Route path="/student/grade/1" element={<Grade1 />} />
+      <Route path="/student/grade/2" element={<Grade2 />} />
       
       {/* Teacher Routes */}
       <Route path="/teacher/resources" element={<TeachingResources />} />
