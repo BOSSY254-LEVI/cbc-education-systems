@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e  # Exit on error
+set -u  # Exit on undefined variable
 
 # AI Assistant Environment Setup Script
 # This script creates the necessary .env files for local development
@@ -16,7 +18,8 @@ NC='\033[0m' # No Color
 echo -e "${BLUE}🔑 GROQ API Key Setup${NC}"
 echo "Get your free API key from: https://console.groq.com/keys"
 echo ""
-read -p "Enter your GROQ API key (or press Enter to use placeholder): " GROQ_API_KEY
+read -s -p "Enter your GROQ API key (or press Enter to use placeholder): " GROQ_API_KEY
+echo ""  # New line after hidden input
 
 # Use placeholder if empty
 if [ -z "$GROQ_API_KEY" ]; then
@@ -75,4 +78,3 @@ echo "💡 Tips:"
 echo "  - Edit Frontend/.env to switch between local/production backend"
 echo "  - See AI_SETUP_GUIDE.md for deployment instructions"
 echo "  - Never commit .env files to version control"
-

@@ -48,7 +48,7 @@ If this fails:
 4. If missing or incorrect:
    - Click **+ New Variable**
    - Name: `GROQ_API_KEY`
-   - Value: `your-groq-api-key-from-console.groq.com`
+   - Value: `your-groq-api-key-from-https://console.groq.com`
    - Save and wait for automatic redeploy
 
 ### Step 4: Check CORS Configuration
