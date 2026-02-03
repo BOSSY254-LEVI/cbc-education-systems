@@ -119,6 +119,39 @@ CI/CD Pipelines
 
 ---
 
+# 🚀 Getting Started
+
+## Backend Setup (AI Assistant)
+
+The platform includes an AI-powered assistant that helps users learn about CBE.
+
+1. Navigate to the backend directory:
+```bash
+cd Backend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure the Groq API key:
+```bash
+cp .env.example .env
+# Edit .env and add your Groq API key from https://console.groq.com/keys
+```
+
+4. Start the backend server:
+```bash
+npm start
+```
+
+For detailed backend setup instructions, see [Backend/README.md](Backend/README.md).
+
+**Note for deployment:** If deploying to Railway, Vercel, or other platforms, make sure to set the `GROQ_API_KEY` environment variable in your platform's settings.
+
+---
+
 # 🔐 Security
 
 JWT Authentication  
