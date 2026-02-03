@@ -121,34 +121,56 @@ CI/CD Pipelines
 
 # 🚀 Getting Started
 
-## Backend Setup (AI Assistant)
+## Quick Setup (AI Assistant)
 
 The platform includes an AI-powered assistant that helps users learn about CBE.
 
-1. Navigate to the backend directory:
+### 🚀 Automated Setup
+
+Run the setup script to create environment files:
+```bash
+./setup-ai-env.sh
+```
+
+This will create:
+- `Backend/.env` with your GROQ API key
+- `Frontend/.env` with the backend endpoint URL
+
+### 📦 Manual Setup
+
+**Backend:**
 ```bash
 cd Backend
-```
-
-2. Install dependencies:
-```bash
 npm install
+npm start  # Runs on http://localhost:3001
 ```
 
-3. Configure the Groq API key:
+**Frontend:**
 ```bash
-cp .env.example .env
-# Edit .env and add your Groq API key from https://console.groq.com/keys
+cd Frontend
+npm install
+npm run dev  # Runs on http://localhost:8080
 ```
 
-4. Start the backend server:
-```bash
-npm start
-```
+### 🔧 Configuration
 
-For detailed backend setup instructions, see [Backend/README.md](Backend/README.md).
+The environment files are pre-configured for:
+- **Backend**: GROQ API key for AI responses
+- **Frontend**: Railway production backend URL
 
-**Note for deployment:** If deploying to Railway, Vercel, or other platforms, make sure to set the `GROQ_API_KEY` environment variable in your platform's settings.
+For local development, edit `Frontend/.env` to use `http://localhost:3001/api/ai-chat`
+
+### 📚 Complete Setup Guide
+
+For detailed setup instructions, troubleshooting, and deployment:
+- **[AI_SETUP_GUIDE.md](AI_SETUP_GUIDE.md)** - Complete AI Assistant setup and troubleshooting
+- **[Backend/README.md](Backend/README.md)** - Backend detailed documentation
+- **[Frontend/README.md](Frontend/README.md)** - Frontend detailed documentation
+
+**For Production Deployment:**
+- Railway (Backend): Set `GROQ_API_KEY` environment variable
+- Vercel (Frontend): Set `VITE_AI_API_ENDPOINT` environment variable
+- See [AI_SETUP_GUIDE.md](AI_SETUP_GUIDE.md) for step-by-step instructions
 
 ---
 
