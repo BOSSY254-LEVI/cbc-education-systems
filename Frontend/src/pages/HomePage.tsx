@@ -405,6 +405,8 @@ export default function HomePage() {
       navigate('/student/learning-materials');
     } else if (role === 'Teacher') {
       navigate('/teacher/resources');
+    } else if (role === 'Admin') {
+      navigate('/admin/register-school');
     } else {
       setSelectedRole(role);
     }
