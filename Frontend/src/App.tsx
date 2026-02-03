@@ -5,11 +5,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
+import ScrollToTop from "@/components/ScrollToTop";
 import ContactPage from './pages/Contact'
 // Public Pages
 import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import SupportPage from "@/pages/SupportPage";
+import PrivacyPage from "@/pages/PrivacyPage";
+import CBCStandardsPage from "@/pages/CBCStandardsPage";
 import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
 
@@ -64,6 +67,9 @@ function AppRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/support" element={<SupportPage />} />
+      <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/terms" element={<TermsPage />} />
+      <Route path="/cbc-standards" element={<CBCStandardsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/contact" element={<ContactPage/>} />
       
@@ -104,6 +110,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <AppRoutes />
           <AIAssistant />           
         </BrowserRouter>

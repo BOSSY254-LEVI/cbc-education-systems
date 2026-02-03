@@ -147,7 +147,7 @@ export default function Footer() {
                     />
                   </div>
                   <Button className="w-full h-12 bg-[#0047AB] hover:bg-[#003580] text-white rounded-2xl font-bold shadow-lg shadow-blue-600/20 transition-all active:scale-95">
-                    Join EduStack
+                    Subscribe to Edustack
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </div>
@@ -181,13 +181,17 @@ export default function Footer() {
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-8">
-              {['Privacy', 'Terms', 'CBC Standards'].map((item) => (
+              {[
+                { label: 'Privacy', href: '/privacy' },
+                { label: 'Terms', href: '/terms' },
+                { label: 'CBC Standards', href: '/cbc-standards' }
+              ].map((item) => (
                 <Link
-                  key={item}
-                  to="#"
+                  key={item.label}
+                  to={item.href}
                   className="text-xs font-bold text-slate-500 hover:text-blue-600 uppercase tracking-widest transition-colors"
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
             </div>
