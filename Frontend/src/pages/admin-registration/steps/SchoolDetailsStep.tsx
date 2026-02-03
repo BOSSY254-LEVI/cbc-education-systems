@@ -205,7 +205,7 @@ export default function SchoolDetailsStep({ initialData, onSubmit, onBack }: Pro
           Next: Administrator Details
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
-      </div>
+      </motion.div>
     </form>
   );
 }
