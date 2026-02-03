@@ -92,7 +92,7 @@ The frontend typically doesn't need environment variables for deployment, but if
 2. Navigate to "Environment Variables"
 3. Add any required variables (e.g., API endpoints)
 
-**Note**: The backend API URL should be configured in the frontend code to point to your Railway deployment.
+**Note**: The backend API URL is configured in the frontend code at `Frontend/src/components/ai-assistant/AIAssistant.tsx`. See the "Connecting Frontend to Backend" section below for details.
 
 ## Connecting Frontend to Backend
 
@@ -118,7 +118,7 @@ After deploying both:
 **Solution**: 
 - Ensure `vercel.json` is properly configured
 - Check that `Frontend/package.json` has the correct build script
-- Verify Node.js version (should be >=18.18.0)
+- Verify Node.js version matches the project requirement (>=18.18.0 as specified in Frontend/package.json)
 
 ### Assets Not Loading
 
