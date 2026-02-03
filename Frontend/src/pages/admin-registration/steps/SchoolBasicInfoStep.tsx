@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -76,37 +77,54 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* School Name */}
-      <div className="space-y-2">
-        <Label htmlFor="name">School Name *</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      >
+        <Label htmlFor="name" className="text-base font-semibold">School Name *</Label>
         <Input
           id="name"
           value={formData.name}
           onChange={(e) => handleChange('name', e.target.value)}
           placeholder="Enter school name"
+          className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
           required
         />
-      </div>
+      </motion.div>
 
       {/* School Code */}
-      <div className="space-y-2">
-        <Label htmlFor="code">School Code *</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.15 }}
+      >
+        <Label htmlFor="code" className="text-base font-semibold">School Code *</Label>
         <Input
           id="code"
           value={formData.code}
           onChange={(e) => handleChange('code', e.target.value)}
           placeholder="Enter school code"
+          className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
           required
         />
-      </div>
+      </motion.div>
 
       {/* School Type */}
-      <div className="space-y-2">
-        <Label htmlFor="schoolType">School Type *</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
+        <Label htmlFor="schoolType" className="text-base font-semibold">School Type *</Label>
         <Select
           value={formData.schoolType || ''}
           onValueChange={(value) => handleChange('schoolType', value as SchoolType)}
         >
-          <SelectTrigger id="schoolType">
+          <SelectTrigger id="schoolType" className="transition-all duration-200 focus:ring-2 focus:ring-blue-500">
             <SelectValue placeholder="Select school type" />
           </SelectTrigger>
           <SelectContent>
@@ -114,17 +132,28 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
             <SelectItem value={SchoolType.PRIVATE}>Private School</SelectItem>
           </SelectContent>
         </Select>
-      </div>
+      </motion.div>
 
       {/* Levels Offered */}
-      <div className="space-y-2">
-        <Label>Levels Offered *</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.25 }}
+      >
+        <Label className="text-base font-semibold">Levels Offered *</Label>
         <p className="text-sm text-muted-foreground mb-3">
           Select all levels that apply to your school
         </p>
         <div className="space-y-3">
-          {levelOptions.map((level) => (
-            <div key={level} className="flex items-center space-x-2">
+          {levelOptions.map((level, index) => (
+            <motion.div 
+              key={level} 
+              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: 0.3 + index * 0.05 }}
+            >
               <Checkbox
                 id={level}
                 checked={formData.levelsOffered.includes(level)}
@@ -132,18 +161,23 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
               />
               <Label
                 htmlFor={level}
-                className="text-sm font-normal cursor-pointer"
+                className="text-sm font-normal cursor-pointer flex-1"
               >
                 {level}
               </Label>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Year Established */}
-      <div className="space-y-2">
-        <Label htmlFor="yearEstablished">Year Established (Optional)</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.5 }}
+      >
+        <Label htmlFor="yearEstablished" className="text-base font-semibold">Year Established (Optional)</Label>
         <Input
           id="yearEstablished"
           type="number"
@@ -152,30 +186,47 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
           value={formData.yearEstablished}
           onChange={(e) => handleChange('yearEstablished', e.target.value)}
           placeholder="e.g., 1995"
+          className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
         />
-      </div>
+      </motion.div>
 
       {/* School Motto */}
-      <div className="space-y-2">
-        <Label htmlFor="motto">School Motto (Optional)</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.55 }}
+      >
+        <Label htmlFor="motto" className="text-base font-semibold">School Motto (Optional)</Label>
         <Textarea
           id="motto"
           value={formData.motto}
           onChange={(e) => handleChange('motto', e.target.value)}
           placeholder="Enter school motto"
           rows={3}
+          className="transition-all duration-200 focus:ring-2 focus:ring-blue-500"
         />
-      </div>
+      </motion.div>
 
       {/* School Logo */}
-      <div className="space-y-2">
-        <Label htmlFor="logo">School Logo (Optional)</Label>
+      <motion.div 
+        className="space-y-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.6 }}
+      >
+        <Label htmlFor="logo" className="text-base font-semibold">School Logo (Optional)</Label>
         {logoPreview ? (
-          <div className="relative inline-block">
+          <motion.div 
+            className="relative inline-block"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             <img
               src={logoPreview}
               alt="Logo preview"
-              className="w-32 h-32 object-contain border rounded-md"
+              className="w-32 h-32 object-contain border rounded-md shadow-md"
             />
             <Button
               type="button"
@@ -186,9 +237,13 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
             >
               <X className="h-4 w-4" />
             </Button>
-          </div>
+          </motion.div>
         ) : (
-          <div className="border-2 border-dashed border-muted rounded-lg p-6 text-center">
+          <motion.div 
+            className="border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-lg p-6 text-center hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             <Input
               id="logo"
               type="file"
@@ -200,24 +255,30 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
               htmlFor="logo"
               className="cursor-pointer flex flex-col items-center gap-2"
             >
-              <Upload className="w-8 h-8 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">
+              <Upload className="w-8 h-8 text-blue-500" />
+              <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">
                 Click to upload school logo
               </span>
               <span className="text-xs text-muted-foreground">
                 PNG, JPG up to 5MB
               </span>
             </Label>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </motion.div>
 
       {/* Form Actions */}
-      <div className="flex justify-between pt-4">
+      <motion.div 
+        className="flex justify-between pt-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.7 }}
+      >
         <Button
           type="button"
           variant="outline"
           onClick={onBack}
+          className="transition-all duration-200 hover:scale-105"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -225,11 +286,12 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
         <Button
           type="submit"
           disabled={!isValid}
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105 shadow-md"
         >
           Next: Location & Contact
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
-      </div>
+      </motion.div>
     </form>
   );
 }
