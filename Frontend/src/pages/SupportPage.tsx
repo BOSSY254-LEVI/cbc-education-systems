@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import {
   HelpCircle,
   MessageSquare,
@@ -97,6 +99,7 @@ export default function SupportPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header/>
       {/* Hero Section */}
       <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 lg:px-8">
@@ -266,6 +269,7 @@ export default function SupportPage() {
           </Tabs>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }

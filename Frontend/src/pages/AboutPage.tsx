@@ -1,5 +1,7 @@
 import { GraduationCap, Users, Award, Globe } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const values = [
   {
@@ -45,12 +47,13 @@ const team = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
+      <Header/>
       {/* Hero Section */}
       <section className="py-20 bg-primary/5">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              About Nonea CBE Systems
+              About EduStack CBC Systems
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
               Transforming education through innovative competency-based learning platforms
@@ -169,6 +172,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <Footer/>
     </div>
   );
 }
