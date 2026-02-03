@@ -28,7 +28,7 @@ Key CBE information:
 - Assessment is continuous and formative, focusing on competency development`;
 
 // Configure your backend API endpoint here
-const AI_API_ENDPOINT = 'https://cbc-education-system-production.up.railway.app/api/chat'; // Update this to your backend endpoint
+const AI_API_ENDPOINT = 'https://cbc-education-system-production.up.railway.app/api/ai-chat'; // Update this to your backend endpoint
 
 export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
