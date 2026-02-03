@@ -147,7 +147,7 @@ export default function Footer() {
                     />
                   </div>
                   <Button className="w-full h-12 bg-[#0047AB] hover:bg-[#003580] text-white rounded-2xl font-bold shadow-lg shadow-blue-600/20 transition-all active:scale-95">
-                    Join EduStack
+                    Subscribe to Edustack
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </div>
