@@ -38,7 +38,7 @@ export default function AIAssistant() {
     {
       id: '1',
       role: 'assistant',
-      content: 'Hello! I\'m your CBE Assistant. I can help you with questions about the Kenyan Competency-Based Education system and this platform. How can I assist you today?'
+      content: 'Hello! I\'m your Nonea Educational Platform Assistant. I can help you with questions about our platform and the Kenyan CBE system . Don\'t feel stuck navigating our platform, bring up your queries!'
     }
   ]);
   const [input, setInput] = useState('');
