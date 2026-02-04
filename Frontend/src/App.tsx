@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
 import ScrollToTop from "@/components/ScrollToTop";
+import CookieBanner from "@/components/CookieBanner";
 import ContactPage from './pages/Contact'
 // Public Pages
 import HomePage from "@/pages/HomePage";
@@ -16,8 +17,13 @@ import CBCStandardsPage from "@/pages/CBCStandardsPage";
 import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
 
+// Admin Registration
+import SchoolRegistration from "@/pages/admin-registration/SchoolRegistration";
+
 // Student Pages
 import LearningMaterials from "@/pages/student/LearningMaterials";
+import Grade1 from "@/pages/student/Grade1";
+import Grade2 from "@/pages/student/Grade2";
 
 // Teacher Pages
 import TeachingResources from "@/pages/teacher/TeachingResources";
@@ -75,9 +81,14 @@ function AppRoutes() {
       
       {/* Student Routes */}
       <Route path="/student/learning-materials" element={<LearningMaterials />} />
+      <Route path="/student/grade/1" element={<Grade1 />} />
+      <Route path="/student/grade/2" element={<Grade2 />} />
       
       {/* Teacher Routes */}
       <Route path="/teacher/resources" element={<TeachingResources />} />
+      
+      {/* Admin Registration Route */}
+      <Route path="/admin/register-school" element={<SchoolRegistration />} />
       
       {/* School Admin Routes */}
       <Route path="/school-admin/*" element={
@@ -112,7 +123,8 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <AppRoutes />
-          <AIAssistant />           
+          <AIAssistant />
+          <CookieBanner />
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
