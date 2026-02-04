@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Loader2, Bot } from 'lucide-react';
+import { MessageCircle, X, Send, Bot } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
@@ -193,7 +193,7 @@ export default function AIAssistant() {
                 <Bot className="w-4 h-4 text-primary" />
               </div>
               <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
-                <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">typing...</span>
               </div>
             </div>
           )}
