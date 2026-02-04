@@ -199,7 +199,7 @@ export default function AIAssistant() {
                     {[0, 200, 400].map((delay) => (
                       <span 
                         key={delay}
-                        className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" 
+                        className="typing-dot w-1 h-1 bg-muted-foreground rounded-full animate-bounce" 
                         style={{ animationDelay: `${delay}ms`, animationDuration: '1.4s' }}
                       />
                     ))}

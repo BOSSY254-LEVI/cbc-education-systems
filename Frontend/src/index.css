@@ -147,3 +147,10 @@
     box-shadow: var(--shadow-card);
   }
 }
+
+/* Typing indicator animation with reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .typing-dot {
+    animation: none !important;
+  }
+}
