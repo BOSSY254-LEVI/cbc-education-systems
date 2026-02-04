@@ -9,6 +9,7 @@ const values = [
     title: 'Excellence in Education',
     description: 'We believe every student deserves access to world-class education that prepares them for the future.'
   },
+  
   {
     icon: Users,
     title: 'Collaborative Learning',
