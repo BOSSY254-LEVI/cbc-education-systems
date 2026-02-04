@@ -121,6 +121,8 @@ CI/CD Pipelines
 
 # 🚀 Getting Started
 
+> **⚠️ Contact Form Issue?** If the contact form shows an error, see [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) for a quick 5-minute fix.
+
 ## Quick Setup (AI Assistant)
 
 The platform includes an AI-powered assistant that helps users learn about CBE.
@@ -169,8 +171,10 @@ For detailed setup instructions, troubleshooting, and deployment:
 
 **For Production Deployment:**
 - Railway (Backend): Set `GROQ_API_KEY` environment variable
-- Vercel (Frontend): Set `VITE_AI_API_ENDPOINT` environment variable
-- See [AI_SETUP_GUIDE.md](AI_SETUP_GUIDE.md) for step-by-step instructions
+- Vercel (Frontend): Set `VITE_AI_API_ENDPOINT` and `VITE_WEB3FORMS_KEY` environment variables
+- See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for complete Vercel deployment guide
+- See [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) for quick contact form fix
+- See [AI_SETUP_GUIDE.md](AI_SETUP_GUIDE.md) for AI Assistant setup instructions
 
 ---
 
