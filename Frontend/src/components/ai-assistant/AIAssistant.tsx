@@ -193,7 +193,14 @@ export default function AIAssistant() {
                 <Bot className="w-4 h-4 text-primary" />
               </div>
               <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
-                <span className="text-sm text-muted-foreground">typing...</span>
+                <div className="flex items-center gap-1">
+                  <span className="text-sm text-muted-foreground">typing</span>
+                  <span className="flex gap-0.5">
+                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms', animationDuration: '1.4s' }}></span>
+                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '200ms', animationDuration: '1.4s' }}></span>
+                    <span className="w-1 h-1 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '400ms', animationDuration: '1.4s' }}></span>
+                  </span>
+                </div>
               </div>
             </div>
           )}
