@@ -1,4 +1,4 @@
-const OpenAI = require("openai");
+const OpenAI = require("openrouter").OpenAI;
 
 const openai = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
