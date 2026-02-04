@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import Platform from '../pages/Platform'
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import {
@@ -415,6 +416,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-secondary/20 to-background">
       <ParticleBackground />
+
       
       {/* Animated Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -425,7 +427,7 @@ export default function HomePage() {
 
       {/* Enhanced Navbar with Glass Morphism */}
       <Header/>
-
+      
       {/* Hero Section with Enhanced Effects */}
       <section ref={heroRef} className="relative min-h-screen flex items-center pt-16 overflow-hidden">
         {/* Background with Gradient Overlay */}
