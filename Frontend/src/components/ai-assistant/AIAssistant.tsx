@@ -42,8 +42,10 @@ export default function AIAssistant() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const typingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -51,7 +53,30 @@ export default function AIAssistant() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isLoading]);
+  }, [messages, showTypingIndicator]);
+
+  useEffect(() => {
+    // Clear any existing timeout
+    if (typingTimeoutRef.current) {
+      clearTimeout(typingTimeoutRef.current);
+    }
+
+    // Add delay before showing typing indicator to make it feel like a transition
+    if (isLoading) {
+      typingTimeoutRef.current = setTimeout(() => {
+        setShowTypingIndicator(true);
+      }, 600); // 600ms delay before showing the typing indicator
+    } else {
+      setShowTypingIndicator(false);
+    }
+
+    // Cleanup timeout on unmount or when isLoading changes
+    return () => {
+      if (typingTimeoutRef.current) {
+        clearTimeout(typingTimeoutRef.current);
+      }
+    };
+  }, [isLoading]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -187,13 +212,20 @@ export default function AIAssistant() {
               </div>
             </div>
           ))}
-          {isLoading && (
+          {showTypingIndicator && (
             <div className="flex gap-2 justify-start" role="status" aria-label="AI is typing a response">
               <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                 <Bot className="w-4 h-4 text-primary" />
               </div>
               <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
-                <span className="text-sm text-muted-foreground">typing...</span>
+                <span className="text-sm text-muted-foreground inline-flex gap-1">
+                  typing
+                  <span className="inline-flex gap-0.5">
+                    <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
+                    <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
+                    <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
+                  </span>
+                </span>
               </div>
             </div>
           )}
