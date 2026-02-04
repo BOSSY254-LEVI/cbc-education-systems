@@ -29,19 +29,27 @@ cp .env.example .env
   - **Local Development**: `http://localhost:3001/api/ai-chat`
   - **Production**: Set this to your deployed backend URL (e.g., `https://your-backend.railway.app/api/ai-chat`)
 
+- `VITE_WEB3FORMS_KEY`: Access key for Web3Forms contact form service
+  - Get your free access key at [https://web3forms.com](https://web3forms.com)
+  - **Required** for the contact form to work
+
 **Example `.env` file:**
 
 ```env
 # For local development
 VITE_AI_API_ENDPOINT=http://localhost:3001/api/ai-chat
+
+# Web3Forms contact form access key
+VITE_WEB3FORMS_KEY=your-web3forms-access-key-here
 ```
 
 **For production deployment on Vercel:**
 
 1. Go to your Vercel project settings
 2. Navigate to "Environment Variables"
-3. Add `VITE_AI_API_ENDPOINT` with your production backend URL
-4. Example: `https://your-backend.railway.app/api/ai-chat`
+3. Add the following variables:
+   - `VITE_AI_API_ENDPOINT` with your production backend URL (e.g., `https://your-backend.railway.app/api/ai-chat`)
+   - `VITE_WEB3FORMS_KEY` with your Web3Forms access key
 
 ### Development
 
@@ -107,10 +115,48 @@ Frontend/
 ## Key Features
 
 - **AI Assistant**: Chat with an AI assistant for CBE-related questions (requires backend)
+- **Contact Form**: Web3Forms-powered contact form for inquiries (requires access key)
 - **Curriculum Explorer**: Browse and explore CBE curriculum
 - **Progress Tracking**: Track student competency progress
 - **Assessments**: Create and manage assessments
 - **Evidence Upload**: Upload evidence of competency mastery
+
+## Contact Form Configuration
+
+The contact form uses [Web3Forms](https://web3forms.com) to handle form submissions without requiring a backend.
+
+### Setup Instructions
+
+1. **Get a Web3Forms Access Key** (free):
+   - Visit [https://web3forms.com](https://web3forms.com)
+   - Sign up and create a new form
+   - Copy your access key
+
+2. **Add to Environment Variables**:
+   - Add `VITE_WEB3FORMS_KEY` to your `.env` file (local development)
+   - Add it to Vercel environment variables (production)
+
+3. **Verify Configuration**:
+   - The contact form will show an error if the key is missing
+   - Check browser console for debug messages about the environment variable
+
+### Troubleshooting Contact Form
+
+If you see the error "Form ID/Access key must be a string. Please check for extra spaces":
+
+1. **Check Environment Variable is Set**:
+   - Verify `VITE_WEB3FORMS_KEY` is in your `.env` file
+   - Ensure there are no extra spaces around the key value
+
+2. **For Local Development**:
+   - Create `.env` file from `.env.example`: `cp .env.example .env`
+   - Add your Web3Forms access key
+   - Restart the dev server: `npm run dev`
+
+3. **For Production (Vercel)**:
+   - Go to Vercel project settings → Environment Variables
+   - Add `VITE_WEB3FORMS_KEY` with your access key
+   - Redeploy the application
 
 ## AI Assistant Configuration
 
