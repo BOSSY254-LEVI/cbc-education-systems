@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Send,
   MapPin,
@@ -30,33 +30,49 @@ export default function ContactPage() {
 
   const [focusedField, setFocusedField] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'cfeb2c00-e884-4f54-8496-315cf9f85c42',
+          subject: 'New CBC Inquiry',
+          from_name: 'EduStack CBC Contact Form',
+          ...formData
+        })
+      });
 
-    alert(
-      'Your CBC inquiry has been received. Our curriculum experts will reach out shortly.'
-    );
+      const result = await response.json();
 
-    setFormData({
-      category: '',
-      fullName: '',
-      email: '',
-      message: ''
-    });
-
-    setIsSubmitting(false);
+      if (result.success) {
+        setIsSuccess(true);
+        setFormData({
+          category: '',
+          fullName: '',
+          email: '',
+          message: ''
+        });
+      } else {
+        alert('Submission failed. Please try again.');
+      }
+    } catch (error) {
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -64,7 +80,6 @@ export default function ContactPage() {
       <Header />
 
       <div className="pt-24 pb-12">
-        {/* Hero Header */}
         <section className="container mx-auto px-6 text-center mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -83,96 +98,103 @@ export default function ContactPage() {
             transition={{ delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#001f3f] dark:text-white mb-4"
           >
-            Empowering Kenya&apos;s{' '}
-            <span className="text-blue-600">CBC Journey</span>
+            Empowering Kenya&apos;s <span className="text-blue-600">CBC Journey</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
+            className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
           >
-            Have questions about our competency-based tracking tools? Our team of
-            specialists is ready to assist your school&apos;s transition.
+            Have questions about our competency-based tracking tools? Our team is ready to assist.
           </motion.p>
         </section>
 
         <main className="container mx-auto px-6 lg:px-16">
           <div className="grid lg:grid-cols-12 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-[32px] shadow-2xl border border-slate-100 dark:border-slate-800 p-8 md:p-12"
-            >
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-2">
-                    Send Us Your Inquiry
-                  </h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm">
-                    We&apos;ll respond within 24 hours
-                  </p>
-                </div>
+            <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-[32px] shadow-2xl p-8 md:p-12 relative overflow-hidden">
 
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
-                >
-                  <option value="">Select Topic...</option>
-                  <option value="implementation">CBC Implementation</option>
-                  <option value="training">Teacher Training</option>
-                  <option value="technical">Platform Support</option>
-                  <option value="partnership">School Partnership</option>
-                  <option value="demo">Request Demo</option>
-                  <option value="pricing">Pricing Information</option>
-                </select>
+              <AnimatePresence>
+                {isSuccess ? (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="flex flex-col items-center justify-center min-h-[420px] text-center"
+                  >
+                    <CheckCircle2 className="w-24 h-24 text-green-500 mb-6" />
+                    <h3 className="text-2xl font-extrabold text-slate-900 dark:text-white mb-2">
+                      Message Sent Successfully
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 max-w-sm">
+                      Thank you for reaching out. Our CBC specialists will contact you shortly.
+                    </p>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white">
+                      Send Us Your Inquiry
+                    </h2>
 
-                <input
-                  type="text"
-                  name="fullName"
-                  placeholder="Enter your name"
-                  value={formData.fullName}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
-                />
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
+                    >
+                      <option value="">Select Topic...</option>
+                      <option value="implementation">CBC Implementation</option>
+                      <option value="training">Teacher Training</option>
+                      <option value="technical">Platform Support</option>
+                      <option value="partnership">School Partnership</option>
+                      <option value="demo">Request Demo</option>
+                      <option value="pricing">Pricing Information</option>
+                    </select>
 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="example@school.ke"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
-                />
+                    <input
+                      type="text"
+                      name="fullName"
+                      placeholder="Full Name"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
+                    />
 
-                <textarea
-                  name="message"
-                  rows="5"
-                  placeholder="How can EduStack help your institution transform CBC learning?"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl resize-none"
-                />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="School Email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
+                    />
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-blue-600 text-white font-bold rounded-2xl flex items-center justify-center gap-3"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Inquiry'}
-                  <Send className="w-5 h-5" />
-                </button>
-              </form>
-            </motion.div>
+                    <textarea
+                      name="message"
+                      rows="5"
+                      placeholder="Your message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 rounded-2xl"
+                    />
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-4 bg-blue-600 text-white rounded-2xl flex items-center justify-center gap-3"
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+                      <Send className="w-5 h-5" />
+                    </button>
+                  </form>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </main>
       </div>
