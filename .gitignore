@@ -34,3 +34,4 @@ dist-ssr
 
 # Temporary data files
 Frontend/src/data/
+!Frontend/src/data/curriculum-data.ts

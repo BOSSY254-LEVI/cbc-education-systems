@@ -51,7 +51,7 @@ export default function AIAssistant() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
