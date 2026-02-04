@@ -174,8 +174,8 @@ export default function AIAssistant() {
             <img src={cbeLogo} alt="CBE" className="w-8 h-8 object-contain" />
           </div>
           <div className="flex-1">
-            <h3 className="font-semibold">CBE Assistant</h3>
-            <p className="text-xs text-primary-foreground/70">Ask about CBE & Platform</p>
+            <h3 className="font-semibold">Your Companion Assistant</h3>
+            <p className="text-xs text-primary-foreground/70">Ask anything about our Educational Platform</p>
           </div>
           <button
             onClick={() => setIsOpen(false)}
@@ -252,7 +252,7 @@ export default function AIAssistant() {
             </Button>
           </div>
           <p className="text-xs text-muted-foreground mt-2 text-center">
-            Powered by AI • CBE & Platform queries only
+            Powered by Teksoft Team • CBE Educational Platform queries
           </p>
         </form>
       </div>
