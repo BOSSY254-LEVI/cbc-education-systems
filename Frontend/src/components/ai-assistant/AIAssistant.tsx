@@ -220,7 +220,7 @@ export default function AIAssistant() {
               <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
                 <span className="text-sm text-muted-foreground inline-flex gap-1">
                   typing
-                  <span className="inline-flex gap-0.5">
+                  <span className="inline-flex gap-0.5" aria-hidden="true">
                     <span className="animate-bounce" style={{ animationDelay: '0ms' }}>.</span>
                     <span className="animate-bounce" style={{ animationDelay: '150ms' }}>.</span>
                     <span className="animate-bounce" style={{ animationDelay: '300ms' }}>.</span>
