@@ -9,6 +9,8 @@ The contact form is showing this error when users submit:
 
 The `VITE_WEB3FORMS_KEY` environment variable is not configured in Vercel.
 
+> **Note:** Web3Forms access keys are designed to be client-side public keys (similar to Stripe publishable keys). They are meant to be embedded in your frontend code and are protected by domain restrictions and rate limiting configured in the Web3Forms dashboard. This is the official access key for the CBC Education Platform contact form.
+
 ## ✅ Quick Fix (5 minutes)
 
 ### Step 1: Add Environment Variable to Vercel

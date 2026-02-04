@@ -17,6 +17,7 @@ Before deploying, you need to configure the following environment variables in V
    - Get your free access key at [https://web3forms.com](https://web3forms.com)
    - This is **required** for the contact form to work
    - Without this, users will see an error when trying to submit the contact form
+   - **Note:** Web3Forms keys are public client-side keys (like Stripe publishable keys) that are designed to be embedded in frontend code. They are protected by domain restrictions and rate limiting in your Web3Forms dashboard.
 
 2. **`VITE_AI_API_ENDPOINT`** (Optional) - URL for the AI Assistant backend
    - Example: `https://your-backend.railway.app/api/ai-chat`
