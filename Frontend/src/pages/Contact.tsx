@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import {
   Send,
   MapPin,
@@ -14,33 +14,268 @@ import {
   BookOpen,
   Users,
   Zap,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles,
+  Star,
+  Globe,
+  Target,
+  Heart,
+  Lightbulb,
+  Rocket,
+  Shield,
+  Cloud,
+  Database,
+  Server,
+  Users2,
+  TrendingUp,
+  LineChart,
+  PieChart,
+  BarChart3,
+  Calendar,
+  Bell,
+  Search,
+  Download,
+  Lock,
+  Eye,
+  MessageSquare,
+  Video,
+  Music,
+  Image,
+  FileCode,
+  FileSpreadsheet,
+  Presentation,
+  Code,
+  Terminal,
+  Palette,
+  Brain,
+  GitBranch,
+  Network,
+  Filter,
+  Settings,
+  UserPlus,
+  FileText,
+  type LucideIcon
 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '../components/Footer';
+import { cn } from '@/lib/utils';
+
+const GlowingCard = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
+  <div className={cn('relative group', className)}>
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-500 group-hover:duration-200" />
+    <div className="relative bg-card rounded-3xl p-8 border border-border/50">
+      {children}
+    </div>
+  </div>
+);
+
+const AnimatedCounter = ({ value, duration = 2000 }: { value: string; duration?: number }) => {
+  const [count, setCount] = useState(0);
+  const numericValue = parseFloat(value.replace(/[^0-9.]/g, ''));
+  const suffix = value.replace(/[0-9.]/g, '');
+
+  useEffect(() => {
+    let start = 0;
+    const end = numericValue;
+    const increment = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) {
+        setCount(end);
+        clearInterval(timer);
+      } else {
+        setCount(start);
+      }
+    }, 16);
+
+    return () => clearInterval(timer);
+  }, [numericValue, duration]);
+
+  return (
+    <span className="font-bold">
+      {suffix === '%' ? count.toFixed(0) : count.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+      {suffix}
+    </span>
+  );
+};
+
+const contactInfo = [
+  {
+    icon: Phone,
+    title: "Phone Support",
+    detail: "+254 111 276 271",
+    subtitle: "Direct expert assistance",
+    gradient: "from-blue-500 to-cyan-500",
+    features: ['Priority support', 'Technical experts', 'Callback service'],
+    action: "Call Now"
+  },
+  {
+    icon: Mail,
+    title: "Email Support",
+    detail: "hello@edustack.ke",
+    subtitle: "Detailed inquiries",
+    gradient: "from-emerald-500 to-teal-500",
+    features: ['24/7 response', 'File attachments', 'Detailed tracking'],
+    action: "Send Email"
+  },
+  {
+    icon: MapPin,
+    title: "Headquarters",
+    detail: "Westlands, Nairobi",
+    subtitle: "Visit our office",
+    gradient: "from-purple-500 to-pink-500",
+    features: ['Meeting rooms', 'Demo sessions', 'Training center'],
+    action: "Get Directions"
+  },
+  {
+    icon: Clock,
+    title: "Support Hours",
+    detail: "Mon-Fri, 8AM-6PM EAT",
+    subtitle: "Extended emergency support",
+    gradient: "from-orange-500 to-red-500",
+    features: ['Emergency hotline', 'Weekend coverage', 'Holiday support'],
+    action: "View Schedule"
+  }
+];
+
+const inquiryCategories = [
+  {
+    value: "implementation",
+    label: "CBC Implementation",
+    icon: GraduationCap,
+    description: "Get help implementing CBC in your school",
+    color: "text-blue-500",
+    bg: "bg-blue-500/10"
+  },
+  {
+    value: "training",
+    label: "Teacher Training",
+    icon: Users,
+    description: "Professional development and workshops",
+    color: "text-emerald-500",
+    bg: "bg-emerald-500/10"
+  },
+  {
+    value: "technical",
+    label: "Technical Support",
+    icon: Terminal,
+    description: "Platform issues and technical questions",
+    color: "text-purple-500",
+    bg: "bg-purple-500/10"
+  },
+  {
+    value: "partnership",
+    label: "School Partnership",
+    icon: School,
+    description: "Become an EduStack partner school",
+    color: "text-amber-500",
+    bg: "bg-amber-500/10"
+  },
+  {
+    value: "demo",
+    label: "Request Demo",
+    icon: Video,
+    description: "Schedule a personalized platform demo",
+    color: "text-pink-500",
+    bg: "bg-pink-500/10"
+  },
+  {
+    value: "pricing",
+    label: "Pricing Information",
+    icon: TrendingUp,
+    description: "Get custom pricing for your institution",
+    color: "text-indigo-500",
+    bg: "bg-indigo-500/10"
+  }
+];
+
+const supportStats = [
+  { value: "99.8%", label: "Uptime Guarantee", icon: Server, trend: "+0.2%" },
+  { value: "< 2h", label: "Avg. Response Time", icon: Clock, trend: "-15%" },
+  { value: "4.9/5", label: "Customer Satisfaction", icon: Star, trend: "+0.1" },
+  { value: "98%", label: "Issue Resolution", icon: Target, trend: "+2%" }
+];
+
+const successStories = [
+  {
+    school: "St. Mary's Academy",
+    location: "Nairobi",
+    impact: "92% growth in student mastery tracking",
+    quote: "EduStack transformed how we monitor CBC competencies.",
+    avatar: "SA"
+  },
+  {
+    school: "Green Valley School",
+    location: "Mombasa",
+    impact: "40% reduction in administrative work",
+    quote: "Our teachers now focus more on teaching than paperwork.",
+    avatar: "GV"
+  },
+  {
+    school: "Rising Stars Academy",
+    location: "Kisumu",
+    impact: "75% faster report generation",
+    quote: "Parents love the real-time progress updates.",
+    avatar: "RS"
+  }
+];
+
+const regionalOffices = [
+  {
+    city: "Mombasa",
+    address: "Nyali Business Centre, Mombasa",
+    phone: "+254 711 222 333",
+    email: "coast@edustack.ke",
+    manager: "Fatima Ali",
+    avatar: "FA"
+  },
+  {
+    city: "Kisumu",
+    address: "Mega Plaza, Kisumu",
+    phone: "+254 733 444 555",
+    email: "west@edustack.ke",
+    manager: "John Ochieng",
+    avatar: "JO"
+  },
+  {
+    city: "Nakuru",
+    address: "Westside Mall, Nakuru",
+    phone: "+254 722 666 777",
+    email: "rift@edustack.ke",
+    manager: "Sarah Kamau",
+    avatar: "SK"
+  }
+];
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     category: '',
     fullName: '',
     email: '',
+    phone: '',
+    school: '',
     message: ''
   });
 
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
-  // ───────────────────────────────────────────────
-  // Debug: Check if the environment variable is loaded
-  // Open browser console (F12) after page load to see this
-  // ───────────────────────────────────────────────
-  console.log('=== Web3Forms ENV DEBUG ===');
-  console.log('VITE_WEB3FORMS_KEY raw value:', import.meta.env.VITE_WEB3FORMS_KEY);
-  console.log('VITE_WEB3FORMS_KEY length:', import.meta.env.VITE_WEB3FORMS_KEY?.length ?? 'missing');
-  console.log('VITE_WEB3FORMS_KEY trimmed:', import.meta.env.VITE_WEB3FORMS_KEY?.trim() ?? 'missing');
-  console.log('All env keys available:', Object.keys(import.meta.env));
-  console.log('=== END DEBUG ===');
+  const containerRef = React.useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  useEffect(() => {
+    console.log('=== Web3Forms ENV DEBUG ===');
+    console.log('VITE_WEB3FORMS_KEY raw value:', import.meta.env.VITE_WEB3FORMS_KEY);
+    console.log('VITE_WEB3FORMS_KEY length:', import.meta.env.VITE_WEB3FORMS_KEY?.length ?? 'missing');
+    console.log('=== END DEBUG ===');
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -66,15 +301,11 @@ export default function ContactPage() {
 
     const form = e.currentTarget;
     const formDataToSend = new FormData(form);
-
     formDataToSend.append('access_key', accessKey);
-    formDataToSend.append('from_name', formData.fullName || 'School Contact');
-    formDataToSend.append(
-      'subject',
-      formData.category
-        ? `${formData.category.charAt(0).toUpperCase() + formData.category.slice(1)} Inquiry – EduStack`
-        : 'New EduStack Inquiry'
-    );
+    
+    if (selectedCategory) {
+      formDataToSend.append('category', selectedCategory);
+    }
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -92,7 +323,14 @@ export default function ContactPage() {
           type: 'success',
           message: 'Your CBC inquiry has been received. Our curriculum experts will reach out shortly.'
         });
-        setFormData({ category: '', fullName: '', email: '', message: '' });
+        setFormData({ 
+          category: '', 
+          fullName: '', 
+          email: '', 
+          phone: '', 
+          school: '', 
+          message: '' 
+        });
         form.reset();
       } else {
         setStatus({
@@ -112,320 +350,590 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-[#020817]">
+    <div ref={containerRef} className="min-h-screen bg-gradient-to-b from-background via-secondary/10 to-background">
+      {/* Animated Background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <motion.div 
+          animate={{ 
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            rotate: [0, 180, 360]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+        />
+        <motion.div 
+          animate={{ 
+            x: [100, 0, 100],
+            y: [50, 0, 50],
+            rotate: [180, 360, 540]
+          }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"
+        />
+      </div>
+
       <Header />
 
-      <div className="pt-24 pb-12">
-        {/* Hero Header Section */}
-        <section className="container mx-auto px-6 text-center mb-12">
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-slate-900 to-emerald-900" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent" />
+        </div>
+
+        <div className="container mx-auto px-4 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 mb-4"
+            transition={{ duration: 0.8 }}
+            className="max-w-5xl mx-auto text-center"
           >
-            <Zap className="w-3.5 h-3.5 text-blue-600" />
-            <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 uppercase tracking-widest">
-              Connect with EduStack
-            </span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#001f3f] dark:text-white mb-4"
-          >
-            Empowering Kenya's <span className="text-blue-600">CBC Journey</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            Have questions about our competency-based tracking tools? Our team of specialists is ready to assist your school's transition.
-          </motion.p>
-        </section>
-
-        <main className="container mx-auto px-6 lg:px-16">
-          <div className="grid lg:grid-cols-12 gap-12">
-            {/* Left: Contact Form Card */}
+            {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-[32px] shadow-2xl shadow-blue-500/5 border border-slate-100 dark:border-slate-800 p-8 md:p-12 relative overflow-hidden group"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', delay: 0.2 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8"
             >
-              {/* Animated background blobs */}
-              <div className="absolute top-0 right-0 w-40 h-40 bg-blue-600/5 dark:bg-blue-400/10 rounded-full -mr-16 -mt-16 blur-3xl group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-indigo-600/5 dark:bg-indigo-400/10 rounded-full -ml-16 -mb-16 blur-3xl group-hover:scale-110 transition-transform duration-700" />
+              <Sparkles className="w-4 h-4 text-yellow-400" />
+              <span className="text-sm font-medium text-white/90 uppercase tracking-wider">Expert Support</span>
+              <ChevronRight className="w-4 h-4 text-white/60" />
+            </motion.div>
 
-              <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-                {/* Web3Forms hidden fields */}
-                <input
-                  type="hidden"
-                  name="access_key"
-                  value={import.meta.env.VITE_WEB3FORMS_KEY ?? ''}
+            {/* Title */}
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-5xl md:text-6xl lg:text-[4rem] font-bold text-white leading-[1.1] mb-6"
+            >
+              Transform Your School's{' '}
+              <span className="relative inline-block">
+                <span className="relative z-10 bg-gradient-to-r from-blue-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                  CBC Journey
+                </span>
+                <motion.div 
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-emerald-500/20 blur-xl"
                 />
-                <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+              </span>
+            </motion.h1>
 
+            {/* Subtitle */}
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="text-xl md:text-2xl text-white/90 mb-10 max-w-3xl mx-auto leading-relaxed"
+            >
+              Connect with Kenya's leading CBC education experts. Get personalized guidance, 
+              technical support, and partnership opportunities tailored to your school's needs.
+            </motion.p>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
+            >
+              {supportStats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.6 + index * 0.1 }}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 text-center"
+                  >
+                    <Icon className="w-6 h-6 text-blue-400 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-white">{stat.value}</div>
+                    <div className="text-sm text-white/70">{stat.label}</div>
+                    <div className="text-xs text-emerald-400 mt-1">{stat.trend}</div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 lg:px-8 py-12 pb-20">
+        <div className="grid lg:grid-cols-12 gap-8">
+          {/* Left Column - Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+            className="lg:col-span-7"
+          >
+            <GlowingCard>
+              <div className="relative z-10">
                 {/* Form Header */}
-                <div className="mb-6">
-                  <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-2 flex items-center gap-3">
-                    <div className="w-1.5 h-7 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></div>
-                    Send Us Your Inquiry
-                  </h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm ml-6">We'll respond within 24 hours</p>
-                </div>
-
-                {/* Two Column Layout for First Row */}
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* Inquiry Type */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300 ml-1 flex items-center gap-2">
-                      Inquiry Type
-                      <span className="text-red-500">*</span>
-                    </label>
-                    <select
-                      name="category"
-                      value={formData.category}
-                      onChange={handleChange}
-                      required
-                      onFocus={() => setFocusedField('category')}
-                      onBlur={() => setFocusedField(null)}
-                      className={`w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-2xl text-slate-900 dark:text-white transition-all duration-300 appearance-none cursor-pointer ${
-                        focusedField === 'category'
-                          ? 'border-blue-500 ring-4 ring-blue-100 dark:ring-blue-900/30 shadow-lg shadow-blue-500/10'
-                          : 'border-transparent hover:border-slate-300 dark:hover:border-slate-600'
-                      }`}
-                    >
-                      <option value="">Select Topic...</option>
-                      <option value="implementation">CBC Implementation</option>
-                      <option value="training">Teacher Training</option>
-                      <option value="technical">Platform Support</option>
-                      <option value="partnership">School Partnership</option>
-                      <option value="demo">Request Demo</option>
-                      <option value="pricing">Pricing Information</option>
-                    </select>
-                  </div>
-
-                  {/* Full Name */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-700 dark:text-slate-300 ml-1 flex items-center gap-2">
-                      Full Name
-                      <span className="text-red-500">*</span>
-                    </label>
-                    <div className="relative">
-                      <Users
-                        className={`absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-300 ${
-                          focusedField === 'fullName' ? 'text-blue-500' : 'text-slate-400'
-                        }`}
-                      />
-                      <input
-                        type="text"
-                        name="fullName"
-                        placeholder="Enter your name"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        required
-                        onFocus={() => setFocusedField('fullName')}
-                        onBlur={() => setFocusedField(null)}
-                        className={`w-full pl-14 pr-5 py-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-2xl text-slate-900 dark:text-white transition-all duration-300 ${
-                          focusedField === 'fullName'
-                            ? 'border-blue-500 ring-4 ring-blue-100 dark:ring-blue-900/30 shadow-lg shadow-blue-500/10 scale-[1.01]'
-                            : 'border-transparent hover:border-slate-300 dark:hover:border-slate-600'
-                        }`}
-                      />
+                <div className="mb-8">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg">
+                      <Send className="w-8 h-8 text-white" />
+                    </div>
+                    <div>
+                      <h2 className="text-3xl font-bold text-foreground">
+                        Send Us Your Inquiry
+                      </h2>
+                      <p className="text-muted-foreground mt-1">
+                        Our experts will respond within 24 hours
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* School Email Address */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 ml-1 flex items-center gap-2">
-                    School Email Address
-                    <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <Mail
-                      className={`absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 transition-colors duration-300 ${
-                        focusedField === 'email' ? 'text-blue-500' : 'text-slate-400'
-                      }`}
-                    />
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Web3Forms hidden fields */}
+                  <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_KEY ?? ''} />
+                  <input type="text" name="_gotcha" className="hidden" tabIndex={-1} autoComplete="off" />
+
+                  {/* Category Selection */}
+                  <div className="space-y-3">
+                    <Label htmlFor="category" className="text-sm font-bold text-foreground flex items-center gap-2">
+                      <Filter className="w-4 h-4" />
+                      Inquiry Type <span className="text-red-500">*</span>
+                    </Label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                      {inquiryCategories.map((category) => {
+                        const Icon = category.icon;
+                        return (
+                          <button
+                            key={category.value}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCategory(category.value);
+                              setFormData(prev => ({ ...prev, category: category.value }));
+                            }}
+                            className={cn(
+                              "p-4 rounded-xl border-2 text-left transition-all duration-300",
+                              selectedCategory === category.value
+                                ? `border-primary bg-gradient-to-br ${category.bg} shadow-lg scale-[1.02]`
+                                : "border-border hover:border-primary/50 hover:bg-secondary/50"
+                            )}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className={`w-10 h-10 rounded-lg ${category.bg} flex items-center justify-center`}>
+                                <Icon className={`w-5 h-5 ${category.color}`} />
+                              </div>
+                              <div className="flex-1">
+                                <div className="font-semibold text-foreground text-sm">{category.label}</div>
+                                <div className="text-xs text-muted-foreground mt-1">{category.description}</div>
+                              </div>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
                     <input
-                      type="email"
-                      name="email"
-                      placeholder="example@school.ke"
-                      value={formData.email}
-                      onChange={handleChange}
+                      type="hidden"
+                      name="category"
+                      value={selectedCategory}
                       required
-                      onFocus={() => setFocusedField('email')}
-                      onBlur={() => setFocusedField(null)}
-                      className={`w-full pl-14 pr-5 py-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-2xl text-slate-900 dark:text-white transition-all duration-300 ${
-                        focusedField === 'email'
-                          ? 'border-blue-500 ring-4 ring-blue-100 dark:ring-blue-900/30 shadow-lg shadow-blue-500/10 scale-[1.01]'
-                          : 'border-transparent hover:border-slate-300 dark:hover:border-slate-600'
-                      }`}
                     />
                   </div>
-                </div>
 
-                {/* Your Message */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 dark:text-slate-300 ml-1 flex items-center gap-2">
-                    Your Message
-                    <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={5}
-                    placeholder="How can EduStack help your institution transform CBC learning?"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    onFocus={() => setFocusedField('message')}
-                    onBlur={() => setFocusedField(null)}
-                    className={`w-full px-5 py-4 bg-slate-50 dark:bg-slate-800 border-2 rounded-2xl text-slate-900 dark:text-white transition-all duration-300 resize-none ${
-                      focusedField === 'message'
-                        ? 'border-blue-500 ring-4 ring-blue-100 dark:ring-blue-900/30 shadow-lg shadow-blue-500/10 scale-[1.01]'
-                        : 'border-transparent hover:border-slate-300 dark:hover:border-slate-600'
-                    }`}
-                  />
-                </div>
+                  {/* Personal Information */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label htmlFor="fullName" className="text-sm font-bold text-foreground flex items-center gap-2">
+                        <Users className="w-4 h-4" />
+                        Full Name <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="fullName"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField('fullName')}
+                        onBlur={() => setFocusedField(null)}
+                        placeholder="Enter your full name"
+                        required
+                        className={`h-14 rounded-xl transition-all duration-300 ${
+                          focusedField === 'fullName'
+                            ? 'border-primary ring-4 ring-primary/20 shadow-lg'
+                            : 'border-border'
+                        }`}
+                      />
+                    </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-[#0047AB] to-[#0056D6] hover:from-[#003580] hover:to-[#0047AB] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-600/20 flex items-center justify-center gap-3 transition-all duration-300 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                  {isSubmitting ? (
-                    <>
-                      <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
-                      <span>Sending Inquiry...</span>
-                    </>
-                  ) : (
-                    <>
-                      <span>Send Inquiry</span>
-                      <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </>
-                  )}
-                </button>
+                    <div className="space-y-3">
+                      <Label htmlFor="email" className="text-sm font-bold text-foreground flex items-center gap-2">
+                        <Mail className="w-4 h-4" />
+                        School Email <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField('email')}
+                        onBlur={() => setFocusedField(null)}
+                        placeholder="example@school.ke"
+                        required
+                        className={`h-14 rounded-xl transition-all duration-300 ${
+                          focusedField === 'email'
+                            ? 'border-primary ring-4 ring-primary/20 shadow-lg'
+                            : 'border-border'
+                        }`}
+                      />
+                    </div>
 
-                {/* Status message */}
-                {status && (
-                  <div
-                    className={`mt-4 p-4 rounded-2xl text-center font-medium ${
-                      status.type === 'success'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200'
-                        : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200'
-                    }`}
-                  >
-                    {status.message}
+                    <div className="space-y-3">
+                      <Label htmlFor="phone" className="text-sm font-bold text-foreground flex items-center gap-2">
+                        <Phone className="w-4 h-4" />
+                        Phone Number
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField('phone')}
+                        onBlur={() => setFocusedField(null)}
+                        placeholder="+254 700 000 000"
+                        className={`h-14 rounded-xl transition-all duration-300 ${
+                          focusedField === 'phone'
+                            ? 'border-primary ring-4 ring-primary/20 shadow-lg'
+                            : 'border-border'
+                        }`}
+                      />
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label htmlFor="school" className="text-sm font-bold text-foreground flex items-center gap-2">
+                        <School className="w-4 h-4" />
+                        School/Institution
+                      </Label>
+                      <Input
+                        id="school"
+                        name="school"
+                        value={formData.school}
+                        onChange={handleChange}
+                        onFocus={() => setFocusedField('school')}
+                        onBlur={() => setFocusedField(null)}
+                        placeholder="Your school name"
+                        className={`h-14 rounded-xl transition-all duration-300 ${
+                          focusedField === 'school'
+                            ? 'border-primary ring-4 ring-primary/20 shadow-lg'
+                            : 'border-border'
+                        }`}
+                      />
+                    </div>
                   </div>
-                )}
 
-                <p className="text-xs text-slate-500 dark:text-slate-400 text-center flex items-center justify-center gap-2">
-                  <span className="text-red-500">*</span> Required fields
-                </p>
-              </form>
-            </motion.div>
+                  {/* Message */}
+                  <div className="space-y-3">
+                    <Label htmlFor="message" className="text-sm font-bold text-foreground flex items-center gap-2">
+                      <MessageSquare className="w-4 h-4" />
+                      Your Message <span className="text-red-500">*</span>
+                    </Label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={6}
+                      value={formData.message}
+                      onChange={handleChange}
+                      onFocus={() => setFocusedField('message')}
+                      onBlur={() => setFocusedField(null)}
+                      placeholder="Tell us how we can help transform your CBC implementation..."
+                      required
+                      className={`w-full p-4 rounded-xl border transition-all duration-300 resize-none ${
+                        focusedField === 'message'
+                          ? 'border-primary ring-4 ring-primary/20 shadow-lg'
+                          : 'border-border'
+                      }`}
+                    />
+                    <div className="text-sm text-muted-foreground flex items-center gap-2">
+                      <Lightbulb className="w-4 h-4" />
+                      Include specific goals, challenges, and timeline for better assistance
+                    </div>
+                  </div>
 
-            {/* Right: Info Panels */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="lg:col-span-5 space-y-6"
-            >
-              {/* Quick Contact Cards */}
-              <div className="grid gap-4">
-                <ContactInfoCard
-                  icon={<Phone />}
-                  title="Call Support"
-                  detail="+254 111 276 271"
-                  link="tel:+254111276271"
-                />
-                <ContactInfoCard
-                  icon={<Mail />}
-                  title="Email Us"
-                  detail="hello@edustack.ke"
-                  link="mailto:hello@edustack.ke"
-                />
-                <ContactInfoCard
-                  icon={<MapPin />}
-                  title="Nairobi HQ"
-                  detail="Westlands, Nairobi, Kenya"
-                  link="https://goo.gl/maps/nairobi-westlands"
-                />
+                  {/* Security & Privacy */}
+                  <div className="p-6 rounded-xl bg-secondary/50 border border-border/50">
+                    <div className="flex items-start gap-4">
+                      <Shield className="w-6 h-6 text-emerald-500 mt-1" />
+                      <div>
+                        <div className="font-semibold text-foreground mb-2">Your Information is Secure</div>
+                        <div className="text-sm text-muted-foreground">
+                          We use enterprise-grade encryption and comply with Kenya's Data Protection Act. 
+                          Your details will only be used to provide the requested support.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    className="w-full h-16 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white font-bold text-lg rounded-xl shadow-lg shadow-blue-500/20 transition-all duration-300 hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                    {isSubmitting ? (
+                      <div className="flex items-center gap-3">
+                        <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+                        <span className="font-semibold">Sending Your Inquiry...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-3">
+                        <span className="font-semibold">Send Inquiry to Experts</span>
+                        <Send className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                      </div>
+                    )}
+                  </Button>
+
+                  {/* Status Message */}
+                  {status && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`mt-4 p-4 rounded-xl text-center font-medium ${
+                        status.type === 'success'
+                          ? 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20'
+                          : 'bg-red-500/10 text-red-700 dark:text-red-300 border border-red-500/20'
+                      }`}
+                    >
+                      {status.message}
+                    </motion.div>
+                  )}
+                </form>
               </div>
+            </GlowingCard>
+          </motion.div>
 
-              {/* Support Hours, Why Choose, School CTA, Features, News, Success Stories sections */}
-              {/* ... (unchanged from your original code – omitted here for brevity) ... */}
+          {/* Right Column - Contact Info & Success Stories */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="lg:col-span-5 space-y-6"
+          >
+            {/* Contact Information Cards */}
+            <div className="space-y-4">
+              {contactInfo.map((info, index) => {
+                const Icon = info.icon;
+                return (
+                  <motion.a
+                    key={index}
+                    href={info.title === "Phone Support" ? `tel:${info.detail}` : 
+                          info.title === "Email Support" ? `mailto:${info.detail}` : "#"}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 + index * 0.1 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    className="block group"
+                  >
+                    <GlowingCard className="hover:scale-[1.02] transition-transform">
+                      <div className="flex items-start gap-4">
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${info.gradient} flex items-center justify-center flex-shrink-0`}>
+                          <Icon className="w-7 h-7 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between">
+                            <div>
+                              <h3 className="font-bold text-foreground text-lg group-hover:text-primary transition-colors">
+                                {info.title}
+                              </h3>
+                              <p className="text-sm text-muted-foreground mt-1">{info.subtitle}</p>
+                            </div>
+                            <ExternalLink className="w-5 h-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
+                          <div className="mt-4">
+                            <div className="text-xl font-bold text-foreground mb-2">{info.detail}</div>
+                            <div className="flex flex-wrap gap-2">
+                              {info.features.map((feature, idx) => (
+                                <span key={idx} className="px-2 py-1 rounded-md text-xs font-medium bg-secondary text-muted-foreground">
+                                  {feature}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="mt-4 pt-4 border-t border-border/50">
+                            <span className="text-sm font-medium text-primary">{info.action}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </GlowingCard>
+                  </motion.a>
+                );
+              })}
+            </div>
+
+            {/* Success Stories */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+            >
+              <GlowingCard>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
+                    <Award className="w-5 h-5 text-amber-500" />
+                    Success Stories
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Schools transformed by EduStack across Kenya
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  {successStories.map((story, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1 + index * 0.1 }}
+                      whileHover={{ x: 5 }}
+                      className="flex items-start gap-4 p-4 rounded-xl bg-secondary/50"
+                    >
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center text-white font-bold">
+                        {story.avatar}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <div className="font-semibold text-foreground">{story.school}</div>
+                          <span className="text-xs text-muted-foreground">{story.location}</span>
+                        </div>
+                        <div className="text-sm text-primary font-medium mt-1">{story.impact}</div>
+                        <p className="text-sm text-muted-foreground mt-2">"{story.quote}"</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </GlowingCard>
             </motion.div>
-          </div>
 
-          {/* Features, Recent News, Success Stories sections */}
-          {/* ... (unchanged – keep your original content here) ... */}
-        </main>
+            {/* Regional Offices */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2 }}
+            >
+              <GlowingCard>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
+                    <MapPin className="w-5 h-5 text-blue-500" />
+                    Regional Offices
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Get local support across Kenya
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  {regionalOffices.map((office, index) => (
+                    <div key={index} className="p-4 rounded-xl bg-secondary/50">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                          {office.avatar}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-foreground">{office.city}</div>
+                          <div className="text-sm text-muted-foreground mt-1">{office.address}</div>
+                          <div className="flex items-center gap-4 mt-2">
+                            <a href={`tel:${office.phone}`} className="text-sm text-primary hover:underline">
+                              {office.phone}
+                            </a>
+                            <a href={`mailto:${office.email}`} className="text-sm text-primary hover:underline">
+                              {office.email}
+                            </a>
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-2">
+                            Manager: {office.manager}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </GlowingCard>
+            </motion.div>
+          </motion.div>
+        </div>
 
-        <Footer />
-      </div>
+        {/* Call to Action Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-16"
+        >
+          <GlowingCard>
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-blue-500/10 to-emerald-500/10 border border-blue-500/20 mb-6">
+                <Rocket className="w-5 h-5 text-blue-500" />
+                <span className="text-sm font-medium text-primary">Ready to Transform?</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Schedule a Personalized Demo
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                See how EduStack can transform your school's CBC implementation with a live, 
+                personalized demonstration of our platform.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  className="bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 text-white px-8 py-6 rounded-xl shadow-lg"
+                >
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Book Demo Session
+                </Button>
+                <Button 
+                  className="px-8 py-6 rounded-xl border-2 border-border hover:bg-secondary text-foreground"
+                >
+                  <Video className="w-5 h-5 mr-2" />
+                  Watch Video Tour
+                </Button>
+              </div>
+            </div>
+          </GlowingCard>
+        </motion.div>
+      </main>
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        
-        * {
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-        
-        input:focus, textarea:focus, select:focus {
-          outline: none;
-        }
-        
-        ::placeholder {
-          color: #94a3b8;
-        }
-
-        select {
-          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-          background-position: right 1.25rem center;
-          background-repeat: no-repeat;
-          background-size: 1.5em 1.5em;
-          padding-right: 3rem;
-        }
-
-        @keyframes shimmer {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
+      <Footer />
     </div>
   );
 }
 
-function ContactInfoCard({ icon, title, detail, link }: { icon: React.ReactNode; title: string; detail: string; link: string }) {
-  return (
-    <a
-      href={link}
-      target={link.startsWith('http') ? '_blank' : undefined}
-      rel={link.startsWith('http') ? 'noopener noreferrer' : undefined}
-      className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-800 flex items-center gap-5 hover:shadow-xl transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
+// Custom Input Component
+const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+  ({ className, ...props }, ref) => (
+    <input
+      ref={ref}
+      className={`w-full px-4 py-3 bg-background border rounded-xl transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 ${className}`}
+      {...props}
+    />
+  )
+);
+
+// Custom Label Component
+const Label = ({ className, children, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) => (
+  <label className={`block text-sm font-medium ${className}`} {...props}>
+    {children}
+  </label>
+);
+
+// Custom Button Component
+const Button = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
+  ({ className, children, ...props }, ref) => (
+    <button
+      ref={ref}
+      className={`inline-flex items-center justify-center px-6 py-3 font-medium transition-colors duration-200 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      {...props}
     >
-      <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/30 group-hover:bg-gradient-to-br group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-300 shadow-md">
-        {React.cloneElement(icon as React.ReactElement, {
-          className: 'w-6 h-6 text-blue-600 dark:text-blue-400 transition-colors group-hover:text-white'
-        })}
-      </div>
-      <div className="flex-1">
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{title}</p>
-        <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-          {detail}
-        </p>
-      </div>
-      <ExternalLink className="w-5 h-5 text-slate-300 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
-    </a>
-  );
-}
+      {children}
+    </button>
+  )
+);
