@@ -29,6 +29,7 @@ export default function ContactPage() {
 
   const [focusedField, setFocusedField] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,11 +39,42 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call for the CBC portal
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    alert('Your CBC inquiry has been received. Our curriculum experts will reach out shortly.');
-    setFormData({ category: '', fullName: '', email: '', message: '' });
-    setIsSubmitting(false);
+    setSubmitSuccess(false);
+    
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: 'cfeb2c00-e884-4f54-8496-315cf9f85c42',
+          category: formData.category,
+          name: formData.fullName,
+          email: formData.email,
+          message: formData.message,
+          subject: `CBC Education System - ${formData.category}`,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitSuccess(true);
+        setFormData({ category: '', fullName: '', email: '', message: '' });
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 5000);
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('An error occurred. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -218,6 +250,26 @@ export default function ContactPage() {
                   }`}
                 />
               </div>
+
+              {/* Success Message */}
+              {submitSuccess && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="flex flex-col items-center justify-center gap-3 p-6 rounded-2xl bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800"
+                >
+                  <div className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center">
+                    <CheckCircle2 className="w-10 h-10 text-white" />
+                  </div>
+                  <p className="text-lg font-bold text-green-700 dark:text-green-400">
+                    Message Sent Successful
+                  </p>
+                  <p className="text-sm text-green-600 dark:text-green-500 text-center">
+                    Your CBC inquiry has been received. Our curriculum experts will reach out shortly.
+                  </p>
+                </motion.div>
+              )}
 
               {/* Submit Button */}
               <button
