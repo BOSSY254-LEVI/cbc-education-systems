@@ -59,7 +59,7 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-6">
-            {['Curriculum', 'Resourc', 'Analytics','Platform', 'About', 'Support', 'Contact'].map(item => (
+            {['Explore', 'Resources', 'Analytics','Platform', 'About', 'Support', 'Contact'].map(item => (
               <Link
                 key={item}
                 to={`/${item.toLowerCase()}`}

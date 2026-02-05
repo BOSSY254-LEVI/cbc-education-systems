@@ -160,7 +160,7 @@ export default function EduStackPlatformPage() {
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl p-4 border-4 border-slate-700">
                     <div className="bg-white rounded-lg overflow-hidden shadow-inner">
                       <img 
-                        src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=500&fit=crop" 
+                        src="/public/anoter.png" 
                         alt="EduStack CBC Dashboard"
                         className="w-full h-auto"
                       />
@@ -309,7 +309,7 @@ export default function EduStackPlatformPage() {
             className="relative h-[600px] lg:h-auto"
           >
             <img 
-              src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=800&fit=crop" 
+              src="/Gemini_Generated_Image_jrstonjrstonjrst.png" 
               alt="Kenyan students learning"
               className="w-full h-full object-cover"
             />
@@ -331,7 +331,7 @@ export default function EduStackPlatformPage() {
             className="relative h-[600px] lg:h-auto"
           >
             <img 
-              src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=1200&h=800&fit=crop" 
+              src="/Gemini_Generated_Image_2iv0jt2iv0jt2iv0.png" 
               alt="African students in classroom"
               className="w-full h-full object-cover"
             />

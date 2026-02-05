@@ -72,6 +72,7 @@ function AppRoutes() {
   return (
     <Routes>
       {/* Public Routes */}
+      <Route path="/explore" element={<HomePage />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/analytics" element={<EduStackPlatformPage />} />
