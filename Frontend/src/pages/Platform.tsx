@@ -160,7 +160,7 @@ export default function EduStackPlatformPage() {
                   <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl p-4 border-4 border-slate-700">
                     <div className="bg-white rounded-lg overflow-hidden shadow-inner">
                       <img 
-                        src="/public/anoter.png" 
+                        src="/anoter.png" 
                         alt="EduStack CBC Dashboard"
                         className="w-full h-auto"
                       />
