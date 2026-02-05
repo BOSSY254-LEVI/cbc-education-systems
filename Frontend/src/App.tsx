@@ -17,6 +17,7 @@ import CBCStandardsPage from "@/pages/CBCStandardsPage";
 import TermsPage from "@/pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
 import Analytics from "@/pages/Platform"
+import TeamMmembersPage from '@/pages/TeamPage';
 
 // Admin Registration
 import SchoolRegistration from "@/pages/admin-registration/SchoolRegistration";
@@ -46,6 +47,7 @@ import SettingsPage from "@/pages/school-admin/Settings";
 
 import NotFound from "./pages/NotFound";
 import EduStackPlatformPage from "@/pages/Platform";
+import TeamMembersPage from "@/pages/TeamPage";
 
 const queryClient = new QueryClient();
 
@@ -79,6 +81,8 @@ function AppRoutes() {
       <Route path="/support" element={<SupportPage />} />
       <Route path="/privacy" element={<PrivacyPage />} />
       <Route path="/terms" element={<TermsPage />} />
+      
+      <Route path="/company/client" element={<TeamMembersPage/>} />
       <Route path="/cbc-standards" element={<CBCStandardsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/contact" element={<ContactPage/>} />

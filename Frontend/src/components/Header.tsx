@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ArrowRight, Unlock } from 'lucide-react';
+import { Menu, X, ArrowRight, Unlock, ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -10,6 +10,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +60,46 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-6">
-            {['Explore', 'Resources', 'Analytics','Platform', 'About', 'Support', 'Contact'].map(item => (
+            <Link
+              to="/explore"
+              className="text-sm font-medium text-foreground/80 hover:text-primary transition"
+            >
+              Explore
+            </Link>
+            
+            {/* Company Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setCompanyDropdownOpen(true)}
+              onMouseLeave={() => setCompanyDropdownOpen(false)}
+            >
+              <button className="text-sm font-medium text-foreground/80 hover:text-primary transition flex items-center gap-1">
+                Company
+                <ChevronDown className={cn(
+                  "w-4 h-4 transition-transform",
+                  companyDropdownOpen && "rotate-180"
+                )} />
+              </button>
+              
+              {companyDropdownOpen && (
+                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-border rounded-lg shadow-lg py-2">
+                  <Link
+                    to="/company/client"
+                    className="block px-4 py-2 text-sm text-foreground/80 hover:bg-secondary/50 hover:text-primary transition"
+                  >
+                    Client
+                  </Link>
+                  <Link
+                    to="/company/our-team"
+                    className="block px-4 py-2 text-sm text-foreground/80 hover:bg-secondary/50 hover:text-primary transition"
+                  >
+                    Our Team
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {['Analytics', 'Platform', 'About', 'Support', 'Contact'].map(item => (
               <Link
                 key={item}
                 to={`/${item.toLowerCase()}`}
@@ -100,7 +140,36 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden py-4 border-t">
             <nav className="flex flex-col gap-2">
-              {['Curriculum', 'Resources', 'Analytics', 'About', 'Support', 'Contact'].map(item => (
+              <Link
+                to="/explore"
+                className="px-4 py-3 rounded-lg hover:bg-secondary/50"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Explore
+              </Link>
+              
+              {/* Company Section for Mobile */}
+              <div className="px-4 py-3">
+                <div className="text-sm font-medium text-foreground/80 mb-2">Company</div>
+                <div className="pl-4 flex flex-col gap-2">
+                  <Link
+                    to="/company/client"
+                    className="text-sm text-foreground/70 hover:text-primary"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Client
+                  </Link>
+                  <Link
+                    to="/company/our-team"
+                    className="text-sm text-foreground/70 hover:text-primary"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Our Team
+                  </Link>
+                </div>
+              </div>
+
+              {['Analytics', 'Platform', 'About', 'Support', 'Contact'].map(item => (
                 <Link
                   key={item}
                   to={`/${item.toLowerCase()}`}
