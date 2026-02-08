@@ -3,6 +3,7 @@ import { Shield, Eye, Lock, Users, Mail, Phone } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-background">

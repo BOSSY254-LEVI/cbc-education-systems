@@ -3,6 +3,7 @@ import { BookOpen, Target, Award, Users, CheckCircle, Lightbulb, GraduationCap, 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+
 export default function CBCStandardsPage() {
   return (
     <div className="min-h-screen bg-background">

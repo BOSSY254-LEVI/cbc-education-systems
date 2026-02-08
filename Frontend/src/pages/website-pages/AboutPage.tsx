@@ -48,8 +48,9 @@ import {
   type LucideIcon
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { cn } from '@/lib/utils';

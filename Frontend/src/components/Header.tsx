@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ArrowRight, Unlock, ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 export default function Header() {
@@ -11,30 +11,32 @@ export default function Header() {
   const [visible, setVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
+  const [mobileCompanyOpen, setMobileCompanyOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
-      // Update scrolled state
       setScrolled(currentScrollY > 50);
-      
-      // Show/hide header based on scroll direction
+
       if (currentScrollY < lastScrollY || currentScrollY < 50) {
-        // Scrolling up or at top - show header
         setVisible(true);
       } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down - hide header
         setVisible(false);
-        setMobileMenuOpen(false); // Close mobile menu when hiding
+        setMobileMenuOpen(false);
       }
-      
       setLastScrollY(currentScrollY);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
+
+  // Utility to close all menus on navigation
+  const closeMenus = () => {
+    setMobileMenuOpen(false);
+    setCompanyDropdownOpen(false);
+    setMobileCompanyOpen(false);
+  };
 
   return (
     <header
@@ -48,9 +50,8 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-16">
-
           {/* Logo */}
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center" onClick={closeMenus}>
             <img
               src="/Gemini_Generated_Image_8kqr628kqr628kqr.png"
               alt="EduStack"
@@ -66,40 +67,46 @@ export default function Header() {
             >
               Explore
             </Link>
-            
-            {/* Company Dropdown */}
-            <div 
+
+            {/* Desktop Company Dropdown */}
+            <div
               className="relative"
               onMouseEnter={() => setCompanyDropdownOpen(true)}
               onMouseLeave={() => setCompanyDropdownOpen(false)}
             >
-              <button className="text-sm font-medium text-foreground/80 hover:text-primary transition flex items-center gap-1">
+              <button className="text-sm font-medium text-foreground/80 hover:text-primary transition flex items-center gap-1 py-4">
                 Company
-                <ChevronDown className={cn(
-                  "w-4 h-4 transition-transform",
-                  companyDropdownOpen && "rotate-180"
-                )} />
+                <ChevronDown className={cn("w-4 h-4 transition-transform", companyDropdownOpen && "rotate-180")} />
               </button>
-              
-              {companyDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white border border-border rounded-lg shadow-lg py-2">
-                  <Link
-                    to="/company/client"
-                    className="block px-4 py-2 text-sm text-foreground/80 hover:bg-secondary/50 hover:text-primary transition"
+
+              <AnimatePresence>
+                {companyDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute top-full left-0 w-48 bg-white border border-border rounded-lg shadow-lg py-2"
                   >
-                    Client
-                  </Link>
-                  <Link
-                    to="/company/our-team"
-                    className="block px-4 py-2 text-sm text-foreground/80 hover:bg-secondary/50 hover:text-primary transition"
-                  >
-                    Our Team
-                  </Link>
-                </div>
-              )}
+                    <Link
+                      to="/company/client"
+                      className="block px-4 py-2 text-sm text-foreground/80 hover:bg-secondary/50 hover:text-primary transition"
+                      onClick={closeMenus}
+                    >
+                      Client
+                    </Link>
+                    <Link
+                      to="/company/our-team"
+                      className="block px-4 py-2 text-sm text-foreground/80 hover:bg-secondary/50 hover:text-primary transition"
+                      onClick={closeMenus}
+                    >
+                      Our Team
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
-            {['Analytics', 'Platform', 'About', 'Support', 'Contact'].map(item => (
+            {['Analytics', 'About', 'Support', 'Contact'].map((item) => (
               <Link
                 key={item}
                 to={`/${item.toLowerCase()}`}
@@ -110,78 +117,86 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Auth */}
+          {/* Auth Actions */}
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/login">
-                <Unlock className="w-4 h-4 mr-2" />
-                Log in
-              </Link>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/login">Log in</Link>
             </Button>
-
-            <Button size="sm" asChild>
-              <Link to="/login">
+            <Button size="sm" className="rounded-full px-5" asChild>
+              <Link to="/signup">
                 Get Started
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>
           </div>
 
-          {/* Mobile Button */}
+          {/* Mobile Toggle */}
           <button
-            className="lg:hidden p-2 rounded-lg border"
+            className="lg:hidden p-2 rounded-lg hover:bg-secondary/50 transition"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X /> : <Menu />}
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden py-4 border-t">
-            <nav className="flex flex-col gap-2">
-              <Link
-                to="/explore"
-                className="px-4 py-3 rounded-lg hover:bg-secondary/50"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Explore
-              </Link>
-              
-              {/* Company Section for Mobile */}
-              <div className="px-4 py-3">
-                <div className="text-sm font-medium text-foreground/80 mb-2">Company</div>
-                <div className="pl-4 flex flex-col gap-2">
-                  <Link
-                    to="/company/client"
-                    className="text-sm text-foreground/70 hover:text-primary"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Client
-                  </Link>
-                  <Link
-                    to="/company/our-team"
-                    className="text-sm text-foreground/70 hover:text-primary"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Our Team
-                  </Link>
-                </div>
-              </div>
-
-              {['Analytics', 'Platform', 'About', 'Support', 'Contact'].map(item => (
-                <Link
-                  key={item}
-                  to={`/${item.toLowerCase()}`}
-                  className="px-4 py-3 rounded-lg hover:bg-secondary/50"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="lg:hidden overflow-hidden border-t"
+            >
+              <nav className="flex flex-col py-4 gap-1">
+                <Link to="/explore" className="px-4 py-3 rounded-lg hover:bg-secondary/50" onClick={closeMenus}>
+                  Explore
                 </Link>
-              ))}
-            </nav>
-          </div>
-        )}
+
+                {/* Mobile Dropdown (Accordion Style) */}
+                <div className="flex flex-col">
+                  <button
+                    onClick={() => setMobileCompanyOpen(!mobileCompanyOpen)}
+                    className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-secondary/50"
+                  >
+                    <span className="text-sm font-medium">Company</span>
+                    <ChevronDown className={cn("w-4 h-4 transition-transform", mobileCompanyOpen && "rotate-180")} />
+                  </button>
+                  {mobileCompanyOpen && (
+                    <div className="pl-8 flex flex-col bg-secondary/20 rounded-lg mx-2">
+                      <Link to="/company/client" className="py-3 text-sm text-foreground/70" onClick={closeMenus}>
+                        Client
+                      </Link>
+                      <Link to="/company/our-team" className="py-3 text-sm text-foreground/70" onClick={closeMenus}>
+                        Our Team
+                      </Link>
+                    </div>
+                  )}
+                </div>
+
+                {['Analytics', 'About', 'Support', 'Contact'].map((item) => (
+                  <Link
+                    key={item}
+                    to={`/${item.toLowerCase()}`}
+                    className="px-4 py-3 rounded-lg hover:bg-secondary/50"
+                    onClick={closeMenus}
+                  >
+                    {item}
+                  </Link>
+                ))}
+                
+                <div className="grid grid-cols-2 gap-3 p-4 mt-2">
+                  <Button variant="outline" asChild onClick={closeMenus}>
+                    <Link to="/login">Log in</Link>
+                  </Button>
+                  <Button asChild onClick={closeMenus}>
+                    <Link to="/signup">Start Free</Link>
+                  </Button>
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

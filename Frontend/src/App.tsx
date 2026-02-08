@@ -7,17 +7,18 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
 import ScrollToTop from "@/components/ScrollToTop";
 import CookieBanner from "@/components/CookieBanner";
-import ContactPage from './pages/Contact'
+import ContactPage from './pages/website-pages/Contact'
 // Public Pages
-import HomePage from "@/pages/HomePage";
-import AboutPage from "@/pages/AboutPage";
-import SupportPage from "@/pages/SupportPage";
-import PrivacyPage from "@/pages/PrivacyPage";
-import CBCStandardsPage from "@/pages/CBCStandardsPage";
-import TermsPage from "@/pages/TermsPage";
+import HomePage from "@/pages/website-pages/HomePage";
+import AboutPage from "@/pages/website-pages/AboutPage";
+import SupportPage from "@/pages/website-pages/SupportPage";
+import PrivacyPage from "@/pages/website-pages/PrivacyPage";
+import CBCStandardsPage from "@/pages/website-pages/CBCStandardsPage";
+import TermsPage from "@/pages/website-pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
-import Analytics from "@/pages/Platform"
-import TeamMmembersPage from '@/pages/TeamPage';
+import Analytics from "@/pages/website-pages/Platform"
+import TeamMmembersPage from '@/pages/website-pages/TeamPage';
+import ClientsPage from '@/pages/website-pages/ClientsPage';
 
 // Admin Registration
 import SchoolRegistration from "@/pages/admin-registration/SchoolRegistration";
@@ -45,9 +46,9 @@ import CurriculumPage from "@/pages/school-admin/Curriculum";
 import ReportsPage from "@/pages/school-admin/Reports";
 import SettingsPage from "@/pages/school-admin/Settings";
 
-import NotFound from "./pages/NotFound";
-import EduStackPlatformPage from "@/pages/Platform";
-import TeamMembersPage from "@/pages/TeamPage";
+import NotFound from "./pages/website-pages/NotFound";
+import EduStackPlatformPage from "@/pages/website-pages/Platform";
+import TeamMembersPage from "@/pages/website-pages/TeamPage";
 
 const queryClient = new QueryClient();
 
@@ -78,11 +79,12 @@ function AppRoutes() {
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/analytics" element={<EduStackPlatformPage />} />
+      <Route path="/company/client" element={<ClientsPage/>} />
       <Route path="/support" element={<SupportPage />} />
       <Route path="/privacy" element={<PrivacyPage />} />
       <Route path="/terms" element={<TermsPage />} />
       
-      <Route path="/company/client" element={<TeamMembersPage/>} />
+      <Route path="/company/our-team" element={<TeamMembersPage/>} />
       <Route path="/cbc-standards" element={<CBCStandardsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/contact" element={<ContactPage/>} />

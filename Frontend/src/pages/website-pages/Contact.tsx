@@ -57,7 +57,8 @@ import {
   type LucideIcon
 } from 'lucide-react';
 import Header from '@/components/Header';
-import Footer from '../components/Footer';
+import Footer from '@/components/Footer';
+
 import { cn } from '@/lib/utils';
 
 const GlowingCard = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (

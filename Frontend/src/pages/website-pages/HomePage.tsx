@@ -3,9 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Platform from '../pages/Platform'
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import {
   GraduationCap,
   ChevronDown,
