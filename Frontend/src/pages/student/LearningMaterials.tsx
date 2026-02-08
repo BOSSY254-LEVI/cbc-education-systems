@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { BookOpen, GraduationCap, Home, ArrowLeft } from 'lucide-react';
+import { BookOpen, GraduationCap, Home, ArrowLeft, BarChart3 } from 'lucide-react';
 
 export default function LearningMaterials() {
   const navigate = useNavigate();
@@ -38,6 +38,16 @@ export default function LearningMaterials() {
             <GraduationCap className="h-6 w-6 text-primary" />
             <span className="font-semibold text-lg">CBC Education</span>
           </div>
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => navigate('/login')}
+            className="gap-2"
+            aria-label="View your learning analytics"
+          >
+            <BarChart3 className="h-4 w-4" />
+            View Analytics
+          </Button>
         </div>
       </header>
 
