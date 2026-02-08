@@ -31,7 +31,7 @@ export const teamMembers: TeamMember[] = [
     id:4,
     name: "LIVINGSTONE ODUOR",
     role: "Full stack software engineer",
-    image:"/public/WhatsApp Image 2026-02-09 at 12.29.32 AM.jpeg",
+    image:"/WhatsApp Image 2026-02-09 at 12.29.32 AM.jpeg",
     linkedin: "https://linkedin.com/victoriawamboi",
     github: "https://github.com/victoriawamboi",
     email: "wamboi11@gmail.com"
@@ -40,10 +40,10 @@ export const teamMembers: TeamMember[] = [
     id: 3,
     name: "Victoria Wamboi",
     role: "Digital Marketing Lead",
-    image:"/public/victoria.png",
-    linkedin: "https://linkedin.com/victoriawamboi",
-    github: "https://github.com/victoriawamboi",
-    email: "wamboi11@gmail.com"
+    image:"/victoria.png",
+    linkedin: "https://linkedin.com/bossy",
+    github: "https://github.com/bossy",
+    email: "bossy@gmail.com"
   },
   
 ];
