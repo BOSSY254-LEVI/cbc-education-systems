@@ -779,8 +779,7 @@ export default function EduStackPlatformPage() {
       {/* Trusted By Schools Section */}
 
 
-      {/* Pricing Section */}
-  {/* Pricing Section - NOW WITH 3 TIERS */}
+      {/* Pricing Section - NOW WITH 3 TIERS */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-emerald-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -829,24 +828,6 @@ export default function EduStackPlatformPage() {
           </motion.div>
         </div>
       </section>
-
-      {/* WhatsApp Float Button */}
-      <motion.a
-        href="https://wa.me/254700000000"
-        target="_blank"
-        rel="noopener noreferrer"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1.5, type: "spring" }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 right-8 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:shadow-green-500/50 transition-all group"
-      >
-        <MessageCircle className="w-6 h-6 group-hover:scale-110 transition-transform" />
-        <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-slate-900 text-white px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-          Chat with us
-        </span>
-      </motion.a>
       
       <Footer/>
     </div>

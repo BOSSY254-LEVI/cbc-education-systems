@@ -494,65 +494,7 @@ export default function AboutPage() {
       </section>
 
       {/* ===== TEAM SECTION ===== */}
-      <section className="py-20 md:py-32">
-        <div className="max-w-6xl mx-auto px-6">
-          <SectionHeader
-            badge="The Team"
-            icon={Users2}
-            title="Meet Our Leaders"
-            subtitle="Passionate educators, engineers, and visionaries"
-          />
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: 'Dr. Sarah Johnson',
-                role: 'Chief Education Officer',
-                bio: 'Former CBC curriculum specialist with 15+ years in education policy.',
-                initials: 'SJ'
-              },
-              {
-                name: 'Michael Chen',
-                role: 'Chief Technology Officer',
-                bio: 'EdTech veteran who scaled platforms serving 2M+ students globally.',
-                initials: 'MC'
-              },
-              {
-                name: 'Dr. Amina Hassan',
-                role: 'Head of Research',
-                bio: 'PhD in Educational Technology, published researcher in African pedagogy.',
-                initials: 'AH'
-              }
-            ].map((member, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="p-8 text-center">
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-emerald-600 flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-md"
-                  >
-                    {member.initials}
-                  </motion.div>
-                  <h3 className={`${fontSize.xl} font-bold text-slate-900 mb-1`}>
-                    {member.name}
-                  </h3>
-                  <p className={`${fontSize.sm} text-blue-600 font-semibold mb-4`}>
-                    {member.role}
-                  </p>
-                  <p className={`${fontSize.sm} text-slate-600 leading-relaxed`}>
-                    {member.bio}
-                  </p>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ===== IMPACT METRICS ===== */}
       <section className="py-20 md:py-32 bg-blue-600">

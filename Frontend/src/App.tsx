@@ -7,6 +7,8 @@ import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import AIAssistant from "@/components/ai-assistant/AIAssistant";
 import ScrollToTop from "@/components/ScrollToTop";
 import CookieBanner from "@/components/CookieBanner";
+import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
 import ContactPage from './pages/website-pages/Contact'
 // Public Pages
 import HomePage from "@/pages/website-pages/HomePage";
@@ -135,6 +137,28 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <AppRoutes />
+          
+          {/* WhatsApp Float Button */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+            viewport={{ once: false }}
+            className="fixed bottom-24 right-8 z-50 group"
+          >
+            <a
+              href="https://wa.me/254700000000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-110"
+            >
+              <MessageCircle className="w-6 h-6" />
+            </a>
+            <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-slate-900 text-white px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+              Chat with us
+            </span>
+          </motion.div>
+          
           <AIAssistant />
           <CookieBanner />
         </BrowserRouter>

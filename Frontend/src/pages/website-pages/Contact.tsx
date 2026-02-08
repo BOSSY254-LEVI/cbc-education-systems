@@ -155,12 +155,49 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header/>
-      {/* Logo Bar */}
-      <div className="border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-6 py-6">
-          <div className="text-2xl font-bold text-slate-900"></div>
-        </div>
-      </div>
+    <section className="relative pt-60 pb-32 overflow-hidden">
+
+  {/* Background Image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage: "url('/Gemini_Generated_Image_jrstonjrstonjrst.png')"
+    }}
+  />
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-slate-900/75" />
+
+  {/* Content */}
+  <div className="max-w-7xl mx-auto px-6 lg:px-16 relative z-10">
+    <div className="max-w-3xl">
+
+      {/* Heading (same font style as About) */}
+      <h1 className="text-5xl font-bold text-white leading-tight mb-6">
+        Get in{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+          Touch
+        </span>
+      </h1>
+
+      {/* Subheading */}
+      <p className="text-lg text-slate-300 mb-6 max-w-2xl leading-relaxed">
+        We'd love to hear from you. Whether you're a school looking to
+        implement the CBC system, a partner interested in collaboration,
+        or a user needing support, the EduStack team is ready to help.
+      </p>
+
+      <p className="text-lg text-slate-400 leading-relaxed">
+        Reach out to us for inquiries, technical assistance, or partnership
+        opportunities. Our mission is to simplify CBC management and empower
+        schools across Kenya with reliable digital solutions.
+      </p>
+
+    </div>
+  </div>
+
+</section>
+
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-16">

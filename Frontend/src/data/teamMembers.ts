@@ -11,45 +11,39 @@ export interface TeamMember {
 export const teamMembers: TeamMember[] = [
   {
     id: 1,
-    name: "John Doe",
+    name: "John Ominde",
     role: "CEO & Founder",
-    linkedin: "https://linkedin.com/in/johndoe",
-    email: "john@company.com"
+    linkedin: "https://linkedin.com/in/johnominde",
+    email: "johnzjohn.com",
+    image:"https://www.teksoft.co.ke/assets/john-ominde-CkKgcyW1.jpg"
   },
   {
     id: 2,
-    name: "Jane Smith",
-    role: "CTO",
-    linkedin: "https://linkedin.com/in/janesmith",
-    github: "https://github.com/janesmith",
-    email: "jane@company.com"
+    name: "Jeremy Bravoge",
+    role: "Director of Technology",
+    linkedin: "https://linkedin.com/in/jeremybravoge",
+    github: "https://github.com/jeremybravoge",
+    email: "jeremy@teksoft.co.com",
+    image:"https://jeremy.teksoft.co.ke/lovable-uploads/Gemini_Generated_Image_nnkeoannkeoannke.png"
   },
-  {
+ 
+     {
+    id:4,
+    name: "LIVINGSTONE ODUOR",
+    role: "Full stack software engineer",
+    image:"/public/WhatsApp Image 2026-02-09 at 12.29.32 AM.jpeg",
+    linkedin: "https://linkedin.com/victoriawamboi",
+    github: "https://github.com/victoriawamboi",
+    email: "wamboi11@gmail.com"
+  },
+    {
     id: 3,
-    name: "Bob Johnson",
-    role: "Head of Operations",
-    linkedin: "https://linkedin.com/in/bobjohnson",
-    email: "bob@company.com"
+    name: "Victoria Wamboi",
+    role: "Digital Marketing Lead",
+    image:"/public/victoria.png",
+    linkedin: "https://linkedin.com/victoriawamboi",
+    github: "https://github.com/victoriawamboi",
+    email: "wamboi11@gmail.com"
   },
-  {
-    id: 4,
-    name: "Alice Brown",
-    role: "Lead Developer",
-    github: "https://github.com/alicebrown",
-    email: "alice@company.com"
-  },
-  {
-    id: 5,
-    name: "Charlie Wilson",
-    role: "Marketing Director",
-    linkedin: "https://linkedin.com/in/charliewilson",
-    email: "charlie@company.com"
-  },
-  {
-    id: 6,
-    name: "Diana Lee",
-    role: "Product Manager",
-    linkedin: "https://linkedin.com/in/dianalee",
-    email: "diana@company.com"
-  }
+  
 ];
