@@ -46,7 +46,7 @@ export default function LearningMaterials() {
             aria-label="View your learning analytics"
           >
             <BarChart3 className="h-4 w-4" />
-            View Analytics
+            Student Login
           </Button>
         </div>
       </header>
