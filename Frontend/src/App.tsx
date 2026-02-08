@@ -40,6 +40,7 @@ import TeachersListPage from "@/pages/school-admin/teachers/TeachersList";
 import AddTeacherPage from "@/pages/school-admin/teachers/AddTeacher";
 import LearnersListPage from "@/pages/school-admin/learners/LearnersList";
 import AddLearnerPage from "@/pages/school-admin/learners/AddLearner";
+import EducationalResourcesPage from "./pages/website-pages/Educationalresourcespage";
 
 // Placeholder Pages
 import CurriculumPage from "@/pages/school-admin/Curriculum";
@@ -78,6 +79,7 @@ function AppRoutes() {
       <Route path="/explore" element={<HomePage />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/about" element={<AboutPage />} />
+      <Route path="/resources" element={<EducationalResourcesPage />} />
       <Route path="/analytics" element={<EduStackPlatformPage />} />
       <Route path="/company/client" element={<ClientsPage/>} />
       <Route path="/support" element={<SupportPage />} />

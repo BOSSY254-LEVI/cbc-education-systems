@@ -79,8 +79,8 @@ const CORE_CAPABILITIES = [
 ];
 
 const PRICING_PLANS = {
-  basic: {
-    name: 'Basic Plan',
+  starter: {
+    name: 'Starter Plan',
     subtitle: 'Perfect for small to medium schools',
     features: [
       'Up to 500 students',
@@ -92,12 +92,12 @@ const PRICING_PLANS = {
       'Email Support'
     ]
   },
-  premium: {
-    name: 'Premium Plan',
-    subtitle: 'For large schools and institutions',
+  growth: {
+    name: 'Growth Plan',
+    subtitle: 'For growing schools and institutions',
     popular: true,
     features: [
-      'Unlimited students',
+      'Up to 2000 students',
       'Advanced CBC Analytics',
       'AI-Powered Timetabling',
       'Unlimited Bulk SMS',
@@ -106,6 +106,23 @@ const PRICING_PLANS = {
       '24/7 Phone Support',
       'Custom Integrations',
       'Data Export & Backup'
+    ]
+  },
+  enterprise: {
+    name: 'Enterprise Plan',
+    subtitle: 'For large schools and education networks',
+    features: [
+      'Unlimited students',
+      'Advanced CBC Analytics',
+      'AI-Powered Timetabling',
+      'Unlimited Bulk SMS',
+      'Advanced Parent Portal',
+      'Priority Mobile App Features',
+      '24/7 Dedicated Support',
+      'Custom Integrations',
+      'Data Export & Backup',
+      'Multi-school Management',
+      'API Access'
     ]
   }
 };
@@ -686,92 +703,11 @@ export default function EduStackPlatformPage() {
       </section>
 
       {/* Trusted By Schools Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-50 dark:from-slate-900 dark:to-slate-800 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4">
-              Trusted By{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-500 to-teal-500">
-                Schools Countrywide
-              </span>
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-              Join a growing community of schools that trust our system to streamline operations.
-            </p>
-          </motion.div>
 
-          <div className="relative max-w-6xl mx-auto min-h-[500px] md:min-h-[600px] flex items-center justify-center mb-16">
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring", stiffness: 150, damping: 15 }}
-              className="relative z-30"
-            >
-              <div className="w-44 h-44 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-full bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 shadow-2xl flex items-center justify-center relative">
-                <div className="absolute inset-0 rounded-full bg-blue-500/30 blur-2xl animate-pulse"></div>
-                <div className="relative text-center">
-                  <div className="text-5xl md:text-6xl lg:text-7xl font-bold text-yellow-400 mb-2">ao</div>
-                  <div className="text-white font-semibold text-xl md:text-2xl">schoolbest</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <div className="absolute inset-0">
-              {PARTNER_SCHOOLS.map((school, index) => {
-                const positions = [
-                  { top: '8%', left: '8%', mdLeft: '15%' },
-                  { top: '15%', left: '18%', mdLeft: '25%' },
-                  { top: '3%', left: '35%', mdLeft: '40%' },
-                  { top: '8%', left: '50%', mdLeft: '52%' },
-                  { top: '12%', right: '12%', mdRight: '18%' },
-                  { top: '18%', right: '5%', mdRight: '10%' },
-                  { top: '35%', right: '8%', mdRight: '12%' },
-                  { top: '45%', right: '15%', mdRight: '20%' },
-                  { bottom: '18%', right: '10%', mdRight: '15%' },
-                  { bottom: '12%', left: '45%', mdLeft: '48%' },
-                  { bottom: '15%', left: '15%', mdLeft: '22%' },
-                  { top: '40%', left: '5%', mdLeft: '8%' },
-                ];
-                
-                const pos = positions[index];
-                const style = {
-                  top: pos.top,
-                  bottom: pos.bottom,
-                  left: pos.left || (pos.mdLeft && `${pos.mdLeft}`),
-                  right: pos.right || (pos.mdRight && `${pos.mdRight}`),
-                };
-
-                return (
-                  <div key={index} className="absolute" style={style}>
-                    <SchoolNode name={school.name} logo={school.logo} delay={0.4 + index * 0.05} />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto"
-          >
-            {STATS.trust.map((stat, index) => (
-              <StatCard key={index} stat={stat} index={index} delay={1} />
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* Pricing Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-blue-950/20 dark:to-slate-900">
+  {/* Pricing Section - NOW WITH 3 TIERS */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 via-white to-emerald-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -789,20 +725,21 @@ export default function EduStackPlatformPage() {
               <span className="text-sm font-bold">Simple Pricing</span>
             </motion.div>
 
-            <h2 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+            <h2 className="text-5xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
               Affordable Pricing for{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
                 Kenyan Schools
               </span>
             </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Choose the plan that works best for your school's needs and budget
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-            <PricingCard plan={PRICING_PLANS.basic} planKey="basic" hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} delay={0.2} />
-            <PricingCard plan={PRICING_PLANS.premium} planKey="premium" hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} delay={0.3} />
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-12">
+            <PricingCard plan={PRICING_PLANS.starter} planKey="starter" hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} delay={0.2} />
+            <PricingCard plan={PRICING_PLANS.growth} planKey="growth" hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} delay={0.3} />
+            <PricingCard plan={PRICING_PLANS.enterprise} planKey="enterprise" hoveredCard={hoveredCard} setHoveredCard={setHoveredCard} delay={0.4} />
           </div>
 
           <motion.div
@@ -812,7 +749,7 @@ export default function EduStackPlatformPage() {
             transition={{ delay: 0.5 }}
             className="text-center"
           >
-            <p className="text-slate-600 dark:text-slate-400 text-lg">
+            <p className="text-slate-600 text-lg">
               All plans include M-Pesa payment options and free setup assistance
             </p>
           </motion.div>

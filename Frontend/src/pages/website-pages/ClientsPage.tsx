@@ -1,104 +1,150 @@
-// src/pages/website-pages/ClientsPage.tsx
-import React, { useState } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { clients, clientStats } from '@/data/clients';
 import ClientCard from '@/components/ClientCard';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Star, School, Users, MapPin, CheckCircle } from 'lucide-react';
+
+// Sub-component for Testimonials to reduce redundancy
+const TestimonialCard = ({ quote, author, role, initials }: any) => (
+  <div className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-8 border border-slate-700 hover:border-indigo-500/50 transition-colors">
+    <div className="flex items-center gap-1 mb-4">
+      {[...Array(5)].map((_, i) => (
+        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+      ))}
+    </div>
+    <p className="text-slate-300 mb-6 italic leading-relaxed">"{quote}"</p>
+    <div className="flex items-center gap-3">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-600 to-cyan-500 flex items-center justify-center text-white font-bold shadow-inner">
+        {initials}
+      </div>
+      <div>
+        <div className="text-white font-semibold">{author}</div>
+        <div className="text-slate-400 text-sm">{role}</div>
+      </div>
+    </div>
+  </div>
+);
 
 const ClientsPage = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [typedText, setTypedText] = useState('');
+  const fullText = "Partnering with Kenya's leading educational institutions to transform learning through technology.";
 
-  const categories = [
-    { id: 'all', name: 'All Schools', count: clientStats.totalSchools },
-    { id: 'primary', name: 'Primary Schools', count: clientStats.primarySchools },
-    { id: 'secondary', name: 'Secondary Schools', count: clientStats.secondarySchools },
-    { id: 'international', name: 'International Schools', count: clientStats.internationalSchools },
-    { id: 'private', name: 'Private Schools', count: clientStats.privateSchools },
-  ];
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < fullText.length) {
+        setTypedText(fullText.slice(0, index + 1));
+        index++;
+      } else {
+        // Reset and start over
+        setTypedText('');
+        index = 0;
+      }
+    }, 100); // Adjust speed as needed
 
-  const filteredClients = activeCategory === 'all' 
-    ? clients 
-    : clients.filter(client => client.category === activeCategory);
+    return () => clearInterval(interval);
+  }, [fullText]);
+
+  // Centralized Category Logic
+  const categories = useMemo(() => [
+    { id: 'all', name: 'All Schools', count: clientStats.totalSchools, icon: <School className="w-4 h-4" /> },
+    { id: 'primary', name: 'Primary', count: clientStats.primarySchools },
+    { id: 'secondary', name: 'Secondary', count: clientStats.secondarySchools },
+    { id: 'international', name: 'International', count: clientStats.internationalSchools },
+    { id: 'private', name: 'Private', count: clientStats.privateSchools },
+  ], []);
+
+  const filteredClients = useMemo(() => 
+    activeCategory === 'all' 
+      ? clients 
+      : clients.filter(client => client.category === activeCategory),
+  [activeCategory]);
 
   return (
-    <>
-    <Header/>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#0f1729] via-[#1e3a8a] to-[#0891b2] text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">Our Clients</h1>
-            <p className="text-xl text-gray-300">
-              Trusted by leading educational institutions across Kenya implementing the CBC curriculum.
-            </p>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-white">
+      <Header />
 
-      {/* Stats Section */}
-      <section className="py-16 bg-white">
+      {/* Hero Section: Refined Gradient & Typography */}
+    <section className="relative min-h-[70vh] flex items-center overflow-hidden">
+
+  {/* Background Image */}
+  <div
+    className="absolute inset-0 bg-cover bg-center"
+    style={{
+      backgroundImage: "url('/Gemini_Generated_Image_jrstonjrstonjrst.png')"
+    }}
+  />
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-slate-900/80" />
+
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div className="max-w-3xl">
+      <h1 className="text-5xl md:text-6xl font-extrabold text-white tracking-tight mb-6">
+        Our{" "}
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+          Trusted Partners
+        </span>
+      </h1>
+
+      <p className="text-xl text-slate-300 leading-relaxed">
+        {typedText}
+        <span className="animate-pulse">|</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+      {/* Stats Section: Modern Card Style */}
+      <section className="relative -mt-10 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-[#2563eb] mb-2">
-                {clientStats.totalSchools}+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
+            {[
+              { label: 'Partner Schools', val: `${clientStats.totalSchools}+`, icon: <School className="text-indigo-600" /> },
+              { label: 'Students Reached', val: `${(clientStats.totalStudents / 1000).toFixed(1)}K+`, icon: <Users className="text-cyan-600" /> },
+              { label: 'Counties', val: '8+', icon: <MapPin className="text-rose-500" /> },
+              { label: 'CBC Compliant', val: '100%', icon: <CheckCircle className="text-emerald-500" /> }
+            ].map((stat, i) => (
+              <div key={i} className="text-center group">
+                <div className="flex justify-center mb-2 transform group-hover:scale-110 transition-transform">{stat.icon}</div>
+                <div className="text-3xl font-bold text-slate-900">{stat.val}</div>
+                <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">{stat.label}</div>
               </div>
-              <div className="text-gray-600">Partner Schools</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-[#0891b2] mb-2">
-                {(clientStats.totalStudents / 1000).toFixed(1)}K+
-              </div>
-              <div className="text-gray-600">Students Reached</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-[#2563eb] mb-2">
-                8+
-              </div>
-              <div className="text-gray-600">Counties</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-[#0891b2] mb-2">
-                100%
-              </div>
-              <div className="text-gray-600">CBC Compliant</div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Category Filter Section */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-[#0f1729] mb-4">
-              Schools Using EduStack CBC Kenya
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              From primary to secondary, local to international - diverse institutions trust our platform
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div className="max-w-xl">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Explore our Network</h2>
+              <p className="text-slate-600">Filter by institution type to see how we tailor CBC solutions for different learning environments.</p>
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                    activeCategory === cat.id
+                      ? 'bg-slate-900 text-white shadow-lg shadow-slate-200'
+                      : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                >
+                  {cat.name} <span className="ml-1 opacity-60 font-normal">({cat.count})</span>
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'bg-gradient-to-r from-[#2563eb] to-[#0891b2] text-white shadow-lg scale-105'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-                }`}
-              >
-                {category.name}
-                <span className="ml-2 text-sm opacity-75">({category.count})</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Clients Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredClients.map((client) => (
               <ClientCard key={client.id} client={client} />
             ))}
@@ -106,120 +152,54 @@ const ClientsPage = () => {
         </div>
       </section>
 
-      {/* Success Stories Section */}
-      <section className="py-20 bg-gradient-to-b from-[#0f1729] to-[#1a2332]">
+      {/* Success Stories Section: Dark Mode Aesthetic */}
+      <section className="py-24 bg-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Success Stories</h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Hear from our partner schools about their experience with EduStack
-            </p>
+            <h2 className="text-3xl font-bold text-white mb-4">Voice of the Educators</h2>
+            <div className="h-1 w-20 bg-indigo-500 mx-auto rounded-full" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Testimonial 1 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-gray-300 mb-6 italic">
-                "EduStack has transformed how we implement CBC. The curriculum management tools are exceptional."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#0891b2] flex items-center justify-center text-white font-bold">
-                  MK
-                </div>
-                <div>
-                  <div className="text-white font-semibold">Dr. Mary Kamau</div>
-                  <div className="text-gray-400 text-sm">Principal, Makini School</div>
-                </div>
-              </div>
-            </div>
+            <TestimonialCard 
+              quote="EduStack has transformed how we implement CBC. The curriculum management tools are exceptional."
+              author="Dr. Mary Kamau" role="Principal, Makini School" initials="MK"
+            />
+            <TestimonialCard 
+              quote="Outstanding platform! Progress tracking and analytics have made assessment so much easier."
+              author="John Omondi" role="Head Teacher, Alliance High" initials="JO"
+            />
+            <TestimonialCard 
+              quote="The perfect solution for CBC implementation. Highly recommend to any school in Kenya."
+              author="Sarah Wanjiru" role="Director, ISK Nairobi" initials="SW"
+            />
+          </div>
+        </div>
+      </section>
 
-            {/* Testimonial 2 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-gray-300 mb-6 italic">
-                "Outstanding platform! Progress tracking and analytics have made assessment so much easier."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#0891b2] flex items-center justify-center text-white font-bold">
-                  JO
-                </div>
-                <div>
-                  <div className="text-white font-semibold">John Omondi</div>
-                  <div className="text-gray-400 text-sm">Head Teacher, Alliance High</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial 3 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-gray-300 mb-6 italic">
-                "The perfect solution for CBC implementation. Highly recommend to any school in Kenya."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2563eb] to-[#0891b2] flex items-center justify-center text-white font-bold">
-                  SW
-                </div>
-                <div>
-                  <div className="text-white font-semibold">Sarah Wanjiru</div>
-                  <div className="text-gray-400 text-sm">Director, ISK Nairobi</div>
-                </div>
-              </div>
+      {/* CTA Section: Clean & Professional */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <div className="bg-gradient-to-r from-indigo-600 to-blue-700 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 relative z-10">Ready to modernize your school?</h2>
+            <p className="text-indigo-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">
+              Join 150+ Kenyan institutions. Get your CBC assessments and student tracking under one roof.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+              <a href="/contact" className="bg-white text-indigo-700 font-bold py-4 px-8 rounded-xl hover:bg-indigo-50 transition-colors shadow-lg">
+                Request a Free Demo
+              </a>
+              <a href="/pricing" className="bg-indigo-500/30 text-white border border-indigo-400 font-bold py-4 px-8 rounded-xl hover:bg-indigo-500/50 transition-colors">
+                View Pricing
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-gradient-to-r from-[#1e3a8a] via-[#2563eb] to-[#0891b2] text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-4xl font-bold mb-6">Join Our Growing Network</h2>
-          <p className="text-xl mb-10 max-w-3xl mx-auto text-blue-100">
-            Become part of Kenya's leading schools implementing CBC with EduStack. 
-            Transform your institution's educational delivery today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="/contact" 
-              className="inline-block bg-white text-[#1e3a8a] font-semibold py-4 px-10 rounded-lg hover:bg-gray-100 transition-all duration-300 shadow-xl hover:shadow-2xl hover:transform hover:-translate-y-1"
-            >
-              Request a Demo
-            </a>
-            <a 
-              href="/pricing" 
-              className="inline-block bg-transparent border-2 border-white text-white font-semibold py-4 px-10 rounded-lg hover:bg-white hover:text-[#1e3a8a] transition-all duration-300 hover:transform hover:-translate-y-1"
-            >
-              View Pricing
-            </a>
-          </div>
-        </div>
-      </section>
-      <Footer/>
-    </>
+      <Footer />
+    </div>
   );
 };
 

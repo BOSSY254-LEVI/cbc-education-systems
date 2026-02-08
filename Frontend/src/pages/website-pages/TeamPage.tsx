@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import SectionTitle from '@/components/SectionTitle';
 import { teamMembers } from '@/data/teamMembers';
 import TeamMemberCard from '@/components/TeamMemberCard';
@@ -6,20 +6,53 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 const TeamPage = () => {
+  const [displayText, setDisplayText] = useState('');
+  const fullText = "Dedicated professionals driving innovation and excellence in everything we do.";
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setDisplayText(fullText.slice(0, index + 1));
+      index++;
+      if (index === fullText.length) {
+        index = 0;
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <Header/>
       {/* Hero Section - Dark navy with accent */}
-      <section className="bg-gradient-to-br from-[#0f1729] via-[#1e3a8a] to-[#0891b2] text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl font-bold mb-6">Meet Our Team</h1>
-            <p className="text-xl text-gray-300">
-              Dedicated professionals driving innovation and excellence in everything we do.
-            </p>
-          </div>
-        </div>
-      </section>
+      <section
+  className="relative text-white min-h-[70vh] flex items-center overflow-hidden"
+  style={{
+    backgroundImage: "url('/Gemini_Generated_Image_wxwqyiwxwqyiwxwq.png')",
+    backgroundSize: "cover",
+    backgroundPosition: "center"
+  }}
+>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-[1px]" />
+
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-3xl">
+
+      <h1 className="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight 
+        bg-gradient-to-r from-white via-cyan-200 to-indigo-300 
+        bg-clip-text text-transparent drop-shadow-lg">
+        Meet Our Team
+      </h1>
+
+      <p className="text-xl md:text-2xl text-cyan-200 leading-relaxed font-medium drop-shadow-md">
+        {displayText}
+        <span className="animate-pulse">|</span>
+      </p>
+
+    </div>
+  </div>
+</section>
 
       {/* Team Members Grid */}
       <section className="py-20 bg-white">

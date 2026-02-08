@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import EducationalResourcesPage from './Educationalresourcespage';
 import {
   GraduationCap,
   ChevronDown,
@@ -771,159 +772,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Enhanced Workflow Section */}
-      <section className="py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-secondary/30 via-background to-secondary/30" />
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 mb-4">
-              <Workflow className="w-4 h-4 text-emerald-500" />
-              <span className="text-sm font-medium text-primary">Seamless Workflow</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              The{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Nonea Workflow
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Seamless collaboration between students, teachers, and parents for better results.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {workflows.map((workflow, index) => {
-              const Icon = workflow.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ x: index === 1 ? 0 : index === 0 ? -50 : 50, opacity: 0 }}
-                  whileInView={{ x: 0, opacity: 1 }}
-                  transition={{ delay: index * 0.2 }}
-                  viewport={{ once: true }}
-                  className="relative group"
-                >
-                  <div className={`absolute -inset-1 ${workflow.gradient} rounded-3xl blur opacity-30 group-hover:opacity-50 transition-opacity`} />
-                  <div className="relative bg-card rounded-2xl p-8 border border-border/50 shadow-xl">
-                    <div className="flex items-center justify-between mb-8">
-                      <div className={`w-16 h-16 rounded-xl ${workflow.gradient} flex items-center justify-center`}>
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      <div className="text-4xl font-bold text-muted/20">0{index + 1}</div>
-                    </div>
-                    <h3 className="text-2xl font-bold text-foreground mb-4">{workflow.title}</h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">{workflow.description}</p>
-                    <div className="space-y-3 mb-8">
-                      {workflow.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-3">
-                          <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                          <span className="text-sm text-muted-foreground">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <Button
-                      className={`w-full ${workflow.gradient} hover:opacity-90 text-white`}
-                      asChild
-                    >
-                      <Link to={workflow.link.href} className="flex items-center justify-center gap-2">
-                        {workflow.link.text}
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Connecting Lines */}
-          <div className="hidden md:block max-w-4xl mx-auto mt-16">
-            <div className="relative h-2">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-blue-500/20 to-purple-500/20 rounded-full" />
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-blue-500 to-purple-500 rounded-full animate-pulse" style={{ width: '70%' }} />
-            </div>
-          </div>
-        </div>
-      </section>
-
+      
       {/* Enhanced Testimonials Section */}
-      <section className="py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/20 to-background" />
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-500/20 mb-4">
-              <Quote className="w-4 h-4 text-amber-500" />
-              <span className="text-sm font-medium text-primary">Testimonials</span>
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Loved by{' '}
-              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                Educators & Parents
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              See how Nonea is transforming education for schools and families worldwide.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ x: index === 0 ? -50 : 50, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ delay: index * 0.2 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="group"
-              >
-                <GlowingCard>
-                  <Quote className="w-12 h-12 text-primary/30 mb-6" />
-                  <p className="text-lg text-muted-foreground mb-8 leading-relaxed group-hover:text-foreground transition-colors">
-                    "{testimonial.quote}"
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="relative">
-                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-lg font-bold text-white">
-                          {testimonial.avatar}
-                        </div>
-                        <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center">
-                          <span className="text-xs">⭐</span>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground">{testimonial.author}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                        <div className="flex items-center gap-1 mt-1">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-amber-500 text-amber-500" />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-4xl opacity-20 group-hover:opacity-40 transition-opacity">
-                      {testimonial.schoolLogo}
-                    </div>
-                  </div>
-                </GlowingCard>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <EducationalResourcesPage/>
 
       {/* Enhanced CTA Section */}
       <section className="py-24 relative overflow-hidden">
