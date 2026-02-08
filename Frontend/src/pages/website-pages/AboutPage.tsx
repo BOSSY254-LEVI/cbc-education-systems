@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { 
   GraduationCap, Users, Award, Globe, Target, Heart, Sparkles, 
   Rocket, TrendingUp, Brain, Trophy, CheckCircle2, ArrowRight,
@@ -8,6 +8,7 @@ import {
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useTypewriter } from '@/hooks/use-typewriter';
 /**
  * DESIGN SYSTEM:
  * Primary: Blue (#2563eb)
@@ -68,6 +69,182 @@ const fadeInUp = {
   transition: { duration: 0.6 }
 };
 
+// Enhanced Hero Section Component
+const HeroSection = () => {
+  const headingText = "Empowering African Education Through Competency-Based Learning";
+  const typedHeading = useTypewriter({
+    text: headingText,
+    speed: 25,
+    delay: 200,
+    repeat: false,
+  });
+
+  const descriptionText = "We're building the digital infrastructure for competency-based education where every student's potential is unlocked through data-driven mastery, not just traditional assessment.";
+  const typedDescription = useTypewriter({
+    text: descriptionText,
+    speed: 15,
+    delay: 1500,
+    repeat: true,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8 },
+    },
+  };
+
+  return (
+    <section
+      className="relative min-h-[70vh] flex items-center overflow-hidden text-white"
+      style={{
+        backgroundImage: "url('/Gemini_Generated_Image_wxwqyiwxwqyiwxwq.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+      }}
+    >
+      {/* Animated gradient overlay */}
+      <motion.div
+        className="absolute inset-0 bg-slate-900/75 backdrop-blur-[1px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      />
+
+      {/* Animated background elements */}
+      <motion.div
+        className="absolute top-20 right-20 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.3, 0.5, 0.3],
+        }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      <motion.div
+        className="absolute bottom-20 left-20 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"
+        animate={{
+          scale: [1.1, 1, 1.1],
+          opacity: [0.4, 0.2, 0.4],
+        }}
+        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+      />
+
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="max-w-3xl"
+        >
+          {/* Badge */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-3 mb-6"
+          >
+            <motion.div
+              className="h-px w-10 bg-blue-400"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+            <motion.span
+              className={`${fontSize.sm} font-semibold text-blue-400 uppercase tracking-widest`}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              About EduStack
+            </motion.span>
+          </motion.div>
+
+          {/* Animated Heading with Typewriter Effect */}
+          <motion.div variants={itemVariants} className="mb-6">
+            <h1 className={`${fontSize['5xl']} font-bold leading-tight`}>
+              <motion.span
+                className="inline-block"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                {typedHeading}
+              </motion.span>
+              <motion.span
+                className="inline-block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8 }}
+              >
+                <span className="animate-pulse text-cyan-400 ml-1">|</span>
+              </motion.span>
+            </h1>
+          </motion.div>
+
+          {/* Description with staggered animation */}
+          <motion.p
+            variants={itemVariants}
+            className={`${fontSize.lg} text-slate-300 mb-8 max-w-2xl leading-relaxed`}
+          >
+            {typedDescription}
+            <motion.span
+              className="inline-block"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <span className="animate-pulse text-cyan-400 ml-1">|</span>
+            </motion.span>
+          </motion.p>
+
+          {/* Animated Buttons */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row gap-4"
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 30px rgba(37, 99, 235, 0.4)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all inline-flex items-center gap-2 w-fit shadow-lg"
+            >
+              Our Mission
+              <motion.div
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <ArrowRight className="w-4 h-4" />
+              </motion.div>
+            </motion.button>
+
+            <motion.button
+              whileHover={{
+                scale: 1.05,
+                backgroundColor: "rgba(30, 58, 138, 0.4)",
+                boxShadow: "0 0 20px rgba(96, 165, 250, 0.5)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 border-2 border-blue-400 text-blue-300 font-semibold rounded-lg hover:bg-blue-900/20 transition-all"
+            >
+              Contact Us
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 export default function AboutPage() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
@@ -79,48 +256,7 @@ export default function AboutPage() {
     <Header/>
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative py-20 md:py-32 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <motion.div
-            {...fadeInUp}
-            className="max-w-3xl"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-10 bg-blue-600" />
-              <span className={`${fontSize.sm} font-semibold text-blue-600 uppercase tracking-widest`}>
-                About EduStack
-              </span>
-            </div>
-
-            <h1 className={`${fontSize['5xl']} font-bold text-slate-900 leading-tight mb-6`}>
-              Empowering African Education Through 
-              <span className="text-blue-600"> Competency-Based Learning</span>
-            </h1>
-
-            <p className={`${fontSize.lg} text-slate-600 mb-8 max-w-2xl leading-relaxed`}>
-              We're building the digital infrastructure for competency-based education where every student's 
-              potential is unlocked through data-driven mastery, not just traditional assessment.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors inline-flex items-center gap-2 w-fit"
-              >
-                Our Mission
-                <ArrowRight className="w-4 h-4" />
-              </motion.button>
-              <button className="px-8 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors">
-                Contact Us
-              </button>
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Background decorative element */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-50 rounded-full opacity-40 -z-10 blur-3xl" />
-      </section>
+     <HeroSection />
 
       {/* ===== MISSION & VISION SECTION ===== */}
       <section className="py-20 md:py-32 bg-gray-50 border-t border-gray-200">
