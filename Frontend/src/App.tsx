@@ -44,6 +44,7 @@ import AddTeacherPage from "@/pages/school-admin/teachers/AddTeacher";
 import LearnersListPage from "@/pages/school-admin/learners/LearnersList";
 import AddLearnerPage from "@/pages/school-admin/learners/AddLearner";
 import EducationalResourcesPage from "./pages/website-pages/Educationalresourcespage";
+import AdminLoginPage from '@/pages/auth/AdminLoginPage';
 
 // Placeholder Pages
 import CurriculumPage from "@/pages/school-admin/Curriculum";
@@ -104,6 +105,7 @@ function AppRoutes() {
       
       {/* Admin Registration Route */}
       <Route path="/admin/register-school" element={<SchoolRegistration />} />
+        <Route path="/admin-login" element={<AdminLoginPage />} />
       
       {/* School Admin Routes */}
       <Route path="/school-admin/*" element={
