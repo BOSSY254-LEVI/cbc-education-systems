@@ -106,7 +106,7 @@ export default function Header() {
               </AnimatePresence>
             </div>
 
-            {['Analytics', 'About', 'Support', 'Contact'].map((item) => (
+            {['Analytics', 'About','Features', 'Contact'].map((item) => (
               <Link
                 key={item}
                 to={`/${item.toLowerCase()}`}
@@ -174,7 +174,7 @@ export default function Header() {
                   )}
                 </div>
 
-                {['Analytics', 'About', 'Support', 'Contact'].map((item) => (
+                {['Analytics', 'About', 'Features', 'Contact'].map((item) => (
                   <Link
                     key={item}
                     to={`/${item.toLowerCase()}`}

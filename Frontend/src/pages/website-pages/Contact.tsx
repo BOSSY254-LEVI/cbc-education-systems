@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   MapPin, Phone, Mail, Building2, ChevronDown, CreditCard
@@ -89,6 +89,100 @@ export default function ContactPage() {
   const [status, setStatus] = useState(null);
   const [expandedFaq, setExpandedFaq] = useState(0);
 
+  const [typedMainText, setTypedMainText] = useState('');
+  const fullMainText = 'Get in Touch';
+
+  const subHeadingLines1 = [
+    "We'd love to hear from you.",
+    "Whether you're a school looking to implement the CBC system,",
+    "a partner interested in collaboration, or a user needing support,",
+    "the EduStack team is ready to help."
+  ];
+
+  const subHeadingLines2 = [
+    "Reach out to us for inquiries, technical assistance,",
+    "or partnership opportunities.",
+    "Our mission is to simplify CBC management and empower",
+    "schools across Kenya with reliable digital solutions."
+  ];
+
+  const [currentLine1, setCurrentLine1] = useState(0);
+  const [typedSubText1, setTypedSubText1] = useState('');
+
+  const [currentLine2, setCurrentLine2] = useState(0);
+  const [typedSubText2, setTypedSubText2] = useState('');
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < fullMainText.length) {
+        setTypedMainText(fullMainText.slice(0, index + 1));
+        index++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 80);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (currentLine1 >= subHeadingLines1.length) {
+      setTimeout(() => setCurrentLine1(0), 2000);
+      return;
+    }
+
+    let index = 0;
+    const currentText = subHeadingLines1[currentLine1];
+    const interval = setInterval(() => {
+      if (index < currentText.length) {
+        setTypedSubText1(currentText.slice(0, index + 1));
+        index++;
+      } else {
+        setTimeout(() => {
+          setCurrentLine1(currentLine1 + 1);
+          setTypedSubText1('');
+        }, 800);
+        clearInterval(interval);
+      }
+    }, 40);
+    return () => clearInterval(interval);
+  }, [currentLine1]);
+
+  useEffect(() => {
+    if (currentLine2 >= subHeadingLines2.length) {
+      setTimeout(() => setCurrentLine2(0), 2000);
+      return;
+    }
+
+    let index = 0;
+    const currentText = subHeadingLines2[currentLine2];
+    const interval = setInterval(() => {
+      if (index < currentText.length) {
+        setTypedSubText2(currentText.slice(0, index + 1));
+        index++;
+      } else {
+        setTimeout(() => {
+          setCurrentLine2(currentLine2 + 1);
+          setTypedSubText2('');
+        }, 800);
+        clearInterval(interval);
+      }
+    }, 40);
+    return () => clearInterval(interval);
+  }, [currentLine2]);
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.15,
+        duration: 0.6,
+      },
+    }),
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -155,52 +249,93 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header/>
-    <section className="relative pt-60 pb-32 overflow-hidden">
+      <section className="relative pt-60 pb-32 overflow-hidden">
+        {/* Animated Background Orbs */}
+        <motion.div
+          className="absolute top-10 right-10 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{ duration: 4.5, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-10 left-20 w-72 h-72 bg-teal-500/15 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.15, 0.35, 0.15],
+          }}
+          transition={{ duration: 5.5, repeat: Infinity, delay: 1.5 }}
+        />
 
-  {/* Background Image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center"
-    style={{
-      backgroundImage: "url('/Gemini_Generated_Image_jrstonjrstonjrst.png')"
-    }}
-  />
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/Gemini_Generated_Image_jrstonjrstonjrst.png')"
+          }}
+        />
 
-  {/* Dark Overlay */}
-  <div className="absolute inset-0 bg-slate-900/75" />
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-slate-900/75" />
 
-  {/* Content */}
-  <div className="max-w-7xl mx-auto px-6 lg:px-16 relative z-10">
-    <div className="max-w-3xl">
+        {/* Content */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-16 relative z-10">
+          <div className="max-w-3xl">
 
-      {/* Heading (same font style as About) */}
-      <h1 className="text-5xl font-bold text-white leading-tight mb-6">
-        Get in{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
-          Touch
-        </span>
-      </h1>
+            {/* Heading with Typewriter */}
+            <motion.h1
+              variants={textVariants}
+              custom={0}
+              initial="hidden"
+              animate="visible"
+              className="text-5xl font-bold text-white leading-tight mb-6"
+            >
+              {typedMainText}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 animate-pulse">|</span>
+            </motion.h1>
 
-      {/* Subheading */}
-      <p className="text-lg text-slate-300 mb-6 max-w-2xl leading-relaxed">
-        We'd love to hear from you. Whether you're a school looking to
-        implement the CBC system, a partner interested in collaboration,
-        or a user needing support, the EduStack team is ready to help.
-      </p>
+            {/* Subheading - Line by Line */}
+            <motion.div
+              variants={textVariants}
+              custom={1}
+              initial="hidden"
+              animate="visible"
+              className="text-lg text-slate-300 mb-6 max-w-2xl leading-relaxed"
+            >
+              {subHeadingLines1.slice(0, currentLine1).map((line, i) => (
+                <div key={i}>{line}</div>
+              ))}
+              <div>
+                {typedSubText1}
+                <span className="animate-pulse">|</span>
+              </div>
+            </motion.div>
 
-      <p className="text-lg text-slate-400 leading-relaxed">
-        Reach out to us for inquiries, technical assistance, or partnership
-        opportunities. Our mission is to simplify CBC management and empower
-        schools across Kenya with reliable digital solutions.
-      </p>
+            <motion.div
+              variants={textVariants}
+              custom={2}
+              initial="hidden"
+              animate="visible"
+              className="text-lg text-slate-400 leading-relaxed"
+            >
+              {subHeadingLines2.slice(0, currentLine2).map((line, i) => (
+                <div key={i}>{line}</div>
+              ))}
+              <div>
+                {typedSubText2}
+                <span className="animate-pulse">|</span>
+              </div>
+            </motion.div>
 
-    </div>
-  </div>
+          </div>
+        </div>
 
-</section>
+      </section>
 
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-6 py-16">
+      <main className="max-w-4xl mx-auto px-18 py-10">
         <div className="grid lg:grid-cols-12 gap-12">
           {/* Left - Form */}
           <div className="lg:col-span-7">
@@ -389,7 +524,7 @@ export default function ContactPage() {
         </section>
   
       </main>
-            <Footer/>
+      <Footer/>
     </div>
     
   );

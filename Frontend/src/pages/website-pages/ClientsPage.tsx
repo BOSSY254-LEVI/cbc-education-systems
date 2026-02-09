@@ -4,6 +4,7 @@ import ClientCard from '@/components/ClientCard';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Star, School, Users, MapPin, CheckCircle } from 'lucide-react';import { useTypewriter } from '@/hooks/use-typewriter';
+import Stats from '@/components/Stats';
 // Sub-component for Testimonials to reduce redundancy
 const TestimonialCard = ({ quote, author, role, initials }: any) => (
   <div className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-8 border border-slate-700 hover:border-indigo-500/50 transition-colors">
@@ -97,25 +98,15 @@ const ClientsPage = () => {
 </section>
 
 
-      {/* Stats Section: Modern Card Style */}
-      <section className="relative -mt-10 z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 bg-white rounded-2xl shadow-xl border border-slate-100 p-8">
-            {[
-              { label: 'Partner Schools', val: `${clientStats.totalSchools}+`, icon: <School className="text-indigo-600" /> },
-              { label: 'Students Reached', val: `${(clientStats.totalStudents / 1000).toFixed(1)}K+`, icon: <Users className="text-cyan-600" /> },
-              { label: 'Counties', val: '8+', icon: <MapPin className="text-rose-500" /> },
-              { label: 'CBC Compliant', val: '100%', icon: <CheckCircle className="text-emerald-500" /> }
-            ].map((stat, i) => (
-              <div key={i} className="text-center group">
-                <div className="flex justify-center mb-2 transform group-hover:scale-110 transition-transform">{stat.icon}</div>
-                <div className="text-3xl font-bold text-slate-900">{stat.val}</div>
-                <div className="text-sm font-medium text-slate-500 uppercase tracking-wider">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Stats Section: Animated Count-Up */}
+      <Stats
+        metrics={[
+          { label: 'Partner Schools', end: clientStats.totalSchools, format: 'raw', suffix: '+' , Icon: School},
+          { label: 'Students Reached', end: Math.round(clientStats.totalStudents), format: 'compact', suffix: '+', Icon: Users },
+          { label: 'Counties', end: 8, format: 'raw', suffix: '+', Icon: MapPin },
+          { label: 'CBC Compliant', end: 100, format: 'percent', suffix: '', Icon: CheckCircle }
+        ]}
+      />
 
       {/* Category Filter Section */}
       <section className="py-24">

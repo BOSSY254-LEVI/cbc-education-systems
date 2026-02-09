@@ -21,6 +21,7 @@ import LoginPage from "@/pages/auth/LoginPage";
 import Analytics from "@/pages/website-pages/Platform"
 import TeamMmembersPage from '@/pages/website-pages/TeamPage';
 import ClientsPage from '@/pages/website-pages/ClientsPage';
+import Feature from "@/pages/website-pages/Features";
 
 // Admin Registration
 import SchoolRegistration from "@/pages/admin-registration/SchoolRegistration";
@@ -92,7 +93,7 @@ function AppRoutes() {
       <Route path="/cbc-standards" element={<CBCStandardsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/contact" element={<ContactPage/>} />
-      
+       <Route path="/features" element={<Feature/>} />
       {/* Student Routes */}
       <Route path="/student/learning-materials" element={<LearningMaterials />} />
       <Route path="/student/grade/1" element={<Grade1 />} />
@@ -137,28 +138,6 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <AppRoutes />
-          
-          {/* WhatsApp Float Button */}
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 260, damping: 20 }}
-            viewport={{ once: false }}
-            className="fixed bottom-24 right-8 z-50 group"
-          >
-            <a
-              href="https://wa.me/254700000000"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-110"
-            >
-              <MessageCircle className="w-6 h-6" />
-            </a>
-            <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-slate-900 text-white px-3 py-1 rounded-lg text-sm font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-              Chat with us
-            </span>
-          </motion.div>
-          
           <AIAssistant />
           <CookieBanner />
         </BrowserRouter>

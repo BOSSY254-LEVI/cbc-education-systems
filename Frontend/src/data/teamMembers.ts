@@ -31,10 +31,10 @@ export const teamMembers: TeamMember[] = [
     id:4,
     name: "LIVINGSTONE ODUOR",
     role: "Full stack software engineer",
-    image:"/WhatsApp Image 2026-02-09 at 12.29.32 AM.jpeg",
     linkedin: "https://linkedin.com/victoriawamboi",
     github: "https://github.com/victoriawamboi",
-    email: "wamboi11@gmail.com"
+    email: "wamboi11@gmail.com",
+    image:"/public/WhatsApp Image 2026-02-09 at 12.29.32 AM.jpeg"
   },
     {
     id: 3,
