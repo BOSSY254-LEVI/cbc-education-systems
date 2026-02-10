@@ -173,8 +173,8 @@ export default function AdminLoginPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
                   >
-                    <h1 className="text-2xl sm:text-3xl md:text-3xl xl:text-4xl font-black text-white leading-tight tracking-tight mb-3 sm:mb-4 min-h-[120px]">
-                      {panelTitle.split(' ').map((word, idx) => (
+                    <h1 className="text-2xl sm:text-3xl md:text-3xl xl:text-4xl font-black text-white leading-tight tracking-tight mb-1 sm:mb-2">
+                      {panelTitle.split(' ').map((word, idx, arr) => (
                         <span key={idx}>
                           {word === 'CONTROL' ? (
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-emerald-400">
@@ -183,12 +183,11 @@ export default function AdminLoginPage() {
                           ) : (
                             word
                           )}
-                          {idx < 2 && <br />}
-                          {idx < 2 && ' '}
+                          {idx < arr.length - 1 ? ' ' : ''}
                         </span>
                       ))}
                     </h1>
-                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-md">
+                    <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-md -mt-2 sm:-mt-1">
                       Unified governance portal for institutional management and national curriculum oversight. Secure access for authorized personnel only.
                     </p>
                   </motion.div>
@@ -417,12 +416,7 @@ export default function AdminLoginPage() {
                         )}
                       </motion.button>
 
-                      {/* Security Notice - Responsive */}
-                      <div className="mt-4 sm:mt-5 p-2.5 sm:p-3 rounded-lg bg-blue-50 border border-blue-200">
-                        <p className="text-[9px] sm:text-[10px] text-blue-900 font-medium text-center">
-                          🔒 Secure connection established. All data is encrypted.
-                        </p>
-                      </div>
+                      {/* Security Notice removed as requested */}
                     </form>
                   </motion.div>
                 )}

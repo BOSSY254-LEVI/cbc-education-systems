@@ -670,45 +670,31 @@ export default function HomePage() {
       </section>
 
       {/* Animated Stats Section */}
-      <section ref={statsRef} className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-emerald-500/10" />
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={isStatsInView ? { scale: 1, opacity: 1 } : {}}
-                  transition={{ delay: index * 0.1, type: 'spring' }}
-                  whileHover={{ scale: 1.05 }}
-                  className="text-center group"
-                >
-                  <div className="relative inline-block mb-6">
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${
-                      stat.trend === 'up' ? 'from-emerald-500/20 to-emerald-600/20' : 'from-blue-500/20 to-blue-600/20'
-                    } flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                      <Icon className="w-10 h-10 text-primary" />
-                    </div>
-                    <div className={`absolute -top-2 -right-2 px-2 py-1 rounded-full text-xs font-bold ${
-                      stat.trend === 'up' ? 'bg-emerald-500/20 text-emerald-600' : 'bg-blue-500/20 text-blue-600'
-                    }`}>
-                      {stat.change}
-                    </div>
-                  </div>
-                  <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent mb-2">
-                    <AnimatedCounter value={stat.value} />
-                  </div>
-                  <div className="text-sm text-muted-foreground tracking-wide uppercase">
-                    {stat.label}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+              <section className="py-20 md:py-32 bg-blue-600">
+                      <div className="max-w-6xl mx-auto px-6">
+                        <div className="grid md:grid-cols-4 gap-8 text-center text-white">
+                          {[
+                            { number: '150+', label: 'Schools Transformed' },
+                            { number: '50K+', label: 'Students Impacted' },
+                            { number: '98%', label: 'Teacher Satisfaction' },
+                            { number: '24/7', label: 'System Uptime' }
+                          ].map((stat, index) => (
+                            <motion.div
+                              key={index}
+                              initial={{ opacity: 0, scale: 0.9 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: index * 0.1 }}
+                            >
+                              <div className="text-5xl font-bold mb-2">
+                                {stat.number}
+                              </div>
+                              <p className="text-base text-blue-100">{stat.label}</p>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </section>
 
       {/* Foundation Section with Interactive Cards */}
       <section className="py-24 relative">
