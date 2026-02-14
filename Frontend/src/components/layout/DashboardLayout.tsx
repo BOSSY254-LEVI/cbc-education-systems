@@ -14,6 +14,7 @@ import {
   School,
   Menu,
   X,
+  UserCog,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -28,6 +29,7 @@ const sidebarLinks = [
   { href: '/school-admin/curriculum', label: 'Curriculum', icon: BookOpen },
   { href: '/school-admin/reports', label: 'Reports', icon: FileText },
   { href: '/school-admin/settings', label: 'Settings', icon: Settings },
+  { href: '/school-admin/users', label: 'Users', icon: Users},
 ];
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {

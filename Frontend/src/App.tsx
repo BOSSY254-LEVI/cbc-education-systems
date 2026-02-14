@@ -45,6 +45,7 @@ import LearnersListPage from "@/pages/school-admin/learners/LearnersList";
 import AddLearnerPage from "@/pages/school-admin/learners/AddLearner";
 import EducationalResourcesPage from "./pages/website-pages/Educationalresourcespage";
 import AdminLoginPage from '@/pages/auth/AdminLoginPage';
+import UserManagement from "./pages/Users/UserManagement";
 
 // Placeholder Pages
 import CurriculumPage from "@/pages/school-admin/Curriculum";
@@ -120,6 +121,7 @@ function AppRoutes() {
               <Route path="curriculum" element={<CurriculumPage />} />
               <Route path="reports" element={<ReportsPage />} />
               <Route path="settings" element={<SettingsPage />} />
+               <Route path="users" element={<UserManagement />} />
             </Routes>
           </DashboardLayout>
         </ProtectedRoute>

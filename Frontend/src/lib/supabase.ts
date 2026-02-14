@@ -1,0 +1,54 @@
+import { createClient } from '@supabase/supabase-js';
+
+// Supabase credentials from the user
+const supabaseUrl = 'https://flkgcmrrpgcpemcitzht.supabase.co';
+const supabaseAnonKey = 'sb_publishable_CUT57nvkYqc79TK757BuHQ_6Zxxe0t8';
+
+// Create the Supabase client
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// User types based on the database schema
+export interface DatabaseUser {
+  id: string;
+  username: string;
+  email: string;
+  full_name: string | null;
+  role: 'Administrator' | 'Editor' | 'Author' | 'Contributor' | 'Subscriber';
+  status: 'active' | 'inactive' | 'pending';
+  posts_count: number;
+  avatar_url: string | null;
+  created_at: string;
+  updated_at: string;
+  last_active: string;
+}
+
+// Helper function to format user data for the UI
+export const formatUserForUI = (dbUser: DatabaseUser) => {
+  return {
+    id: dbUser.id,
+    username: dbUser.username,
+    name: dbUser.full_name || dbUser.username,
+    email: dbUser.email,
+    role: dbUser.role,
+    posts: dbUser.posts_count,
+    status: dbUser.status,
+    joinedDate: new Date(dbUser.created_at).toISOString().split('T')[0],
+    lastActive: formatLastActive(dbUser.last_active)
+  };
+};
+
+// Helper to format last active time
+const formatLastActive = (dateString: string): string => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+  if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+  return date.toLocaleDateString();
+};
