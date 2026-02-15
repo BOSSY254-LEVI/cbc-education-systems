@@ -46,6 +46,9 @@ import AddLearnerPage from "@/pages/school-admin/learners/AddLearner";
 import EducationalResourcesPage from "./pages/website-pages/Educationalresourcespage";
 import AdminLoginPage from '@/pages/auth/AdminLoginPage';
 import UserManagement from "./pages/Users/UserManagement";
+import ModernDashboard from "@/components/ModernDashboard";
+// Add route: <Route path="/demo" element={<ModernDashboard />} />
+
 
 // Placeholder Pages
 import CurriculumPage from "@/pages/school-admin/Curriculum";
@@ -122,6 +125,7 @@ function AppRoutes() {
               <Route path="reports" element={<ReportsPage />} />
               <Route path="settings" element={<SettingsPage />} />
                <Route path="users" element={<UserManagement />} />
+              <Route path="demo" element={<ModernDashboard/>} />
             </Routes>
           </DashboardLayout>
         </ProtectedRoute>
