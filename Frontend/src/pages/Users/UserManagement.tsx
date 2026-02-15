@@ -39,22 +39,34 @@ const UserManagement = () => {
       setLoading(true);
       setError(null);
       
+      console.log('Fetching users from Supabase...');
+      console.log('Supabase URL:', supabase);
+      
       const { data, error: supabaseError } = await supabase
         .from('users')
         .select('*')
         .order('created_at', { ascending: false });
 
+      console.log('Supabase response:', { data, error: supabaseError });
+
       if (supabaseError) {
+        console.error('Supabase error details:', JSON.stringify(supabaseError, null, 2));
         throw supabaseError;
       }
 
-      if (data) {
+      if (data && data.length > 0) {
+        console.log('Users fetched successfully:', data.length);
+        console.log('Users data:', JSON.stringify(data, null, 2));
         const formattedUsers = data.map((user: DatabaseUser) => formatUserForUI(user));
         setUsers(formattedUsers);
+      } else {
+        console.log('No users found in database');
+        setUsers([]);
       }
     } catch (err: any) {
       console.error('Error fetching users:', err);
-      setError(err.message || 'Failed to fetch users');
+      console.error('Error details:', JSON.stringify(err, null, 2));
+      setError(err.message || 'Failed to fetch users. Check console for details.');
     } finally {
       setLoading(false);
     }
@@ -492,12 +504,17 @@ const UserManagement = () => {
             </table>
           </div>
 
-          {filteredUsers.length === 0 && (
+          {loading ? (
+            <div className="text-center py-12">
+              <Loader2 className="animate-spin mx-auto text-blue-600 mb-2" size={32} />
+              <div className="text-slate-500 text-sm">Loading users...</div>
+            </div>
+          ) : filteredUsers.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-slate-400 text-base mb-2">No users found</div>
               <div className="text-slate-500 text-sm">Try adjusting your search or filters</div>
             </div>
-          )}
+          ) : null}
 
           {/* Pagination */}
           <div className="px-6 py-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
@@ -543,21 +560,18 @@ const UserManagement = () => {
             </div>
             
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target as HTMLFormElement);
-                const newUser = {
-                  id: Math.max(...users.map(u => u.id), 0) + 1,
+                const userData = {
                   username: formData.get('username') as string,
                   name: (formData.get('name') as string) || (formData.get('username') as string),
                   email: formData.get('email') as string,
                   role: formData.get('role') as string,
-                  posts: 0,
                   status: formData.get('status') as string,
-                  joinedDate: new Date().toISOString().split('T')[0],
-                  lastActive: 'Just now'
                 };
-                setUsers([...users, newUser]);
+                
+                await addUser(userData);
                 setShowAddModal(false);
                 (e.target as HTMLFormElement).reset();
               }}
@@ -670,22 +684,18 @@ const UserManagement = () => {
             </div>
             
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault();
                 const formData = new FormData(e.target as HTMLFormElement);
-                const updatedUsers = users.map(u => 
-                  u.id === editingUser.id
-                    ? {
-                        ...u,
-                        username: formData.get('username') as string,
-                        name: (formData.get('name') as string) || (formData.get('username') as string),
-                        email: formData.get('email') as string,
-                        role: formData.get('role') as string,
-                        status: formData.get('status') as string
-                      }
-                    : u
-                );
-                setUsers(updatedUsers);
+                const userData = {
+                  username: formData.get('username') as string,
+                  name: (formData.get('name') as string) || (formData.get('username') as string),
+                  email: formData.get('email') as string,
+                  role: formData.get('role') as string,
+                  status: formData.get('status') as string,
+                };
+                
+                await updateUser(editingUser.id, userData);
                 setEditingUser(null);
               }}
               className="p-6 space-y-4"

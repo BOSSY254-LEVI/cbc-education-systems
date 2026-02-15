@@ -53,15 +53,20 @@
 
     --radius: 0.5rem;
 
-    /* Sidebar */
-    --sidebar-background: 222 47% 15%;
-    --sidebar-foreground: 210 40% 96%;
-    --sidebar-primary: 38 92% 50%;
-    --sidebar-primary-foreground: 222 47% 11%;
-    --sidebar-accent: 222 47% 22%;
-    --sidebar-accent-foreground: 210 40% 96%;
-    --sidebar-border: 222 47% 25%;
-    --sidebar-ring: 38 92% 50%;
+  /* Sidebar - Professional School Management Theme */
+    --sidebar-background: 222 47% 10%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 91% 30%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 217 91% 60%;
+    --sidebar-ring: 217 91% 60%;
+    
+    /* Additional sidebar colors */
+    --sidebar-hover: 217 91% 20%;
+    --sidebar-text-secondary: 217 91% 80%;
+    --sidebar-border-light: 217 91% 60%;
 
     /* Custom gradients */
     --gradient-primary: linear-gradient(135deg, hsl(222 47% 20%) 0%, hsl(222 47% 30%) 100%);

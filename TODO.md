@@ -1,7 +1,18 @@
-# TODO: Update TeamPage Hero Section
+# TODO: Replace #FFFFFF with #F4F6F9
 
-- [x] Increase hero section height from py-20 to py-24
-- [x] Add background image 'Gemini_Generated_Image_wxwqyiwxwqyiwxwq.png' to hero section
-- [x] Implement continuous typewriter effect for the paragraph text "Dedicated professionals driving innovation and excellence in everything we do."
-- [x] Add opacity to the background image
-- [x] Change text color to blue for better visibility with reduced opacity
+## Task
+Replace all #FFFFFF and near-white values (within 3-5% luminance tolerance) with #F4F6F9. Ensure consistent color rendering with no warmth added. Preserve opacity, shadows, and all non-white elements.
+
+## Plan
+
+### Step 1: Modify tailwind.config.ts
+- [ ] Add custom "white" color that maps to #F4F6F9
+- [ ] This will automatically replace all Tailwind classes (bg-white, text-white, border-white, etc.)
+
+### Step 2: Modify index.css
+- [ ] Update CSS variable --card from hsl(0 0% 100%) to new white color
+- [ ] Update CSS variable --popover from hsl(0 0% 100%) to new white color
+
+### Step 3: Verify
+- [ ] Ensure rgba(255,255,255,0.03) opacity effects remain unchanged
+- [ ] Verify no shadows or non-white elements are affected

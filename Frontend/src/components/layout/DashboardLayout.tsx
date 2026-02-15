@@ -1,35 +1,107 @@
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
+  // Logo section icons
+  Building2,
+  // Academics icons
   LayoutDashboard,
-  Users,
   GraduationCap,
+  Users,
+  ClipboardList,
+  // Attendance & Performance icons
+  Calendar,
+  Clock,
   BookOpen,
   FileText,
+  Award,
+  // Administration icons
+  CalendarDays,
+  Layers,
+  TrendingUp,
+  // Finance & HR icons
+  DollarSign,
   Settings,
+  Wallet,
+  // Reports & Settings icons
+  BarChart3,
+  Shield,
+  // Common icons
   LogOut,
-  School,
   Menu,
   X,
-  UserCog,
+  ChevronDown,
+  ChevronRight,
 } from 'lucide-react';
-import { useState } from 'react';
 
 interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-const sidebarLinks = [
-  { href: '/school-admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/school-admin/teachers', label: 'Teachers', icon: Users },
-  { href: '/school-admin/learners', label: 'Learners', icon: GraduationCap },
-  { href: '/school-admin/curriculum', label: 'Curriculum', icon: BookOpen },
-  { href: '/school-admin/reports', label: 'Reports', icon: FileText },
-  { href: '/school-admin/settings', label: 'Settings', icon: Settings },
-  { href: '/school-admin/users', label: 'Users', icon: Users},
+// Menu item interface
+interface MenuItem {
+  id: string;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  href: string;
+}
+
+// Menu section interface
+interface MenuSection {
+  title: string;
+  items: MenuItem[];
+}
+
+// Menu data structure
+const menuSections: MenuSection[] = [
+  {
+    title: "ACADEMICS",
+    items: [
+      { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/school-admin/dashboard" },
+      { id: "students", label: "Students", icon: GraduationCap, href: "/school-admin/learners" },
+      { id: "teachers", label: "Teachers", icon: Users, href: "/school-admin/teachers" },
+      { id: "assignments", label: "Teacher Assignments", icon: ClipboardList, href: "/school-admin/assignments" },
+      { id: "parents", label: "Parents", icon: Users, href: "/school-admin/parents" },
+    ]
+  },
+  {
+    title: "ATTENDANCE & PERFORMANCE",
+    items: [
+      { id: "student-att", label: "Student Attendance", icon: Calendar, href: "/school-admin/attendance/students" },
+      { id: "teacher-att", label: "Teacher Attendance", icon: Clock, href: "/school-admin/attendance/teachers" },
+      { id: "exams", label: "Exams Management", icon: BookOpen, href: "/school-admin/exams" },
+      { id: "results", label: "Final Results", icon: FileText, href: "/school-admin/results" },
+      { id: "conduct", label: "Conduct Students", icon: Award, href: "/school-admin/conduct" },
+    ]
+  },
+  {
+    title: "ADMINISTRATION",
+    items: [
+      { id: "curriculum", label: "Curriculum", icon: BookOpen, href: "/school-admin/curriculum" },
+      { id: "terms", label: "Term Management", icon: CalendarDays, href: "/school-admin/terms" },
+      { id: "exam-groups", label: "Exam Groups", icon: ClipboardList, href: "/school-admin/exam-groups" },
+      { id: "classes", label: "Classes & Subjects", icon: Layers, href: "/school-admin/classes" },
+      { id: "promotions", label: "Promotions & Graduations", icon: TrendingUp, href: "/school-admin/promotions" },
+    ]
+  },
+  {
+    title: "FINANCE & HR",
+    items: [
+      { id: "fees", label: "Fees", icon: DollarSign, href: "/school-admin/fees" },
+      { id: "monthly", label: "Monthly Setup", icon: Settings, href: "/school-admin/monthly" },
+      { id: "salary", label: "Salary", icon: Wallet, href: "/school-admin/salary" },
+    ]
+  },
+  {
+    title: "REPORTS & SETTINGS",
+    items: [
+      { id: "reports", label: "Reports", icon: BarChart3, href: "/school-admin/reports" },
+      { id: "users", label: "Users", icon: Shield, href: "/school-admin/users" },
+      { id: "settings", label: "Settings", icon: Settings, href: "/school-admin/settings" },
+    ]
+  }
 ];
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
@@ -37,10 +109,22 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  // Track expanded sections (all expanded by default)
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(
+    menuSections.reduce((acc, section) => ({ ...acc, [section.title]: true }), {})
+  );
 
   const handleLogout = () => {
     logout();
     navigate('/login');
+  };
+
+  const toggleSection = (title: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [title]: !prev[title]
+    }));
   };
 
   return (
@@ -48,81 +132,116 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Mobile sidebar overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-foreground/50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={cn(
-        "fixed inset-y-0 left-0 z-50 w-64 bg-sidebar transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-auto",
+        "fixed inset-y-0 left-0 z-50 w-[280px] bg-gradient-to-b from-[#0F3A7D] to-[#1e293b] transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col",
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="flex items-center gap-3 px-6 h-16 border-b border-sidebar-border">
-            <div className="w-8 h-8 rounded-lg bg-sidebar-primary flex items-center justify-center">
-              <School className="w-5 h-5 text-sidebar-primary-foreground" />
-            </div>
-            <span className="font-semibold text-sidebar-foreground">CBC Platform</span>
-            <button 
-              className="ml-auto lg:hidden text-sidebar-foreground"
-              onClick={() => setSidebarOpen(false)}
-            >
-              <X className="w-5 h-5" />
-            </button>
+        {/* Logo Section */}
+        <div className="flex items-center gap-3 px-4 h-16 border-b border-white/10 bg-[#0a2d5c]">
+          <div className="w-10 h-10 rounded-lg bg-[#3B82F6] flex items-center justify-center shadow-lg">
+            <Building2 className="w-6 h-6 text-white" />
           </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-white text-lg tracking-tight">Edu Stack</span>
+            <span className="text-[#93C5FD] text-xs">School Management</span>
+          </div>
+          <button 
+            className="ml-auto lg:hidden text-white/80 hover:text-white transition-colors"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-            {sidebarLinks.map((link) => {
-              const Icon = link.icon;
-              const isActive = location.pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  onClick={() => setSidebarOpen(false)}
-                  className={cn(
-                    "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
-                    isActive 
-                      ? "bg-sidebar-accent text-sidebar-accent-foreground" 
-                      : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
-                  )}
-                >
-                  <Icon className="w-5 h-5" />
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* User section */}
-          <div className="p-4 border-t border-sidebar-border">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center">
-                <span className="text-sm font-medium text-sidebar-accent-foreground">
-                  {user?.firstName?.[0]}{user?.lastName?.[0]}
-                </span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-sidebar-foreground truncate">
-                  {user?.firstName} {user?.lastName}
-                </p>
-                <p className="text-xs text-sidebar-foreground/60 truncate">
-                  {user?.email}
-                </p>
+        {/* Navigation Sections */}
+        <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          {menuSections.map((section) => (
+            <div key={section.title} className="mb-4">
+              {/* Section Header */}
+              <button
+                onClick={() => toggleSection(section.title)}
+                className="flex items-center justify-between w-full px-3 py-2 text-xs font-bold uppercase tracking-wider text-[#93C5FD] hover:text-white transition-colors"
+              >
+                <span>{section.title}</span>
+                {expandedSections[section.title] ? (
+                  <ChevronDown className="w-3 h-3 transition-transform duration-300" />
+                ) : (
+                  <ChevronRight className="w-3 h-3 transition-transform duration-300" />
+                )}
+              </button>
+              
+              {/* Menu Items - Collapsible */}
+              <div className={cn(
+                "overflow-hidden transition-all duration-300 ease-in-out",
+                expandedSections[section.title] ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+              )}>
+                <div className="space-y-1 mt-1">
+                  {section.items.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = location.pathname === item.href;
+                    
+                    return (
+                      <Link
+                        key={item.id}
+                        to={item.href}
+                        onClick={() => setSidebarOpen(false)}
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group relative",
+                          isActive 
+                            ? "bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white shadow-lg shadow-blue-500/25" 
+                            : "text-[#93C5FD] hover:text-white hover:bg-white/10"
+                        )}
+                      >
+                        {/* Active indicator bar */}
+                        {isActive && (
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-[#60A5FA] rounded-r-full" />
+                        )}
+                        
+                        <Icon className={cn(
+                          "w-[18px] h-[18px] flex-shrink-0",
+                          isActive ? "text-white" : "text-[#93C5FD] group-hover:text-white"
+                        )} />
+                        <span className="truncate">{item.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-            <Button 
-              variant="ghost" 
-              className="w-full justify-start text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
-              onClick={handleLogout}
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign out
-            </Button>
+          ))}
+        </nav>
+
+        {/* User Profile Section */}
+        <div className="p-4 border-t border-white/10 bg-[#0a2d5c]/50">
+          <div className="flex items-center gap-3 mb-3 p-2 rounded-lg hover:bg-white/5 transition-colors">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#2563EB] flex items-center justify-center shadow-lg">
+              <span className="text-sm font-semibold text-white">
+                {user?.firstName?.[0]}{user?.lastName?.[0]}
+              </span>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-white truncate">
+                {user?.firstName} {user?.lastName}
+              </p>
+              <p className="text-xs text-[#93C5FD] truncate">
+                {user?.email}
+              </p>
+            </div>
           </div>
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start text-[#93C5FD] hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+            onClick={handleLogout}
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Sign out
+          </Button>
         </div>
       </aside>
 
@@ -131,13 +250,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Top bar */}
         <header className="h-16 border-b bg-card flex items-center px-4 lg:px-6">
           <button 
-            className="lg:hidden p-2 -ml-2 text-foreground"
+            className="lg:hidden p-2 -ml-2 text-foreground hover:bg-accent rounded-lg transition-colors"
             onClick={() => setSidebarOpen(true)}
           >
             <Menu className="w-5 h-5" />
           </button>
           <div className="flex-1" />
-          {/* Add notifications, search, etc. here */}
         </header>
 
         {/* Page content */}
