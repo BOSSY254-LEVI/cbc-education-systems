@@ -11,11 +11,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { ArrowLeft, Loader2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { GradeLevel, Gender } from '@/types';
-import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/lib/supabase';
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  return fallback;
+};
 
 export default function AddLearnerPage() {
   const navigate = useNavigate();
@@ -130,11 +136,11 @@ export default function AddLearnerPage() {
       });
       
       navigate('/school-admin/learners');
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error enrolling learner:', error);
       toast({
         title: 'Enrollment Failed',
-        description: error.message || 'Failed to enroll learner. Please try again.',
+        description: getErrorMessage(error, 'Failed to enroll learner. Please try again.'),
         variant: 'destructive',
       });
     } finally {
