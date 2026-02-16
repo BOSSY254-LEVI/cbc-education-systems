@@ -135,7 +135,7 @@ export default function AIAssistant() {
       const fallbackMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'I apologize, but I\'m currently unable to connect to the AI service. Please ensure your backend API is configured correctly. In the meantime, feel free to explore the platform or check our documentation for information about CBE.'
+        content: 'Assistant is currently offline, please contact our team directly if you have any queries. In the meantime, feel free to explore the platform or check our documentation for information about this platform.'
       };
       setMessages(prev => [...prev, fallbackMessage]);
     } finally {
