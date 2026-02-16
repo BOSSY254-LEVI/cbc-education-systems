@@ -101,7 +101,12 @@ function AppRoutes() {
       <Route path="/get-started" element={<GetStartedPage />} />
       <Route path="/signup" element={<GetStartedPage />} />
       <Route path="/contact" element={<ContactPage/>} />
-       <Route path="/features" element={<Feature/>} />
+      <Route path="/features" element={<Feature/>} />
+      
+      {/* Demo Routes - Public access to ModernDashboard */}
+      <Route path="/dashboard-demo" element={<ModernDashboard />} />
+      <Route path="/demo" element={<ModernDashboard />} />
+      
       {/* Student Routes */}
       <Route path="/student/learning-materials" element={<LearningMaterials />} />
       <Route path="/student/grade/1" element={<Grade1 />} />

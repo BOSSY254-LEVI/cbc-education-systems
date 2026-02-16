@@ -147,7 +147,7 @@ function StatCard({ title, value, change, isPositive, icon: Icon }: StatCardProp
   );
 }
 
-// Section Panel Component with sliding animation
+// Section Panel Component with enhanced sliding animation (moves up and down as if scrolling)
 interface SectionPanelProps {
   isActive: boolean;
   title: string;
@@ -156,13 +156,19 @@ interface SectionPanelProps {
 
 function SectionPanel({ isActive, title, children }: SectionPanelProps) {
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isActive && (
         <motion.div
-          initial={{ opacity: 0, height: 0, y: -20 }}
-          animate={{ opacity: 1, height: 'auto', y: 0 }}
-          exit={{ opacity: 0, height: 0, y: -20 }}
-          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          initial={{ opacity: 0, y: 50, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -50, scale: 0.95 }}
+          transition={{ 
+            duration: 0.5, 
+            ease: [0.4, 0, 0.2, 1],
+            opacity: { duration: 0.3 },
+            y: { duration: 0.5, ease: "easeOut" },
+            scale: { duration: 0.5 }
+          }}
           className="overflow-hidden"
         >
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700 p-6">
