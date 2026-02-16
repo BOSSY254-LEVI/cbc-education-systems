@@ -18,6 +18,7 @@ import PrivacyPage from "@/pages/website-pages/PrivacyPage";
 import CBCStandardsPage from "@/pages/website-pages/CBCStandardsPage";
 import TermsPage from "@/pages/website-pages/TermsPage";
 import LoginPage from "@/pages/auth/LoginPage";
+import GetStartedPage from "@/pages/website-pages/signup";
 import Analytics from "@/pages/website-pages/Platform"
 import TeamMmembersPage from '@/pages/website-pages/TeamPage';
 import ClientsPage from '@/pages/website-pages/ClientsPage';
@@ -38,11 +39,11 @@ import TeachingResources from "@/pages/teacher/TeachingResources";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 
 // School Admin Pages
-import SchoolDashboard from "@/pages/school-admin/Dashboard";
-import TeachersListPage from "@/pages/school-admin/teachers/TeachersList";
-import AddTeacherPage from "@/pages/school-admin/teachers/AddTeacher";
-import LearnersListPage from "@/pages/school-admin/learners/LearnersList";
-import AddLearnerPage from "@/pages/school-admin/learners/AddLearner";
+import SchoolDashboard from "@/pages/auth/school-admin/Dashboard";
+import TeachersListPage from "@/pages/auth/school-admin/teachers/TeachersList";
+import AddTeacherPage from "@/pages/auth/school-admin/teachers/AddTeacher";
+import LearnersListPage from "@/pages/auth/school-admin/learners/LearnersList";
+import AddLearnerPage from "@/pages/auth/school-admin/learners/AddLearner";
 import EducationalResourcesPage from "./pages/website-pages/Educationalresourcespage";
 import AdminLoginPage from '@/pages/auth/AdminLoginPage';
 import UserManagement from "./pages/Users/UserManagement";
@@ -51,9 +52,9 @@ import ModernDashboard from "@/components/ModernDashboard";
 
 
 // Placeholder Pages
-import CurriculumPage from "@/pages/school-admin/Curriculum";
-import ReportsPage from "@/pages/school-admin/Reports";
-import SettingsPage from "@/pages/school-admin/Settings";
+import CurriculumPage from "@/pages/auth/school-admin/Curriculum";
+import ReportsPage from "@/pages/auth/school-admin/Reports";
+import SettingsPage from "@/pages/auth/school-admin/Settings";
 
 import NotFound from "./pages/website-pages/NotFound";
 import EduStackPlatformPage from "@/pages/website-pages/Platform";
@@ -97,6 +98,8 @@ function AppRoutes() {
       <Route path="/company/our-team" element={<TeamMembersPage/>} />
       <Route path="/cbc-standards" element={<CBCStandardsPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/get-started" element={<GetStartedPage />} />
+      <Route path="/signup" element={<GetStartedPage />} />
       <Route path="/contact" element={<ContactPage/>} />
        <Route path="/features" element={<Feature/>} />
       {/* Student Routes */}

@@ -14,6 +14,13 @@ interface UserForUI {
   lastActive: string;
 }
 
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  return fallback;
+};
+
 const UserManagement = () => {
   const [users, setUsers] = useState<UserForUI[]>([]);
   const [loading, setLoading] = useState(true);
@@ -63,10 +70,10 @@ const UserManagement = () => {
         console.log('No users found in database');
         setUsers([]);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error fetching users:', err);
       console.error('Error details:', JSON.stringify(err, null, 2));
-      setError(err.message || 'Failed to fetch users. Check console for details.');
+      setError(getErrorMessage(err, 'Failed to fetch users. Check console for details.'));
     } finally {
       setLoading(false);
     }
@@ -97,9 +104,9 @@ const UserManagement = () => {
         const newUser = formatUserForUI(data[0] as DatabaseUser);
         setUsers([newUser, ...users]);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error adding user:', err);
-      alert(err.message || 'Failed to add user');
+      alert(getErrorMessage(err, 'Failed to add user'));
     }
   };
 
@@ -123,9 +130,9 @@ const UserManagement = () => {
 
       // Refresh users from database
       await fetchUsers();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error updating user:', err);
-      alert(err.message || 'Failed to update user');
+      alert(getErrorMessage(err, 'Failed to update user'));
     }
   };
 
@@ -149,9 +156,9 @@ const UserManagement = () => {
       const newSelected = new Set(selectedUsers);
       newSelected.delete(userId);
       setSelectedUsers(newSelected);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error deleting user:', err);
-      alert(err.message || 'Failed to delete user');
+      alert(getErrorMessage(err, 'Failed to delete user'));
     }
   };
 
@@ -173,9 +180,9 @@ const UserManagement = () => {
 
       setUsers(users.filter(u => !selectedUsers.has(u.id)));
       setSelectedUsers(new Set());
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error bulk deleting users:', err);
-      alert(err.message || 'Failed to delete users');
+      alert(getErrorMessage(err, 'Failed to delete users'));
     }
   };
 
@@ -184,7 +191,7 @@ const UserManagement = () => {
 
   // Filtered and sorted users
   const filteredUsers = useMemo(() => {
-    let filtered = users.filter(user => {
+    const filtered = users.filter(user => {
       const matchesSearch = user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -194,8 +201,8 @@ const UserManagement = () => {
     });
 
     filtered.sort((a, b) => {
-      let aVal = a[sortBy];
-      let bVal = b[sortBy];
+      const aVal = a[sortBy];
+      const bVal = b[sortBy];
       if (sortBy === 'posts') {
         return sortOrder === 'asc' ? aVal - bVal : bVal - aVal;
       }

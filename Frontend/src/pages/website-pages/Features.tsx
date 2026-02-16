@@ -4,6 +4,18 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
 
+const subHeadingLines = [
+  "CBCTrack equips schools with modern digital tools",
+  "designed for Kenya's Competency-Based Curriculum â€”",
+  "helping administrators, teachers, and students",
+  "work smarter, faster, and more efficiently."
+];
+
+const supportLines = [
+  "Built for Schools â€¢ Designed for CBC",
+  "â€¢ Powered by Modern Technology"
+];
+
 export default function CBCTrackLanding() {
   const [typedMainText, setTypedMainText] = useState('');
   const fullMainText = 'Powerful Features for Modern Education';

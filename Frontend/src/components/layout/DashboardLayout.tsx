@@ -139,20 +139,20 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
       {/* Sidebar */}
       <aside className={cn(
-        "fixed inset-y-0 left-0 z-50 w-[280px] bg-gradient-to-b from-[#0F3A7D] to-[#1e293b] transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col",
+        "fixed inset-y-0 left-0 z-50 w-[280px] bg-gradient-to-b from-gray-900 to-gray-800 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-auto flex flex-col",
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Logo Section */}
-        <div className="flex items-center gap-3 px-4 h-16 border-b border-white/10 bg-[#0a2d5c]">
-          <div className="w-10 h-10 rounded-lg bg-[#3B82F6] flex items-center justify-center shadow-lg">
+        <div className="flex items-center gap-3 px-4 h-16 border-b border-gray-700 bg-gray-900">
+          <div className="w-10 h-10 rounded-lg bg-gray-700 flex items-center justify-center shadow-lg">
             <Building2 className="w-6 h-6 text-white" />
           </div>
           <div className="flex flex-col">
             <span className="font-bold text-white text-lg tracking-tight">Edu Stack</span>
-            <span className="text-[#93C5FD] text-xs">School Management</span>
+            <span className="text-gray-400 text-xs">School Management</span>
           </div>
           <button 
-            className="ml-auto lg:hidden text-white/80 hover:text-white transition-colors"
+            className="ml-auto lg:hidden text-gray-400 hover:text-white transition-colors"
             onClick={() => setSidebarOpen(false)}
           >
             <X className="w-5 h-5" />
@@ -160,13 +160,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </div>
 
         {/* Navigation Sections */}
-        <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+        <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
           {menuSections.map((section) => (
             <div key={section.title} className="mb-4">
               {/* Section Header */}
               <button
                 onClick={() => toggleSection(section.title)}
-                className="flex items-center justify-between w-full px-3 py-2 text-xs font-bold uppercase tracking-wider text-[#93C5FD] hover:text-white transition-colors"
+                className="flex items-center justify-between w-full px-3 py-2 text-xs font-bold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
               >
                 <span>{section.title}</span>
                 {expandedSections[section.title] ? (
@@ -194,18 +194,18 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 group relative",
                           isActive 
-                            ? "bg-gradient-to-r from-[#2563EB] to-[#3B82F6] text-white shadow-lg shadow-blue-500/25" 
-                            : "text-[#93C5FD] hover:text-white hover:bg-white/10"
+                            ? "bg-gradient-to-r from-gray-700 to-gray-800 text-white shadow-lg shadow-gray-500/25" 
+                            : "text-gray-400 hover:text-white hover:bg-gray-700"
                         )}
                       >
                         {/* Active indicator bar */}
                         {isActive && (
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-[#60A5FA] rounded-r-full" />
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 bg-gray-500 rounded-r-full" />
                         )}
                         
                         <Icon className={cn(
                           "w-[18px] h-[18px] flex-shrink-0",
-                          isActive ? "text-white" : "text-[#93C5FD] group-hover:text-white"
+                          isActive ? "text-white" : "text-gray-400 group-hover:text-white"
                         )} />
                         <span className="truncate">{item.label}</span>
                       </Link>
@@ -218,9 +218,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </nav>
 
         {/* User Profile Section */}
-        <div className="p-4 border-t border-white/10 bg-[#0a2d5c]/50">
-          <div className="flex items-center gap-3 mb-3 p-2 rounded-lg hover:bg-white/5 transition-colors">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#2563EB] flex items-center justify-center shadow-lg">
+        <div className="p-4 border-t border-gray-700 bg-gray-900/50">
+          <div className="flex items-center gap-3 mb-3 p-2 rounded-lg hover:bg-gray-800 transition-colors">
+            <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center shadow-lg">
               <span className="text-sm font-semibold text-white">
                 {user?.firstName?.[0]}{user?.lastName?.[0]}
               </span>
@@ -229,14 +229,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <p className="text-sm font-semibold text-white truncate">
                 {user?.firstName} {user?.lastName}
               </p>
-              <p className="text-xs text-[#93C5FD] truncate">
+              <p className="text-xs text-gray-400 truncate">
                 {user?.email}
               </p>
             </div>
           </div>
           <Button 
             variant="ghost" 
-            className="w-full justify-start text-[#93C5FD] hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+            className="w-full justify-start text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200"
             onClick={handleLogout}
           >
             <LogOut className="w-4 h-4 mr-2" />

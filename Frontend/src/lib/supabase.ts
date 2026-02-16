@@ -1,11 +1,34 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Supabase credentials from the user
-const supabaseUrl = 'https://flkgcmrrpgcpemcitzht.supabase.co';
-const supabaseAnonKey = 'sb_publishable_CUT57nvkYqc79TK757BuHQ_6Zxxe0t8';
+// Supabase configuration from environment variables
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-// Create the Supabase client
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Validate environment variables
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Supabase configuration missing. Please check your .env file.');
+}
+
+// Create the Supabase client with optimized settings for faster performance
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    // Enable faster authentication
+    flowType: 'pkce',
+  },
+  db: {
+    schema: 'public',
+  },
+  global: {
+    // Enable request timeout for faster error handling
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+  },
+});
 
 // User types based on the database schema
 export interface DatabaseUser {

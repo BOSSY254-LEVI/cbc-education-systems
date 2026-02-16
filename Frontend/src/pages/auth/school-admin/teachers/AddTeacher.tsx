@@ -6,6 +6,14 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/lib/supabase';
+
+const getErrorMessage = (error: unknown, fallback: string) => {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  return fallback;
+};
 
 export default function AddTeacherPage() {
   const navigate = useNavigate();
@@ -26,19 +34,54 @@ export default function AddTeacherPage() {
     setIsLoading(true);
 
     try {
-      // TODO: Integrate with Supabase
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      // Validate required fields
+      if (!formData.firstName || !formData.lastName || !formData.email || 
+          !formData.phoneNumber || !formData.subjects) {
+        throw new Error('Please fill in all required fields.');
+      }
+
+      // Check if email already exists
+      const { data: existingTeacher, error: checkError } = await supabase
+        .from('teachers')
+        .select('id')
+        .eq('email', formData.email)
+        .single();
+
+      if (existingTeacher) {
+        throw new Error('A teacher with this email already exists.');
+      }
+
+      // Create teacher record
+      const { data: teacherData, error: teacherError } = await supabase
+        .from('teachers')
+        .insert({
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone_number: formData.phoneNumber,
+          employee_number: formData.employeeNumber,
+          subjects: formData.subjects.split(',').map(s => s.trim()),
+          qualifications: formData.qualifications,
+          is_active: true,
+        })
+        .select()
+        .single();
+
+      if (teacherError) {
+        throw teacherError;
+      }
+
       toast({
-        title: 'Teacher Added',
-        description: `${formData.firstName} ${formData.lastName} has been added successfully.`,
+        title: 'Teacher Added Successfully',
+        description: `${formData.firstName} ${formData.lastName} has been added to your school.`,
       });
       
       navigate('/school-admin/teachers');
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error('Error adding teacher:', error);
       toast({
-        title: 'Error',
-        description: 'Failed to add teacher. Please try again.',
+        title: 'Add Teacher Failed',
+        description: getErrorMessage(error, 'Failed to add teacher. Please try again.'),
         variant: 'destructive',
       });
     } finally {

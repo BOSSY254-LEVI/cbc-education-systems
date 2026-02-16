@@ -33,7 +33,10 @@ export default function SchoolBasicInfoStep({ initialData, onSubmit, onBack }: P
   const [formData, setFormData] = useState<SchoolRegistrationStep1>(initialData);
   const [logoPreview, setLogoPreview] = useState<string>('');
 
-  const handleChange = (field: keyof SchoolRegistrationStep1, value: any) => {
+  const handleChange = <K extends keyof SchoolRegistrationStep1>(
+    field: K,
+    value: SchoolRegistrationStep1[K]
+  ) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 

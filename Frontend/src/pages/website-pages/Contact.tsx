@@ -76,6 +76,20 @@ const paymentMethods = [
   { name: "Bank Transfer", color: "bg-slate-50" }
 ];
 
+const subHeadingLines1 = [
+  "We'd love to hear from you.",
+  "Whether you're a school looking to implement the CBC system,",
+  "a partner interested in collaboration, or a user needing support,",
+  "the EduStack team is ready to help."
+];
+
+const subHeadingLines2 = [
+  "Reach out to us for inquiries, technical assistance,",
+  "or partnership opportunities.",
+  "Our mission is to simplify CBC management and empower",
+  "schools across Kenya with reliable digital solutions."
+];
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -91,20 +105,6 @@ export default function ContactPage() {
 
   const [typedMainText, setTypedMainText] = useState('');
   const fullMainText = 'Get in Touch';
-
-  const subHeadingLines1 = [
-    "We'd love to hear from you.",
-    "Whether you're a school looking to implement the CBC system,",
-    "a partner interested in collaboration, or a user needing support,",
-    "the EduStack team is ready to help."
-  ];
-
-  const subHeadingLines2 = [
-    "Reach out to us for inquiries, technical assistance,",
-    "or partnership opportunities.",
-    "Our mission is to simplify CBC management and empower",
-    "schools across Kenya with reliable digital solutions."
-  ];
 
   const [currentLine1, setCurrentLine1] = useState(0);
   const [typedSubText1, setTypedSubText1] = useState('');

@@ -234,8 +234,13 @@ const stats = [
   { value: "95%", label: "First Contact Resolution", icon: Target, trend: "+5%" }
 ];
 
+type SupportFeature = (typeof supportFeatures)[number];
+type SupportChannel = (typeof supportChannels)[number];
+type FAQCategory = (typeof faqSections)[number];
+type FAQQuestion = FAQCategory['questions'][number];
+
 // Enhanced Components
-const FeatureCard = ({ feature, index }: { feature: any; index: number }) => {
+const FeatureCard = ({ feature, index }: { feature: SupportFeature; index: number }) => {
   const Icon = feature.icon;
   return (
     <motion.div
@@ -262,7 +267,7 @@ const FeatureCard = ({ feature, index }: { feature: any; index: number }) => {
   );
 };
 
-const SupportChannelCard = ({ channel, index }: { channel: any; index: number }) => {
+const SupportChannelCard = ({ channel, index }: { channel: SupportChannel; index: number }) => {
   const Icon = channel.icon;
   return (
     <motion.div
@@ -315,7 +320,7 @@ const SupportChannelCard = ({ channel, index }: { channel: any; index: number })
   );
 };
 
-const FAQItem = ({ faq, index, category }: { faq: any; index: number; category: any }) => {
+const FAQItem = ({ faq, index, category }: { faq: FAQQuestion; index: number; category: FAQCategory }) => {
   const [isHelpful, setIsHelpful] = useState<boolean | null>(null);
   
   return (

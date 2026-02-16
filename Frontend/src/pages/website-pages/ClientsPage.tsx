@@ -3,10 +3,18 @@ import { clients, clientStats } from '@/data/clients';
 import ClientCard from '@/components/ClientCard';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Star, School, Users, MapPin, CheckCircle } from 'lucide-react';import { useTypewriter } from '@/hooks/use-typewriter';
+import { Star, School, Users, MapPin, CheckCircle } from 'lucide-react';
 import Stats from '@/components/Stats';
+
+interface TestimonialCardProps {
+  quote: string;
+  author: string;
+  role: string;
+  initials: string;
+}
+
 // Sub-component for Testimonials to reduce redundancy
-const TestimonialCard = ({ quote, author, role, initials }: any) => (
+const TestimonialCard = ({ quote, author, role, initials }: TestimonialCardProps) => (
   <div className="bg-slate-800/50 backdrop-blur-md rounded-2xl p-8 border border-slate-700 hover:border-indigo-500/50 transition-colors">
     <div className="flex items-center gap-1 mb-4">
       {[...Array(5)].map((_, i) => (

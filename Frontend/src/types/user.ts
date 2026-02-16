@@ -8,6 +8,7 @@ export interface User {
   lastName: string;
   phoneNumber?: string;
   avatarUrl?: string;
+  schoolId?: string;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

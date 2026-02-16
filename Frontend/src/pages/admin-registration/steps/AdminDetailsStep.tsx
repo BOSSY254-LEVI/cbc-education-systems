@@ -25,7 +25,10 @@ export default function AdminDetailsStep({ initialData, onSubmit, onBack, isLoad
   const [formData, setFormData] = useState<SchoolRegistrationStep3>(initialData);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (field: keyof SchoolRegistrationStep3, value: any) => {
+  const handleChange = <K extends keyof SchoolRegistrationStep3>(
+    field: K,
+    value: SchoolRegistrationStep3[K]
+  ) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -236,7 +239,7 @@ export default function AdminDetailsStep({ initialData, onSubmit, onBack, isLoad
         <Checkbox
           id="twoFactorAuth"
           checked={formData.twoFactorAuth}
-          onCheckedChange={(checked) => handleChange('twoFactorAuth', checked)}
+          onCheckedChange={(checked) => handleChange('twoFactorAuth', checked === true)}
         />
         <Label
           htmlFor="twoFactorAuth"
