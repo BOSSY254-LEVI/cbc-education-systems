@@ -6,31 +6,20 @@ import { motion } from 'framer-motion';
 
 const subHeadingLines = [
   "CBCTrack equips schools with modern digital tools",
-  "designed for Kenya's Competency-Based Curriculum â€”",
+  "designed for Kenya's Competency-Based Curriculum -",
   "helping administrators, teachers, and students",
   "work smarter, faster, and more efficiently."
 ];
 
 const supportLines = [
-  "Built for Schools â€¢ Designed for CBC",
-  "â€¢ Powered by Modern Technology"
+  "Built for Schools - Designed for CBC",
+  "- Powered by Modern Technology"
 ];
 
 export default function CBCTrackLanding() {
   const [typedMainText, setTypedMainText] = useState('');
   const fullMainText = 'Powerful Features for Modern Education';
-
-  const subHeadingLines = [
-    "CBCTrack equips schools with modern digital tools",
-    "designed for Kenya's Competency-Based Curriculum —",
-    "helping administrators, teachers, and students",
-    "work smarter, faster, and more efficiently."
-  ];
-
-  const supportLines = [
-    "Built for Schools • Designed for CBC",
-    "• Powered by Modern Technology"
-  ];
+  
 
   const [currentSubLine, setCurrentSubLine] = useState(0);
   const [typedSubText, setTypedSubText] = useState('');
@@ -428,3 +417,4 @@ export default function CBCTrackLanding() {
     </div>
   );
 }
+

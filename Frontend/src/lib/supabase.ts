@@ -26,6 +26,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'X-Client-Info': 'cbc-education-system/1.0.0',
     },
   },
 });

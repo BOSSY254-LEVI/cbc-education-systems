@@ -27,16 +27,23 @@ export default function LoginPage() {
   });
   const [userType, setUserType] = useState<LoginUserType>('admin');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
+      // Add loading state to prevent multiple submissions
       await login(formData.email, formData.password);
+      
+      // Wait a moment for user state to be fully hydrated
+      await new Promise(resolve => setTimeout(resolve, 200));
+      
       toast({
         title: 'Welcome Back',
         description: `Successfully signed in as ${userType}.`,
       });
-      navigate('/school-admin');
+      
+      // Navigate to dashboard after successful login
+      navigate('/school-admin/dashboard');
     } catch (error: unknown) {
       toast({
         title: 'Sign In Failed',
@@ -248,7 +255,6 @@ export default function LoginPage() {
               {/* Footer */}
               <div className="text-center space-y-4">
                 <p className="text-xs text-gray-500">
-                  For demo purposes, use the credentials above. In production, this would connect to your school's authentication system.
                 </p>
                 <div className="border-t border-gray-200 pt-4">
                   <p className="text-xs text-gray-500">

@@ -95,10 +95,15 @@ export default function SchoolDashboard() {
       setLoading(true);
       setError(null);
 
+      // Validate user has required permissions
+      if (!user?.schoolId) {
+        throw new Error('Access denied. School information not found.');
+      }
+
       const { data: statsData, error: statsError } = await supabase
         .from('school_stats')
         .select('*')
-        .eq('school_id', user?.schoolId)
+        .eq('school_id', user.schoolId)
         .single();
 
       if (statsError && statsError.code !== 'PGRST116') {
@@ -108,7 +113,7 @@ export default function SchoolDashboard() {
       const { data: activitiesData, error: activitiesError } = await supabase
         .from('school_activities')
         .select('*')
-        .eq('school_id', user?.schoolId)
+        .eq('school_id', user.schoolId)
         .order('created_at', { ascending: false })
         .limit(10);
 
@@ -120,11 +125,11 @@ export default function SchoolDashboard() {
       setActivities(mapActivities((activitiesData as ActivityRow[] | null) ?? null));
     } catch (err) {
       console.error('Error fetching dashboard data:', err);
-      setError('Failed to load dashboard data. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to load dashboard data. Please try again.');
     } finally {
       setLoading(false);
     }
-  }, [user?.schoolId]);
+  }, [user?.schoolId, user?.schoolId]);
 
   useEffect(() => {
     void fetchDashboardData();

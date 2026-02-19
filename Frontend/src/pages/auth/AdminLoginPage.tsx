@@ -33,7 +33,7 @@ export default function AdminLoginPage() {
         title: 'Welcome Back',
         description: 'Successfully signed in to your admin account.',
       });
-      navigate('/school-admin');
+      navigate('/school-admin/dashboard');
     } catch (error: unknown) {
       toast({
         title: 'Sign In Failed',

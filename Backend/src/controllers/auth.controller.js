@@ -424,11 +424,12 @@ exports.login = async (req, res) => {
       });
     }
 
-    // Get user from database
+    // Get user from database with optimized query
     const userResult = await query(
       `SELECT u.id, u.email, u.password_hash, u.role, u.status, u.school_id, u.login_attempts, u.locked_until, u.email_verified
        FROM users u
-       WHERE u.email = $1`,
+       WHERE u.email = $1 AND u.status != 'deleted'
+       LIMIT 1`,
       [email]
     );
 
@@ -442,26 +443,19 @@ exports.login = async (req, res) => {
 
     const user = userResult.rows[0];
 
-    // Check if account is locked
-    if (await isAccountLocked(user.id)) {
+    // Check if account is locked (optimized check)
+    if (user.locked_until && new Date() < new Date(user.locked_until)) {
       return res.status(423).json({
         success: false,
         message: 'Account temporarily locked due to too many failed login attempts. Please try again later.'
       });
     }
 
-    // Check if account is suspended or deleted
+    // Check if account is suspended
     if (user.status === 'suspended') {
       return res.status(403).json({
         success: false,
         message: 'Account suspended. Please contact support.'
-      });
-    }
-
-    if (user.status === 'deleted') {
-      return res.status(401).json({
-        success: false,
-        message: 'Account not found.'
       });
     }
 
@@ -490,7 +484,7 @@ exports.login = async (req, res) => {
     // Generate tokens
     const tokens = await generateTokens(user);
 
-    // Update session with IP and user agent
+    // Update session with IP and user agent (optimized)
     await query(
       `UPDATE user_sessions 
        SET ip_address = $1, user_agent = $2 

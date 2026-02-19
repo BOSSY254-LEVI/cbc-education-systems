@@ -7,11 +7,13 @@ dotenv.config();
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
-  max: 20, // Maximum number of clients in the pool
-  min: 2,  // Minimum number of clients in the pool
-  idle: 10000, // Close idle clients after 10 seconds
-  connectionTimeoutMillis: 2000, // Return an error after 2 seconds if connection could not be established
-  idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
+  max: 30, // Increased maximum number of clients in the pool
+  min: 5,  // Increased minimum number of clients in the pool
+  idle: 5000, // Close idle clients after 5 seconds (faster cleanup)
+  connectionTimeoutMillis: 5000, // Return an error after 5 seconds if connection could not be established
+  idleTimeoutMillis: 60000, // Close idle clients after 60 seconds
+  statement_timeout: 30000, // 30 second query timeout
+  query_timeout: 30000, // 30 second query timeout
 });
 
 // Test database connection

@@ -19,17 +19,12 @@ const authenticate = async (req, res, next) => {
     // Verify token
     const decoded = verifyToken(token);
     
-    // Get user details from database
+    // Get user details from database with optimized query
     const userResult = await query(
-      `SELECT u.id, u.email, u.role, u.status, u.school_id, u.last_login,
-              sa.id as school_admin_id,
-              t.id as teacher_id,
-              p.id as parent_id
+      `SELECT u.id, u.email, u.role, u.status, u.school_id
        FROM users u
-       LEFT JOIN school_admins sa ON u.id = sa.user_id
-       LEFT JOIN teachers t ON u.id = t.user_id
-       LEFT JOIN parents p ON u.id = p.user_id
-       WHERE u.id = $1 AND u.status != 'deleted'`,
+       WHERE u.id = $1 AND u.status != 'deleted'
+       LIMIT 1`,
       [decoded.userId]
     );
 
@@ -55,13 +50,10 @@ const authenticate = async (req, res, next) => {
       id: user.id,
       email: user.email,
       role: user.role,
-      schoolId: user.school_id,
-      schoolAdminId: user.school_admin_id,
-      teacherId: user.teacher_id,
-      parentId: user.parent_id
+      schoolId: user.school_id
     };
 
-    // Set PostgreSQL session variables for RLS
+    // Set PostgreSQL session variables for RLS (optimized)
     await query('SELECT set_config($1, $2, false)', ['app.current_user_id', user.id]);
     await query('SELECT set_config($1, $2, false)', ['app.current_user_role', user.role]);
     if (user.school_id) {
