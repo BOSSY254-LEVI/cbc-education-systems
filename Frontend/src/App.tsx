@@ -50,8 +50,6 @@ import EducationalResourcesPage from "./pages/website-pages/Educationalresources
 import AdminLoginPage from '@/pages/auth/AdminLoginPage';
 import UserManagement from "./pages/Users/UserManagement";
 import ModernDashboard from "@/components/ModernDashboard";
-// Add route: <Route path="/demo" element={<ModernDashboard />} />
-
 
 // Placeholder Pages
 import CurriculumPage from "@/pages/auth/school-admin/Curriculum";
@@ -65,8 +63,8 @@ import TeamMembersPage from "@/pages/website-pages/TeamPage";
 const queryClient = new QueryClient();
 
 // Protected Route Component
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, isLoading } = useAuth();
+function ProtectedRoute({ children, requiredRole }: { children: React.ReactNode; requiredRole?: string }) {
+  const { isAuthenticated, isLoading, user } = useAuth();
   
   if (isLoading) {
     return (
@@ -78,6 +76,40 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  // Check for specific role if required
+  if (requiredRole && user?.role !== requiredRole) {
+    // Redirect based on user role or to home if no role matches
+    if (user?.role === 'school_admin') {
+      return <Navigate to="/school-admin/dashboard" replace />;
+    } else if (user?.role === 'student') {
+      return <Navigate to="/student/learning-materials" replace />;
+    } else if (user?.role === 'teacher') {
+      return <Navigate to="/teacher/resources" replace />;
+    } else {
+      return <Navigate to="/" replace />;
+    }
+  }
+  
+  return <>{children}</>;
+}
+
+// Admin Route Component - Specifically for admin access
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, isLoading, user } = useAuth();
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      </div>
+    );
+  }
+  
+  // Check if authenticated AND has admin role
+  if (!isAuthenticated || user?.role !== 'school_admin') {
+    return <Navigate to="/admin-login" replace />;
   }
   
   return <>{children}</>;
@@ -110,20 +142,40 @@ function AppRoutes() {
       <Route path="/demo" element={<ModernDashboard />} />
       
       {/* Student Routes */}
-      <Route path="/student/learning-materials" element={<LearningMaterials />} />
-      <Route path="/student/grade/1" element={<Grade1 />} />
-      <Route path="/student/grade/2" element={<Grade2 />} />
+      <Route path="/student/learning-materials" element={
+        <ProtectedRoute requiredRole="student">
+          <LearningMaterials />
+        </ProtectedRoute>
+      } />
+      <Route path="/student/grade/1" element={
+        <ProtectedRoute requiredRole="student">
+          <Grade1 />
+        </ProtectedRoute>
+      } />
+      <Route path="/student/grade/2" element={
+        <ProtectedRoute requiredRole="student">
+          <Grade2 />
+        </ProtectedRoute>
+      } />
       
       {/* Teacher Routes */}
-      <Route path="/teacher/resources" element={<TeachingResources />} />
+      <Route path="/teacher/resources" element={
+        <ProtectedRoute requiredRole="teacher">
+          <TeachingResources />
+        </ProtectedRoute>
+      } />
       
       {/* Admin Registration Route */}
       <Route path="/admin/register-school" element={<SchoolRegistration />} />
-        <Route path="/admin-login" element={<AdminLoginPage />} />
       
-      {/* School Admin Routes */}
+      {/* Admin Login - if already authenticated as admin, redirect to dashboard */}
+      <Route path="/admin-login" element={
+        <AdminLoginRedirect />
+      } />
+      
+      {/* School Admin Routes - Protected with AdminRoute */}
       <Route path="/school-admin/*" element={
-        <ProtectedRoute>
+        <AdminRoute>
           <DashboardLayout>
             <Routes>
               <Route index element={<Navigate to="dashboard" replace />} />
@@ -135,17 +187,40 @@ function AppRoutes() {
               <Route path="curriculum" element={<CurriculumPage />} />
               <Route path="reports" element={<ReportsPage />} />
               <Route path="settings" element={<SettingsPage />} />
-               <Route path="users" element={<UserManagement />} />
+              <Route path="users" element={<UserManagement />} />
               <Route path="demo" element={<ModernDashboard/>} />
+              {/* Redirect /school-admin to /school-admin/dashboard */}
+              <Route path="" element={<Navigate to="dashboard" replace />} />
             </Routes>
           </DashboardLayout>
-        </ProtectedRoute>
+        </AdminRoute>
       } />
       
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
+}
+
+// Helper component to handle admin login redirect
+function AdminLoginRedirect() {
+  const { isAuthenticated, isLoading, user } = useAuth();
+  
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      </div>
+    );
+  }
+  
+  // If already authenticated as admin, redirect to dashboard
+  if (isAuthenticated && user?.role === 'school_admin') {
+    return <Navigate to="/school-admin/dashboard" replace />;
+  }
+  
+  // Otherwise show login page
+  return <AdminLoginPage />;
 }
 
 const App = () => (
